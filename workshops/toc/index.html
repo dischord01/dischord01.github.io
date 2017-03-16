@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Template Variables</title>
+
+  <meta name="author" content="" />
+  <meta name="keywords" content="">
+
+  
+
+  <meta name="generator" content="Hugo 0.19" />
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+  
+  <link href="https://dischord01.github.io/css/animate.css" rel="stylesheet">
+
+  
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+  
+
+  
+  <link href="https://dischord01.github.io/css/redhatgov.css" rel="stylesheet">
+  
+  <link href="https://dischord01.github.io/css/highlight/github.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/perfect-scrollbar.min.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/featherlight.min.css" rel="stylesheet">
+
+  
+
+  
+    
+
+  
+  <link rel="shortcut icon" href="https://dischord01.github.io/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="https://dischord01.github.io/img/apple-touch-icon.png" />
+
+  <link rel="alternate" href="https://dischord01.github.io/index.xml" type="application/rss+xml" title="RedHatGov">
+
+  
+  <meta property="og:title" content="Template Variables" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/workshops/toc//" />
+  <meta property="og:image" content="img/redhat.png" />
+
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <nav class="navbar navbar-default navbar-pf" role="navigation">
+  <div class="navbar-header">
+  <a class="navbar-brand home" href="https://dischord01.github.io/">
+    <img src="https://dischord01.github.io/img/redhat.png" alt="Template Variables logo" class="hidden-xs hidden-sm">
+    <img src="https://dischord01.github.io/img/logo-small.png" alt="Template Variables logo" class="visible-xs visible-sm">
+    <span class="sr-only">Template Variables - go to homepage</span>
+  </a>
+
+
+  <div class="collapse navbar-collapse navbar-collapse-11">
+    <ul class="nav navbar-nav navbar-right">
+      
+       <li class="dropdown">
+         <a href="/cloud/">Cloud</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/platform/">Platform</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/workshops/">Workshops</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/quickstarts/">Quickstarts</a>
+       </li>
+      
+    </ul>
+  </div>
+</nav>
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Template Variables</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                        <p class="text-muted text-uppercase mb-small text-right">July 1, 2013</p>
+
+                        <div id="post-content">
+                          
+
+<h1 id="template-variables">Template Variables</h1>
+
+<p>Hugo makes a set of values available to the templates. Go templates are context based. The following
+are available in the context for the templates.</p>
+
+<h2 id="page-variables">Page Variables</h2>
+
+<p>The following is a list of most of the accessible variables which can be
+defined for a piece of content. Many of these will be defined in the front
+matter, content or derived from file location.</p>
+
+<p><strong>See also:</strong> <a href="/extras/scratch">Scratch</a> for page-scoped writable variables.</p>
+
+<p><strong>.Content</strong> The content itself, defined below the front matter.<br>
+<strong>.Data</strong> The data specific to this type of page.<br>
+<strong>.Date</strong> The date the page is associated with.<br>
+<strong>.Description</strong> The description for the page.<br>
+<strong>.Draft</strong> A boolean, <code>true</code> if the content is marked as a draft in the front matter.<br>
+<strong>.ExpiryDate</strong> The date where the content is scheduled to expire on.<br>
+<strong>.FuzzyWordCount</strong> The approximate number of words in the content.<br>
+<strong>.Hugo</strong> See <a href="#hugo-variables">Hugo Variables</a> below.<br>
+<strong>.IsHome</strong> True if this is the home page.<br>
+<strong>.IsNode</strong> Always false for regular content pages.<br>
+<strong>.IsPage</strong> Always true for regular content pages.<br>
+<strong>.IsTranslated</strong> Whether there are any translations to display.<br>
+<strong>.Keywords</strong> The meta keywords for this content.<br>
+<strong>.Kind</strong> What <em>kind</em> of page is this: is one of <em>page, home, section, taxonomy or taxonomyTerm.</em> There are also <em>RSS, sitemap, robotsTXT and 404</em>, but these will only available during rendering of that kind of page, and not available in any of the <code>Pages</code> collections.<br>
+<strong>.Lang</strong> Language taken from the language extension notation.<br>
+<strong>.Language</strong> A language object that points to this the language&rsquo;s definition in the site config.<br>
+<strong>.Lastmod</strong> The date the content was last modified.<br>
+<strong>.LinkTitle</strong> Access when creating links to this content. Will use <code>linktitle</code> if set in front matter, else <code>title</code>.<br>
+<strong>.Next</strong> Pointer to the following content (based on pub date).<br>
+<strong>.NextInSection</strong> Pointer to the following content within the same section (based on pub date)<br>
+<strong>.Pages</strong> a collection of associated pages. This will be nil for regular content pages. This is an alias for <strong>.Data.Pages</strong>.<br>
+<strong>.Permalink</strong> The Permanent link for this page.<br>
+<strong>.Prev</strong> Pointer to the previous content (based on pub date).<br>
+<strong>.PrevInSection</strong> Pointer to the previous content within the same section (based on pub date). For example, <code>{{if .PrevInSection}}{{.PrevInSection.Permalink}}{{end}}</code>.<br>
+<strong>.PublishDate</strong> The date the content is published on.<br>
+<strong>.RSSLink</strong> Link to the taxonomies&rsquo; RSS link.<br>
+<strong>.RawContent</strong> Raw Markdown content without the metadata header. Useful with <a href="http://remarkjs.com">remarkjs.com</a><br>
+<strong>.ReadingTime</strong> The estimated time it takes to read the content in minutes.<br>
+<strong>.Ref</strong> Returns the permalink for a given reference.  Example: <code>.Ref &quot;sample.md&quot;</code>. See <a href="No page found with path or logical name "extras/crossreferences.md".
+">cross-references</a>. Does not handle in-page fragments correctly.<br>
+<strong>.RelPermalink</strong> The Relative permanent link for this page.<br>
+<strong>.RelRef</strong> Returns the relative permalink for a given reference.  Example: <code>RelRef &quot;sample.md&quot;</code>. See <a href="No page found with path or logical name "extras/crossreferences.md".
+">cross-references</a>. Does not handle in-page fragments.<br>
+<strong>.Section</strong> The <a href="/content/sections/">section</a> this content belongs to.<br>
+<strong>.Site</strong> See <a href="#site-variables">Site Variables</a> below.<br>
+<strong>.Summary</strong> A generated summary of the content for easily showing a snippet in a summary view. Note that the breakpoint can be set manually by inserting <code>&lt;!&#x2d;&#x2d;more&#x2d;&#x2d;&gt;</code> at the appropriate place in the content page.  See <a href="/content/summaries/">Summaries</a> for more details.<br>
+<strong>.TableOfContents</strong> The rendered table of contents for this content.<br>
+<strong>.Title</strong>  The title for this page.<br>
+<strong>.Translations</strong> A list of translated versions of the current page. See <a href="No page found with path or logical name "content/multilingual.md".
+">Multilingual</a> for more info.<br>
+<strong>.Truncated</strong> A boolean, <code>true</code> if the <code>.Summary</code> is truncated.  Useful for showing a &ldquo;Read more&hellip;&rdquo; link only if necessary.  See <a href="/content/summaries/">Summaries</a> for more details.<br>
+<strong>.Type</strong> The content <a href="/content/types/">type</a> (e.g. post).<br>
+<strong>.URL</strong> The relative URL for this page. Note that if <code>URL</code> is set directly in frontmatter, that URL is returned as-is.<br>
+<strong>.UniqueID</strong> The MD5-checksum of the content file&rsquo;s path<br>
+<strong>.Weight</strong> Assigned weight (in the front matter) to this content, used in sorting.<br>
+<strong>.WordCount</strong> The number of words in the content.<br></p>
+
+<h2 id="page-params">Page Params</h2>
+
+<p>Any other value defined in the front matter, including taxonomies, will be made available under <code>.Params</code>.
+For example, the <em>tags</em> and <em>categories</em> taxonomies are accessed with:</p>
+
+<ul>
+<li><strong>.Params.tags</strong></li>
+<li><strong>.Params.categories</strong></li>
+</ul>
+
+<p><strong>All Params are only accessible using all lowercase characters.</strong></p>
+
+<p>This is particularly useful for the introduction of user defined fields in content files. For example, a Hugo website on book reviews could have in the front matter of <code>/content/review/book01.md</code></p>
+
+<pre><code>---
+...
+affiliatelink: &quot;http://www.my-book-link.here&quot;
+recommendedby: &quot;my Mother&quot;
+---
+</code></pre>
+
+<p>Which would then be accessible to a template at <code>/themes/yourtheme/layouts/review/single.html</code> through <code>.Params.affiliatelink</code> and <code>.Params.recommendedby</code>, respectively. Two common situations where these could be introduced are as a value of a certain attribute (like <code>href=&quot;&quot;</code> below) or by itself to be displayed. Sample syntaxes include:</p>
+
+<pre><code>&lt;h3&gt;&lt;a href={{ printf &quot;%s&quot; $.Params.affiliatelink }}&gt;Buy this book&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;It was recommended by {{ .Params.recommendedby }}.&lt;/p&gt;
+</code></pre>
+
+<p>which would render</p>
+
+<pre><code>&lt;h3&gt;&lt;a href=&quot;http://www.my-book-link.here&quot;&gt;Buy this book&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;It was recommended by my Mother.&lt;/p&gt;
+</code></pre>
+
+<p><strong>See also:</strong> <a href="No page found with path or logical name "content/archetypes.md".
+">Archetypes</a> for consistency of <code>Params</code> across pieces of content.</p>
+
+<h3 id="param-method">Param method</h3>
+
+<p>In Hugo you can declare params both for the site and the individual page. A
+common use case is to have a general value for the site and a more specific
+value for some of the pages (i.e. a header image):</p>
+
+<pre><code>{{ $.Param &quot;header_image&quot; }}
+</code></pre>
+
+<p>The <code>.Param</code> method provides a way to resolve a single value whether it&rsquo;s
+in a page parameter or a site parameter.</p>
+
+<p>When frontmatter contains nested fields, like:</p>
+
+<pre><code>---
+author:
+  given_name: John
+  family_name: Feminella
+  display_name: John Feminella
+---
+</code></pre>
+
+<p>then <code>.Param</code> can access them by concatenating the field names together with a
+dot:</p>
+
+<pre><code>{{ $.Param &quot;author.display_name&quot; }}
+</code></pre>
+
+<p>If your frontmatter contains a top-level key that is ambiguous with a nested
+key, as in the following case,</p>
+
+<pre><code>---
+favorites.flavor: vanilla
+favorites:
+  flavor: chocolate
+---
+</code></pre>
+
+<p>then the top-level key will be preferred. In the previous example, this</p>
+
+<pre><code>{{ $.Param &quot;favorites.flavor&quot; }}
+</code></pre>
+
+<p>will print <code>vanilla</code>, not <code>chocolate</code>.</p>
+
+<h3 id="taxonomy-terms-page-variables">Taxonomy Terms Page Variables</h3>
+
+<p><a href="/templates/terms/">Taxonomy Terms</a> pages are of the type <code>Page</code> and have the following additional variables. These are available in <code>layouts/_defaults/terms.html</code> for example.</p>
+
+<p><strong>.Data.Singular</strong> The singular name of the taxonomy<br>
+<strong>.Data.Plural</strong> The plural name of the taxonomy<br>
+<strong>.Data.Pages</strong> the list of pages in this taxonomy<br>
+<strong>.Data.Terms</strong> The taxonomy itself<br>
+<strong>.Data.Terms.Alphabetical</strong> The Terms alphabetized<br>
+<strong>.Data.Terms.ByCount</strong> The Terms ordered by popularity<br></p>
+
+<p>The last two can also be reversed: <strong>.Data.Terms.Alphabetical.Reverse</strong>, <strong>.Data.Terms.ByCount.Reverse</strong>.</p>
+
+<h3 id="taxonomies-elsewhere">Taxonomies elsewhere</h3>
+
+<p>The <strong>.Site.Taxonomies</strong> variable holds all taxonomies defines site-wide.  It is a map of the taxonomy name to a list of its values. For example: &ldquo;tags&rdquo; -&gt; [&ldquo;tag1&rdquo;, &ldquo;tag2&rdquo;, &ldquo;tag3&rdquo;]. Each value, though, is not a string but rather a <a href="#the-taxonomy-variable">Taxonomy variable</a>.</p>
+
+<h4 id="the-taxonomy-variable">The Taxonomy variable</h4>
+
+<p>The Taxonomy variable, available as <strong>.Site.Taxonomies.tags</strong> for example, contains the list of tags (values) and, for each of those, their corresponding content pages.</p>
+
+<h2 id="site-variables">Site Variables</h2>
+
+<p>Also available is <code>.Site</code> which has the following:</p>
+
+<p><strong>.Site.BaseURL</strong> The base URL for the site as defined in the site configuration file.<br>
+<strong>.Site.RSSLink</strong> The URL for the site RSS.<br>
+<strong>.Site.Taxonomies</strong> The <a href="/taxonomies/usage/">taxonomies</a> for the entire site.  Replaces the now-obsolete <code>.Site.Indexes</code> since v0.11. Also see section <a href="#taxonomies-elsewhere">Taxonomies elsewhere</a>.<br>
+<strong>.Site.Pages</strong> Array of all content ordered by Date, newest first.  Replaces the now-deprecated <code>.Site.Recent</code> starting v0.13. This array contains only the pages in the current language.<br>
+<strong>.Site.AllPages</strong> Array of all pages regardless of their translation.<br>
+<strong>.Site.Params</strong> A container holding the values from the <code>params</code> section of your site configuration file. For example, a TOML config file might look like this:</p>
+
+<pre><code>baseURL = &quot;http://yoursite.example.com/&quot;
+
+[params]
+  description = &quot;Tesla's Awesome Hugo Site&quot;
+  author = &quot;Nikola Tesla&quot;
+</code></pre>
+
+<p><strong>.Site.Sections</strong> Top level directories of the site.<br>
+<strong>.Site.Files</strong> All of the source files of the site.<br>
+<strong>.Site.Menus</strong> All of the menus in the site.<br>
+<strong>.Site.Title</strong> A string representing the title of the site.<br>
+<strong>.Site.Author</strong> A map of the authors as defined in the site configuration.<br>
+<strong>.Site.LanguageCode</strong> A string representing the language as defined in the site configuration. This is mostly used to populate the RSS feeds with the right language code.<br>
+<strong>.Site.DisqusShortname</strong> A string representing the shortname of the Disqus shortcode as defined in the site configuration.<br>
+<strong>.Site.GoogleAnalytics</strong> A string representing your tracking code for Google Analytics as defined in the site configuration.<br>
+<strong>.Site.Copyright</strong> A string representing the copyright of your web site as defined in the site configuration.<br>
+<strong>.Site.LastChange</strong> A string representing the date/time of the most recent change to your site, based on the <a href="No page found with path or logical name "content/front-matter.md".
+"><code>date</code> variable</a> in the front matter of your content pages.<br>
+<strong>.Site.Permalinks</strong> A string to override the default permalink format. Defined in the site configuration.<br>
+<strong>.Site.BuildDrafts</strong> A boolean (Default: false) to indicate whether to build drafts. Defined in the site configuration.<br>
+<strong>.Site.Data</strong>  Custom data, see <a href="/extras/datafiles/">Data Files</a>.<br>
+<strong>.Site.IsMultiLingual</strong> Whether there are more than one language in this site.<br> See <a href="No page found with path or logical name "content/multilingual.md".
+">Multilingual</a> for more info.<br>
+<strong>.Site.Language</strong> This indicates which language you are currently rendering the website for.  This is an object with the attributes set in your language definition in your site config.<br>
+<strong>.Site.Language.Lang</strong> The language code of the current locale, e.g. <code>en</code>.<br>
+<strong>.Site.Language.Weight</strong> The weight that defines the order in the <code>.Site.Languages</code> list.<br>
+<strong>.Site.Language.LanguageName</strong> The full language name, e.g. <code>English</code>.<br>
+<strong>.Site.LanguagePrefix</strong> This can be used to prefix  theURLs with whats needed to point to the correct language. It will even work when only one language defined. See also the functions <a href="No page found with path or logical name "templates/functions.md".
+">absLangURL and relLangURL</a>.<br>
+<strong>.Site.Languages</strong> An ordered list (ordered by defined weight) of languages.<br>
+<strong>.Site.RegularPages</strong> A shortcut to the <em>regular page</em> collection. Equivalent to <code>where .Site.Pages &quot;Kind&quot; &quot;page&quot;</code>.<br></p>
+
+<h2 id="file-variables">File Variables</h2>
+
+<p>The <code>.File</code> variable gives you additional information of a page.</p>
+
+<blockquote>
+<p><strong>Note:</strong> <code>.File</code> is only accessible on <em>Pages</em> that has a content page attached to it.</p>
+</blockquote>
+
+<p>Available are the following attributes:</p>
+
+<p><strong>.File.Path</strong> The original relative path of the page, e.g. <code>content/posts/foo.en.md</code><br>
+<strong>.File.LogicalName</strong> The name of the content file that represents a page, e.g. <code>foo.en.md</code><br>
+<strong>.File.TranslationBaseName</strong> The filename without extension or optional language identifier, e.g. <code>foo</code><br>
+<strong>.File.BaseFileName</strong> The filename without extension, e.g. <code>foo.en</code><br>
+<strong>.File.Ext</strong> or <strong>.File.Extension</strong> The file extension of the content file, e.g. <code>md</code><br>
+<strong>.File.Lang</strong> The language associated with the given file if <a href="No page found with path or logical name "content/multilingual.md".
+">Multilingual</a> is enabled, e.g. <code>en</code><br>
+<strong>.File.Dir</strong> Given the path <code>content/posts/dir1/dir2/</code>, the relative directory path of the content file will be returned, e.g. <code>posts/dir1/dir2/</code><br></p>
+
+<h2 id="hugo-variables">Hugo Variables</h2>
+
+<p>Also available is <code>.Hugo</code> which has the following:</p>
+
+<p><strong>.Hugo.Generator</strong> Meta tag for the version of Hugo that generated the site. Highly recommended to be included by default in all theme headers so we can start to track the usage and popularity of Hugo. Unlike other variables it outputs a <strong>complete</strong> HTML tag, e.g. <code>&lt;meta name=&quot;generator&quot; content=&quot;Hugo 0.15&quot; /&gt;</code><br>
+<strong>.Hugo.Version</strong> The current version of the Hugo binary you are using e.g. <code>0.13-DEV</code><br>
+<strong>.Hugo.CommitHash</strong> The git commit hash of the current Hugo binary e.g. <code>0e8bed9ccffba0df554728b46c5bbf6d78ae5247</code><br>
+<strong>.Hugo.BuildDate</strong> The compile date of the current Hugo binary formatted with RFC 3339 e.g. <code>2002-10-02T10:00:00-05:00</code><br></p>
+
+                        </div>
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+                         
+                        <h1>Table of Contents</h1>
+
+
+
+
+<div id="toc2">
+  <nav id="TableOfContents">
+<ul>
+<li><a href="#template-variables">Template Variables</a>
+<ul>
+<li><a href="#page-variables">Page Variables</a></li>
+<li><a href="#page-params">Page Params</a>
+<ul>
+<li><a href="#param-method">Param method</a></li>
+<li><a href="#taxonomy-terms-page-variables">Taxonomy Terms Page Variables</a></li>
+<li><a href="#taxonomies-elsewhere">Taxonomies elsewhere</a>
+<ul>
+<li><a href="#the-taxonomy-variable">The Taxonomy variable</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#site-variables">Site Variables</a></li>
+<li><a href="#file-variables">File Variables</a></li>
+<li><a href="#hugo-variables">Hugo Variables</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+
+
+
+
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            <p>Open source is not only behind many of the technology industry’s most significant innovations, but it is also pervasive across the U.S. government. For more than a decade, Red Hat has been working closely with federal government customers to help them embrace open source technologies. </p>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+        
+        
+        <div class="col-md-4 col-sm-6">
+            
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+            <h4>Contact</h4>
+
+            <p><strong>Red Hat Public Sector</strong>
+        <br>8260 Greensboro Dr
+        <br># 300
+        <br>McLean, VA 22102
+        <br>
+        <strong>United States</strong>
+      </p>
+      
+
+            <a href="/contact" class="btn btn-small btn-template-main">Contact Us.</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright  2013-07-01</p>
+            
+            <p class="pull-right">
+
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="https://dischord01.github.io/bower_components/jquery/dist/jquery.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/patternfly/dist/js/patternfly.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/perfect-scrollbar.js"></script>
+<script src="https://dischord01.github.io/js/perfect-scrollbar.jquery.js"></script>
+
+
+<script src="https://dischord01.github.io/js/featherlight.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/redhat.js"></script>
+
+
+<script src="https://dischord01.github.io/js/clipboard.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+  </body>
+</html>

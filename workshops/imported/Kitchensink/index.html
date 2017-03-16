@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Kitchensink</title>
+
+  <meta name="author" content="" />
+  <meta name="keywords" content="">
+
+  
+
+  <meta name="generator" content="Hugo 0.19" />
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+  
+  <link href="https://dischord01.github.io/css/animate.css" rel="stylesheet">
+
+  
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+  
+
+  
+  <link href="https://dischord01.github.io/css/redhatgov.css" rel="stylesheet">
+  
+  <link href="https://dischord01.github.io/css/highlight/github.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/perfect-scrollbar.min.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/featherlight.min.css" rel="stylesheet">
+
+  
+
+  
+    
+
+  
+  <link rel="shortcut icon" href="https://dischord01.github.io/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="https://dischord01.github.io/img/apple-touch-icon.png" />
+
+  <link rel="alternate" href="https://dischord01.github.io/index.xml" type="application/rss+xml" title="RedHatGov">
+
+  
+  <meta property="og:title" content="Kitchensink" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/workshops/imported/Kitchensink//" />
+  <meta property="og:image" content="img/redhat.png" />
+
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <nav class="navbar navbar-default navbar-pf" role="navigation">
+  <div class="navbar-header">
+  <a class="navbar-brand home" href="https://dischord01.github.io/">
+    <img src="https://dischord01.github.io/img/redhat.png" alt="Kitchensink logo" class="hidden-xs hidden-sm">
+    <img src="https://dischord01.github.io/img/logo-small.png" alt="Kitchensink logo" class="visible-xs visible-sm">
+    <span class="sr-only">Kitchensink - go to homepage</span>
+  </a>
+
+
+  <div class="collapse navbar-collapse navbar-collapse-11">
+    <ul class="nav navbar-nav navbar-right">
+      
+       <li class="dropdown">
+         <a href="/cloud/">Cloud</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/platform/">Platform</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/workshops/">Workshops</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/quickstarts/">Quickstarts</a>
+       </li>
+      
+    </ul>
+  </div>
+</nav>
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Kitchensink</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                        <p class="text-muted text-uppercase mb-small text-right">January 26, 2017</p>
+
+                        <div id="post-content">
+                          
+
+<h1 id="rhel-7">RHEL 7</h1>
+
+<p>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p>
+
+<h3 id="shortcode-highlighting">Shortcode Highlighting</h3>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">section</span> <span style="color: #a6e22e">id</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;main&quot;</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">div</span><span style="color: #f8f8f2">&gt;</span>
+   <span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">h1</span> <span style="color: #a6e22e">id</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;title&quot;</span><span style="color: #f8f8f2">&gt;</span>{{ .Title }}<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">h1</span><span style="color: #f8f8f2">&gt;</span>
+    {{ range .Data.Pages }}
+        {{ .Render &quot;summary&quot;}}
+    {{ end }}
+  <span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">div</span><span style="color: #f8f8f2">&gt;</span>
+<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">section</span><span style="color: #f8f8f2">&gt;</span>
+</pre></div>
+
+
+<h3 id="built-in-highlighting-via-highlight-js-with-multiple-options-for-themes-current-is-github">Built-in Highlighting via Highlight.js with multiple options for themes (Current is Github)</h3>
+
+<pre><code>$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+</code></pre>
+
+<pre><code>## this is a comment
+$ echo this is a command
+this is a command
+
+## edit the file
+$vi foo.md
++++
+date = &quot;2014-09-28&quot;
+title = &quot;creating a new theme&quot;
++++
+
+bah and humbug
+:wq
+
+## show it
+$ cat foo.md
++++
+date = &quot;2014-09-28&quot;
+title = &quot;creating a new theme&quot;
++++
+
+bah and humbug
+$
+</code></pre>
+
+<h2 id="english-do-you-speak-it">English,.. Do you speak it?</h2>
+
+<p>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p>
+
+<h3 id="image-w-figure-shortcode">Image w/ figure Shortcode</h3>
+
+
+<figure >
+    
+        <img src="/img/englishinwhat.jpg" />
+    
+    
+    <figcaption>
+        <h4>Fig 1, Do They Speak English in What??</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<h2 id="exersise-1">Exersise 1</h2>
+
+<p>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p>
+
+<h3 id="tweet-shortcode">Tweet Shortcode</h3>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">In startup we are practice Outage Driven Infrastructure.</p>&mdash; DevOps Borat (@DEVOPS_BORAT) <a href="https://twitter.com/DEVOPS_BORAT/status/311335361169195009">March 12, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="exersise-2">Exersise 2</h2>
+
+<p>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p>
+
+
+<div style="position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;">
+  <iframe src="//www.youtube.com/embed/s7EdQ4FqbhY" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" allowfullscreen frameborder="0"></iframe>
+ </div>
+
+
+<h2 id="exersise-3">Exersise 3</h2>
+
+<p>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p>
+
+<h3 id="gist-shortcode">Gist Shortcode</h3>
+
+<script src="//gist.github.com/dischord01/55a547ed92d2c4c5ca5a.js"></script>
+
+<h2 id="exersise-4">Exersise 4</h2>
+
+<p>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p>
+
+<h3 id="instagram-shortcode">Instagram Shortcode</h3>
+
+<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:49.9537037037037% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/BQLcXP3FXqP/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">Oh mamma mia! #pulpfiction#quentintarantino#umathurman#cocaine#miawallace#cult#johntravolta#tarantino#grunge#1990s#vincentvega#sadquotes#iconic#legend#old#oldmovies#moviequotes#hollywood#quotestags#sadquote#90sbaby#brucewillis#90s#1980s#the90s#80s#the80s#cigarettes#smoked#cigarette</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A post shared by agelessyears (@agelessyears) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2017-02-06T17:38:02+00:00">Feb 6, 2017 at 9:38am PST</time></p></div></blockquote>
+<script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+
+<blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:49.9537037037037% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/BQLcXP3FXqP/" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by agelessyears (@agelessyears)</a> on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2017-02-06T17:38:02+00:00">Feb 6, 2017 at 9:38am PST</time></p></div></blockquote>
+<script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+
+<h1 id="workshop">Workshop</h1>
+
+<h1 id="tag">TAG:</h1>
+
+<p><code>rh_workshop_public_sector</code></p>
+
+                        </div>
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+                         
+                        <h1>Table of Contents</h1>
+
+
+
+
+<div id="toc2">
+  <nav id="TableOfContents">
+<ul>
+<li><a href="#rhel-7">RHEL 7</a>
+<ul>
+<li>
+<ul>
+<li><a href="#shortcode-highlighting">Shortcode Highlighting</a></li>
+<li><a href="#built-in-highlighting-via-highlight-js-with-multiple-options-for-themes-current-is-github">Built-in Highlighting via Highlight.js with multiple options for themes (Current is Github)</a></li>
+</ul></li>
+<li><a href="#english-do-you-speak-it">English,.. Do you speak it?</a>
+<ul>
+<li><a href="#image-w-figure-shortcode">Image w/ figure Shortcode</a></li>
+</ul></li>
+<li><a href="#exersise-1">Exersise 1</a>
+<ul>
+<li><a href="#tweet-shortcode">Tweet Shortcode</a></li>
+</ul></li>
+<li><a href="#exersise-2">Exersise 2</a></li>
+<li><a href="#exersise-3">Exersise 3</a>
+<ul>
+<li><a href="#gist-shortcode">Gist Shortcode</a></li>
+</ul></li>
+<li><a href="#exersise-4">Exersise 4</a>
+<ul>
+<li><a href="#instagram-shortcode">Instagram Shortcode</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#workshop">Workshop</a></li>
+<li><a href="#tag">TAG:</a></li>
+</ul>
+</nav>
+</div>
+
+
+
+
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            <p>Open source is not only behind many of the technology industry’s most significant innovations, but it is also pervasive across the U.S. government. For more than a decade, Red Hat has been working closely with federal government customers to help them embrace open source technologies. </p>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+        
+        
+        <div class="col-md-4 col-sm-6">
+            
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+            <h4>Contact</h4>
+
+            <p><strong>Red Hat Public Sector</strong>
+        <br>8260 Greensboro Dr
+        <br># 300
+        <br>McLean, VA 22102
+        <br>
+        <strong>United States</strong>
+      </p>
+      
+
+            <a href="/contact" class="btn btn-small btn-template-main">Contact Us.</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright  2017-01-26</p>
+            
+            <p class="pull-right">
+
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="https://dischord01.github.io/bower_components/jquery/dist/jquery.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/patternfly/dist/js/patternfly.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/perfect-scrollbar.js"></script>
+<script src="https://dischord01.github.io/js/perfect-scrollbar.jquery.js"></script>
+
+
+<script src="https://dischord01.github.io/js/featherlight.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/redhat.js"></script>
+
+
+<script src="https://dischord01.github.io/js/clipboard.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+  </body>
+</html>

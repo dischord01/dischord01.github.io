@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://dischord01.github.io/workshops/toc/</loc>
+    <lastmod>2015-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/workshops/ansible_v2/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/workshops/imported/cicd/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/workshops/imported/Kitchensink/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/quickstarts/satellite/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/workshops/imported/Workshop-test/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/cloud/linked-post/</loc>
+    <lastmod>2015-10-02T21:49:20+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/platform/linked-post/</loc>
+    <lastmod>2015-10-02T21:49:20+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/cloud/go-is-for-lovers/</loc>
+    <lastmod>2015-09-17T13:47:08+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/platform/go-is-for-lovers/</loc>
+    <lastmod>2015-09-17T13:47:08+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/cloud/hugo-is-for-lovers/</loc>
+    <lastmod>2015-08-03T13:39:46+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/platform/hugo-is-for-lovers/</loc>
+    <lastmod>2015-08-03T13:39:46+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/cloud/creating-a-new-theme/</loc>
+    <lastmod>2015-06-24T13:50:46+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/platform/creating-a-new-theme/</loc>
+    <lastmod>2015-06-24T13:50:46+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/ansible/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/cloud/</loc>
+    <lastmod>2015-10-02T21:49:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/contact/</loc>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/developers/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/faq/</loc>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/go/</loc>
+    <lastmod>2015-09-17T13:47:08+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/golang/</loc>
+    <lastmod>2015-10-02T21:49:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/hugo/</loc>
+    <lastmod>2015-10-02T21:49:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/lab/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/workshops/openshift.3.3/openshift3.3/</loc>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/openshift/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/ops/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/platform/</loc>
+    <lastmod>2015-10-02T21:49:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/programming/</loc>
+    <lastmod>2015-10-02T21:49:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/programming/</loc>
+    <lastmod>2015-10-02T21:49:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/pseudo/</loc>
+    <lastmod>2015-08-03T13:39:46+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/quick-start/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/quickstarts/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/</loc>
+    <lastmod>2015-12-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/satellite/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/starting/</loc>
+    <lastmod>2015-06-24T13:50:46+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/theme/</loc>
+    <lastmod>2015-10-02T21:49:20+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/workshop/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/workshop-test/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/workshop-test/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/workshop-test-1/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/tags/workshop-test-2/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/categories/workshop-test-2/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dischord01.github.io/workshops/</loc>
+    <lastmod>2017-01-26T23:02:01-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

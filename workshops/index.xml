@@ -1,0 +1,3246 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Workshops on RedHatGov</title>
+    <link>https://dischord01.github.io/workshops/index.xml</link>
+    <description>Recent content in Workshops on RedHatGov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright</copyright>
+    <lastBuildDate>Thu, 26 Jan 2017 23:02:01 -0500</lastBuildDate>
+    <atom:link href="https://dischord01.github.io/workshops/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Ansible Workshop</title>
+      <link>https://dischord01.github.io/workshops/ansible_v2/</link>
+      <pubDate>Thu, 26 Jan 2017 23:02:01 -0500</pubDate>
+      
+      <guid>https://dischord01.github.io/workshops/ansible_v2/</guid>
+      <description>&lt;div id=&#34;preamble&#34;&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div id=&#34;toc&#34; class=&#34;toc&#34;&gt;
+&lt;div id=&#34;toctitle&#34; class=&#34;title&#34;&gt;&lt;/div&gt;
+&lt;ul class=&#34;sectlevel2&#34;&gt;
+&lt;li&gt;&lt;a href=&#34;#_exercise_1_0_running_ad_hoc_commands&#34;&gt;Exercise 1.0 - Running Ad-hoc commands&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#_exercise_1_2_running_your_playbook&#34;&gt;Exercise 1.2 - Running Your Playbook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sidebarblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Before We Get Started&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Overview&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Today is meant for anyone who has any exposure to Ansible, whether you have used it or not. We are going to start with a short overview (yes, slideware) and then we&amp;#8217;ll get into the lab as soon as possible. That is where we will spend most of our time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Your Responsibilities&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Have a discussion. This will be boring if it&amp;#8217;s just us up here talking for over 4 hours.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Participate. We are going to cut you loose with Ansible here in just a little while. Have questions. Have opinions.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Hopefully you have your laptop with you. If not, please find a shoulder-surfing buddy. See? Not only can we dig into Ansible but you can make a new friend!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Conventions Used in This Document&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock tip&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-tip&#34; title=&#34;Tip&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Whenever you see a section like this, please pay close attention.  We are leading you through a process.&lt;/div&gt;
+
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Step 1: Run this command to do something or other&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m setup&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Step 2: Edit this file in this specific way&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+ - hosts: web
+   name: This is a play within a playbook
+   become: yes
+   vars:
+     httpd_packages:
+       - httpd
+       - mod_wsgi&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock important&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-important&#34; title=&#34;Important&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+Do not cut and paste text from this document.  We really want you to learn ansible during this workshop,
+and part of that experience is typing out YAML and understanding it&amp;#8217;s syntax, spacing, and alignments.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Location-Specific Information&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock important&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-important&#34; title=&#34;Important&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;WiFi Access&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;ssid: &lt;code&gt;TBD&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sidebarblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Today&amp;#8217;s Team&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Jamie Duncan - Cloud Architect&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;John Hoffer - Cloud Architect&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Justin Burdine - Cloud Architect&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Document Copyright&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This document was created by and for Red Hat, Inc. It is being released under &lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34;&gt;Creative Commons License 4.0&lt;/a&gt;. You are free to re-use it in whole or in part.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_exercise_1_0_running_ad_hoc_commands&#34;&gt;Exercise 1.0 - Running Ad-hoc commands&lt;/h3&gt;
+&lt;div class=&#34;sidebarblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For our first exercise, we are going to run some ad-hoc commands to help you get
+a feel for how Ansible works.  Ansible Ad-Hoc commands enable you to perform tasks
+on remote nodes without having to write a playbook.  They are very useful when you
+simply need to do one or two things quickly and often, to many remote nodes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock note&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-note&#34; title=&#34;Note&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Like many Linux commands, &lt;code&gt;&lt;code&gt;ansible&lt;/code&gt;&lt;/code&gt; allows for long-form options as well as short-form.  For example:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;ansible --module-name ping&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;is the same as running&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;ansible -m ping&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;We are going to be using the short-form options throughout this workshop&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 1:&lt;/strong&gt; Let&amp;#8217;s start with something really basic - pinging a host.  The &lt;code&gt;&lt;code&gt;ping&lt;/code&gt;&lt;/code&gt; module makes sure our web hosts are responsive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible -m ping web&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 2:&lt;/strong&gt;  Now let&amp;#8217;s see how we can run a good ol&#39; fashioned Linux command and format the output using the &lt;code&gt;&lt;code&gt;command&lt;/code&gt;&lt;/code&gt; module.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible -m command -a &#34;uptime&#34; web -o&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 3:&lt;/strong&gt; Take a look at your web node&amp;#8217;s configuration.  The &lt;code&gt;&lt;code&gt;setup&lt;/code&gt;&lt;/code&gt; module displays ansible facts (and a lot of them) about an endpoint.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m setup&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 4:&lt;/strong&gt; Now, let&amp;#8217;s install Apache using the &lt;code&gt;&lt;code&gt;yum&lt;/code&gt;&lt;/code&gt; module&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m yum -a &#34;name=httpd state=present&#34; -b&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 5:&lt;/strong&gt; OK, Apache is installed now so let&amp;#8217;s start it up using the &lt;code&gt;&lt;code&gt;service&lt;/code&gt;&lt;/code&gt; module&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m service -a &#34;name=httpd state=started&#34; -b&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 6:&lt;/strong&gt; Finally, let&amp;#8217;s clean up after ourselves.  First, stop the httpd service&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m service -a &#34;name=httpd state=stopped&#34; -b&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 7:&lt;/strong&gt; Next, remove the Apache package&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m yum -a &#34;name=httpd state=absent&#34; -b&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;=== Exercise 1.1 - Writing Your First playbook&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now that you&amp;#8217;ve gotten a sense of how ansible works, we are going to write our first
+ansible &lt;strong&gt;playbook&lt;/strong&gt;.  The playbook is where you can take some of those ad-hoc commands you just ran
+and put them into a repeatable set of &lt;strong&gt;plays&lt;/strong&gt; and &lt;strong&gt;tasks&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;A playbook can have multiple plays and a play
+can have one or multiple tasks.  The goal of a &lt;strong&gt;play&lt;/strong&gt; is to map a group of hosts.  The goal of a &lt;strong&gt;task&lt;/strong&gt; is to implement modules against those hosts.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For our first playbook, we are only going to write one play and two tasks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Section 1 - Creating a Directory Structure and Files for your Playbook&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There is a &lt;a href=&#34;{dir_url}&#34;&gt;best practice&lt;/a&gt; on the preferred directory structures for playbooks.  We strongly encourage
+you to read and understand these practices as you develop your Ansible ninja skills.  That said,
+our playbook today is very basic and creating a complex structure will just confuse things.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Step 1: Create a directory called &lt;strong&gt;apache_basic&lt;/strong&gt; in your home directory and change directories into it&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;% mkdir ~/apache_basic
+% cd ~/apache_basic&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Step 2: Define your inventory.  Inventories are crucial to Ansible as they define remote machines on which you wish to run
+your playbook(s).  Use &lt;code&gt;&lt;code&gt;vi&lt;/code&gt;&lt;/code&gt; or &lt;code&gt;&lt;code&gt;vim&lt;/code&gt;&lt;/code&gt; to create a file called &lt;code&gt;&lt;code&gt;hosts&lt;/code&gt;&lt;/code&gt;.  Then, add the appropriate definitions which can
+be viewed in &lt;code&gt;&lt;code&gt;~/lighbulb/inventory&lt;/code&gt;&lt;/code&gt;.  (And yes, I &lt;strong&gt;suppose&lt;/strong&gt; you could copy the file, but we&amp;#8217;d rather you type it in so you can
+become familiar with the syntax)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;[web]
+node-1 ansible_host=&amp;lt;IP Address of your node-1&amp;gt;
+node-2 ansible_host=&amp;lt;IP Address of your node-2&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Step 3: Use &lt;code&gt;&lt;code&gt;vi&lt;/code&gt;&lt;/code&gt; or &lt;code&gt;&lt;code&gt;vim&lt;/code&gt;&lt;/code&gt; to open a file called &lt;code&gt;&lt;code&gt;install_apache.yml&lt;/code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Section 2 - Defining Your Play&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now that you are editing &lt;code&gt;&lt;code&gt;install_apache.yml&lt;/code&gt;&lt;/code&gt;, let&amp;#8217;s begin by defining the play and then understanding what each line accomplishes&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+- hosts: web
+  name: Install the apache web service
+  become: yes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;---&lt;/code&gt;&lt;/code&gt; Defines the beginning of YAML&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;hosts: web&lt;/code&gt;&lt;/code&gt; Defines which host group in your inventory on which this play will run against&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;name: Install the apache web service&lt;/code&gt;&lt;/code&gt; This describes our play&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;become: yes&lt;/code&gt;&lt;/code&gt; Enables user privilege escalation.  The default is sudo, but su, pbrun, and &lt;a href=&#34;{become_url}&#34;&gt;several others&lt;/a&gt; are also supported.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Section 3: Adding Tasks to Your Play&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now that we&amp;#8217;ve defined your play, let&amp;#8217;s add some tasks to get some things done&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;tasks:
+ - name: install apache
+   yum:
+     name: httpd
+     state: present
+
+ - name: start httpd
+   service:
+     name: httpd
+     state: started&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;tasks:&lt;/code&gt;&lt;/code&gt; This denotes that one or more tasks are about to be defined&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;- name:&lt;/code&gt;&lt;/code&gt; Each task requires a name which will print to standard output when you run your playbook.
+Therefore, give your tasks a name that is short, sweet, and to the point&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;yum:
+  name: httpd
+  state: present&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;These three lines are calling the Ansible module &lt;strong&gt;yum&lt;/strong&gt; to install httpd.
+&lt;a href=&#34;{yum_url}&#34;&gt;Click here&lt;/a&gt; to see all options for the yum module.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;service:
+  name: httpd
+  state: started&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The next few lines are using the ansible module &lt;strong&gt;service&lt;/strong&gt; to start the httpd service.  The service module
+is the preferred way of controlling services on remote hosts.  &lt;a href=&#34;{service_url}&#34;&gt;Click here&lt;/a&gt; to learn more
+about the &lt;strong&gt;service&lt;/strong&gt; module.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Section 4: Saving your Playbook&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now that you&amp;#8217;ve completed writing your playbook, it would be a shame not to keep it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Use the &lt;code&gt;&lt;code&gt;write/quit&lt;/code&gt;&lt;/code&gt; method in &lt;code&gt;&lt;code&gt;vi&lt;/code&gt;&lt;/code&gt; or &lt;code&gt;&lt;code&gt;vim&lt;/code&gt;&lt;/code&gt; to save your playbook, i.e. &lt;code&gt;&lt;code&gt;Esc :wq!&lt;/code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;And that should do it.  You should now have a fully written playbook called &lt;code&gt;&lt;code&gt;install_apache.yml&lt;/code&gt;&lt;/code&gt;.
+You are ready to automate!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock note&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-note&#34; title=&#34;Note&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+Ansible (well, YAML really) can be a bit particular about formatting especially around indentation/spacing.  When you all get back to the office,
+read up on this &lt;a href=&#34;{yaml_url}&#34;&gt;YAML Syntax&lt;/a&gt; a bit more and it will save you some headaches later.  In the meantime, your completed playbook should look
+like this.  Take note of the spacing and alignment.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+- hosts: web
+  name: Install the apache web service
+  become: yes
+
+  tasks:
+    - name: install apache
+      yum:
+        name: httpd
+        state: present
+
+    - name: start httpd
+      service:
+        name: httpd
+        state: started&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_exercise_1_2_running_your_playbook&#34;&gt;Exercise 1.2 - Running Your Playbook&lt;/h3&gt;
+&lt;hr&gt;
+&lt;div class=&#34;sidebarblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;We are now going to run you&amp;#8217;re brand spankin&#39; new playbook on your two web nodes.  To do this,
+ you are going to use the &lt;code&gt;&lt;code&gt;ansible-playbook&lt;/code&gt;&lt;/code&gt; command.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 1:&lt;/strong&gt; From your playbook directory ( &lt;code&gt;&lt;code&gt;~/apache_basic&lt;/code&gt;&lt;/code&gt; ), run your playbook.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;ansible-playbook -i ./hosts -k install_apache.yml&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;However, before you go ahead and run that command, lets take a few moments to understand the options.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-i&lt;/strong&gt; This option allows you to specify the inventory file you wish to use.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-k&lt;/strong&gt; This option prompts you for the password of the user running the playbook.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-v&lt;/strong&gt; Altough not used here, this increases verbosity.  Try running your playbook a second time using &lt;code&gt;&lt;code&gt;-v&lt;/code&gt;&lt;/code&gt; or &lt;code&gt;&lt;code&gt;-vv&lt;/code&gt;&lt;/code&gt; to increase the verbosity&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;--syntax-check&lt;/strong&gt; If you run into any issues with your playbook running properly; you know, from that copy/pasting that you didn&amp;#8217;t do because we said &#34;&lt;em&gt;don&amp;#8217;t do that&lt;/em&gt;&#34;; you could use this option to help find those issues like so&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;ansible-playbook -i ./hosts -k install_apache.yml --syntax-check&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;OK, go ahead and run your playbook as specified in &lt;strong&gt;Step 1&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;In standard output, you should see something that looks very similar to the following:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;imageblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;img src=&#34;data:image/png:base64,&#34; alt=&#34;stdout 1&#34;&gt;
+&lt;/div&gt;
+&lt;div class=&#34;title&#34;&gt;Figure 1: apache_basic playbook stdout&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Notice that the play and each task is named so that you can see what is being done and to which node it is being done to.
+You also may notice a task in there that you didn&amp;#8217;t write;  &amp;lt;cough&amp;gt; &lt;code&gt;&lt;code&gt;setup&lt;/code&gt;&lt;/code&gt; &amp;lt;cough&amp;gt;.  This is because the &lt;code&gt;&lt;code&gt;setup&lt;/code&gt;&lt;/code&gt; module
+runs by default.  To turn if off, you can specify &lt;a href=&#34;{gather_facts-url}&#34;&gt;gather_facts: false&lt;/a&gt; in your play definition like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+- hosts: web
+  name: Install the apache web service
+  become: yes
+  gather_facts: false&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 2:&lt;/strong&gt; Remove Apache&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;OK, for the next several minutes or as much time as we can afford, we want to to experiment a little.
+We would like you to reverse what you&amp;#8217;ve done, i.e. stop and uninstall apache on your web nodes.
+So, go ahead and edit your playbook and then when your finished, rerun it as specified in &lt;strong&gt;Step 1&lt;/strong&gt;.
+For this exercise we aren&amp;#8217;t going to show you line by line, but we will give you a few hints.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock note&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-note&#34; title=&#34;Note&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;If your first task in the playbook was to install httpd and the second task was to start the service, which order do you think
+those tasks should be in now?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If &lt;code&gt;&lt;code&gt;started&lt;/code&gt;&lt;/code&gt; makes sure a service is started, then what option ensures it is stopped?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If &lt;code&gt;&lt;code&gt;present&lt;/code&gt;&lt;/code&gt; makes sure a package is installed, then what option ensures it is removed?  Er&amp;#8230;&amp;#8203; starts with an &lt;strong&gt;ab&lt;/strong&gt;, ends with a &lt;strong&gt;sent&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Feel free to browse the help pages to see a list of all options.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;{yum_url}&#34;&gt;Ansible yum module&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;{service_url}&#34;&gt;Ansible service module&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CI | CD Pipelines</title>
+      <link>https://dischord01.github.io/workshops/imported/cicd/</link>
+      <pubDate>Thu, 26 Jan 2017 23:02:01 -0500</pubDate>
+      
+      <guid>https://dischord01.github.io/workshops/imported/cicd/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;In modern software projects many teams utilize the concept of continuous integration and continuous delivery (CI/CD).  By setting up a tool chain that continuously builds, tests, and stages software releases a team can ensure that their product can be reliably released at any time.  OpenShift can be an enabler in the creation and managecment of this tool chain.  In this lab we will walk through creating a simple example of a CI/CD [pipeline][1] utlizing Jenkins, all running on top of OpenShift!&lt;/p&gt;
+
+&lt;h2 id=&#34;step-1&#34;&gt;Step 1&lt;/h2&gt;
+
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionA&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseAOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseAOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseAOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        &lt;blockquote&gt;
+        &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+        &lt;/blockquote&gt;
+        &lt;strong&gt;
+          
+
+
+
+&lt;p&gt;oc new project cicd&lt;/p&gt;
+
+       &lt;/strong&gt;
+      &lt;/div&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseATwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseATwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseATwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+
+&lt;p&gt;Browse to original landing page, and click &amp;ldquo;New Project&amp;rdquo;.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/workshops/imported/images/englishinwhat.jpg&#34;  /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;This image resides in /workshops/&amp;lt;*your-workshop*&amp;gt;/images/&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+
+
+
+&lt;blockquote&gt;&lt;p&gt;Fill in the name of the project as &amp;#39;cicd&amp;#39; and click &amp;#39;Create&amp;#39; &lt;/p&gt;&lt;/blockquote&gt;
+
+     &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; 
+
+&lt;h2 id=&#34;step-2&#34;&gt;Step 2&lt;/h2&gt;
+
+&lt;h3 id=&#34;start-by-installing-yo-mamma&#34;&gt;Start by installing Yo Mamma.&lt;/h3&gt;
+
+&lt;p&gt;First we will start by installing Jenkins to run in a pod within your workshop project.  Because this is just a workshop we use the ephemeral template to create our Jenkins sever (for a enterprise system you would probably want to use the persistent template).  Follow the steps below:&lt;/p&gt;
+
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionB&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseBOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        &lt;blockquote&gt;
+        &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+        &lt;/blockquote&gt;
+        &lt;strong&gt;
+          
+
+
+
+&lt;p&gt;oc new project cicd&lt;/p&gt;
+
+       &lt;/strong&gt;
+      &lt;/div&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseBTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+
+&lt;p&gt;Browse to original landing page, and click &amp;ldquo;New Project&amp;rdquo;.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/img/Openshift-Cartridge.png&#34;  /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;OpenShift Img 1&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+
+
+
+&lt;blockquote&gt;&lt;p&gt;Fill in the name of the project as &amp;#39;cicd&amp;#39; and click &amp;#39;Create&amp;#39; &lt;/p&gt;&lt;/blockquote&gt;
+
+     &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; 
+
+&lt;h2 id=&#34;step-3&#34;&gt;Step 3&lt;/h2&gt;
+
+&lt;h3 id=&#34;start-by-installing-jenkins&#34;&gt;Start by installing Jenkins&lt;/h3&gt;
+
+&lt;p&gt;First we will start by installing Jenkins to run in a pod within your workshop project.  Because this is just a workshop we use the ephemeral template to create our Jenkins sever (for a enterprise system you would probably want to use the persistent template).  Follow the steps below:&lt;/p&gt;
+
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionC&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseCOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        &lt;blockquote&gt;
+        &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+        &lt;/blockquote&gt;
+        &lt;strong&gt;
+          
+
+
+
+&lt;p&gt;oc new project cicd&lt;/p&gt;
+
+       &lt;/strong&gt;
+      &lt;/div&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseCTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+
+&lt;p&gt;Browse to original landing page, and click &amp;ldquo;New Project&amp;rdquo;.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/img/Openshift-Cartridge.png&#34;  /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;OpenShift Img 1&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+
+
+
+&lt;blockquote&gt;&lt;p&gt;Fill in the name of the project as &amp;#39;cicd&amp;#39; and click &amp;#39;Create&amp;#39; &lt;/p&gt;&lt;/blockquote&gt;
+
+     &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; 
+
+&lt;h1 id=&#34;tag&#34;&gt;TAG:&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;rh_workshop_public_sector&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;workshop-test-1&#34;&gt;workshop-test-1&lt;/h1&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Kitchensink</title>
+      <link>https://dischord01.github.io/workshops/imported/Kitchensink/</link>
+      <pubDate>Thu, 26 Jan 2017 23:02:01 -0500</pubDate>
+      
+      <guid>https://dischord01.github.io/workshops/imported/Kitchensink/</guid>
+      <description>
+
+&lt;h1 id=&#34;rhel-7&#34;&gt;RHEL 7&lt;/h1&gt;
+
+&lt;p&gt;The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&amp;rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.&lt;/p&gt;
+
+&lt;h3 id=&#34;shortcode-highlighting&#34;&gt;Shortcode Highlighting&lt;/h3&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;section&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;main&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;h1&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;gt;&lt;/span&gt;{{ .Title }}&lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;h1&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;gt;&lt;/span&gt;
+    {{ range .Data.Pages }}
+        {{ .Render &amp;quot;summary&amp;quot;}}
+    {{ end }}
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;div&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;section&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3 id=&#34;built-in-highlighting-via-highlight-js-with-multiple-options-for-themes-current-is-github&#34;&gt;Built-in Highlighting via Highlight.js with multiple options for themes (Current is Github)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$(document).ready(function() {
+  $(&#39;pre code&#39;).each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## this is a comment
+$ echo this is a command
+this is a command
+
+## edit the file
+$vi foo.md
++++
+date = &amp;quot;2014-09-28&amp;quot;
+title = &amp;quot;creating a new theme&amp;quot;
++++
+
+bah and humbug
+:wq
+
+## show it
+$ cat foo.md
++++
+date = &amp;quot;2014-09-28&amp;quot;
+title = &amp;quot;creating a new theme&amp;quot;
++++
+
+bah and humbug
+$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;english-do-you-speak-it&#34;&gt;English,.. Do you speak it?&lt;/h2&gt;
+
+&lt;p&gt;The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&amp;rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.&lt;/p&gt;
+
+&lt;h3 id=&#34;image-w-figure-shortcode&#34;&gt;Image w/ figure Shortcode&lt;/h3&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/img/englishinwhat.jpg&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Fig 1, Do They Speak English in What??&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;h2 id=&#34;exersise-1&#34;&gt;Exersise 1&lt;/h2&gt;
+
+&lt;p&gt;The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&amp;rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.&lt;/p&gt;
+
+&lt;h3 id=&#34;tweet-shortcode&#34;&gt;Tweet Shortcode&lt;/h3&gt;
+
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;In startup we are practice Outage Driven Infrastructure.&lt;/p&gt;&amp;mdash; DevOps Borat (@DEVOPS_BORAT) &lt;a href=&#34;https://twitter.com/DEVOPS_BORAT/status/311335361169195009&#34;&gt;March 12, 2013&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;//platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+
+&lt;h2 id=&#34;exersise-2&#34;&gt;Exersise 2&lt;/h2&gt;
+
+&lt;p&gt;The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&amp;rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.&lt;/p&gt;
+
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;//www.youtube.com/embed/s7EdQ4FqbhY&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%;&#34; allowfullscreen frameborder=&#34;0&#34;&gt;&lt;/iframe&gt;
+ &lt;/div&gt;
+
+
+&lt;h2 id=&#34;exersise-3&#34;&gt;Exersise 3&lt;/h2&gt;
+
+&lt;p&gt;The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&amp;rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.&lt;/p&gt;
+
+&lt;h3 id=&#34;gist-shortcode&#34;&gt;Gist Shortcode&lt;/h3&gt;
+
+&lt;script src=&#34;//gist.github.com/dischord01/55a547ed92d2c4c5ca5a.js&#34;&gt;&lt;/script&gt;
+
+&lt;h2 id=&#34;exersise-4&#34;&gt;Exersise 4&lt;/h2&gt;
+
+&lt;p&gt;The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&amp;rsquo;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.&lt;/p&gt;
+
+&lt;h3 id=&#34;instagram-shortcode&#34;&gt;Instagram Shortcode&lt;/h3&gt;
+
+&lt;blockquote class=&#34;instagram-media&#34; data-instgrm-captioned data-instgrm-version=&#34;7&#34; style=&#34; background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);&#34;&gt;&lt;div style=&#34;padding:8px;&#34;&gt; &lt;div style=&#34; background:#F8F8F8; line-height:0; margin-top:40px; padding:49.9537037037037% 0; text-align:center; width:100%;&#34;&gt; &lt;div style=&#34; background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;&#34;&gt;&lt;/div&gt;&lt;/div&gt; &lt;p style=&#34; margin:8px 0 0 0; padding:0 4px;&#34;&gt; &lt;a href=&#34;https://www.instagram.com/p/BQLcXP3FXqP/&#34; style=&#34; color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;&#34; target=&#34;_blank&#34;&gt;Oh mamma mia! #pulpfiction#quentintarantino#umathurman#cocaine#miawallace#cult#johntravolta#tarantino#grunge#1990s#vincentvega#sadquotes#iconic#legend#old#oldmovies#moviequotes#hollywood#quotestags#sadquote#90sbaby#brucewillis#90s#1980s#the90s#80s#the80s#cigarettes#smoked#cigarette&lt;/a&gt;&lt;/p&gt; &lt;p style=&#34; color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;&#34;&gt;A post shared by agelessyears (@agelessyears) on &lt;time style=&#34; font-family:Arial,sans-serif; font-size:14px; line-height:17px;&#34; datetime=&#34;2017-02-06T17:38:02+00:00&#34;&gt;Feb 6, 2017 at 9:38am PST&lt;/time&gt;&lt;/p&gt;&lt;/div&gt;&lt;/blockquote&gt;
+&lt;script async defer src=&#34;//platform.instagram.com/en_US/embeds.js&#34;&gt;&lt;/script&gt;
+
+&lt;blockquote class=&#34;instagram-media&#34; data-instgrm-version=&#34;7&#34; style=&#34; background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);&#34;&gt;&lt;div style=&#34;padding:8px;&#34;&gt; &lt;div style=&#34; background:#F8F8F8; line-height:0; margin-top:40px; padding:49.9537037037037% 0; text-align:center; width:100%;&#34;&gt; &lt;div style=&#34; background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;&#34;&gt;&lt;/div&gt;&lt;/div&gt;&lt;p style=&#34; color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;&#34;&gt;&lt;a href=&#34;https://www.instagram.com/p/BQLcXP3FXqP/&#34; style=&#34; color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;&#34; target=&#34;_blank&#34;&gt;A post shared by agelessyears (@agelessyears)&lt;/a&gt; on &lt;time style=&#34; font-family:Arial,sans-serif; font-size:14px; line-height:17px;&#34; datetime=&#34;2017-02-06T17:38:02+00:00&#34;&gt;Feb 6, 2017 at 9:38am PST&lt;/time&gt;&lt;/p&gt;&lt;/div&gt;&lt;/blockquote&gt;
+&lt;script async defer src=&#34;//platform.instagram.com/en_US/embeds.js&#34;&gt;&lt;/script&gt;
+
+&lt;h1 id=&#34;workshop&#34;&gt;Workshop&lt;/h1&gt;
+
+&lt;h1 id=&#34;tag&#34;&gt;TAG:&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;rh_workshop_public_sector&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>WORKSHOP-TEST-2</title>
+      <link>https://dischord01.github.io/workshops/imported/Workshop-test/</link>
+      <pubDate>Thu, 26 Jan 2017 23:02:01 -0500</pubDate>
+      
+      <guid>https://dischord01.github.io/workshops/imported/Workshop-test/</guid>
+      <description>&lt;!-- toc disabled --&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Tag&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;code&gt;rh_workshop_public_sector&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;_openshift&#34; class=&#34;sect0&#34;&gt;OpenShift&lt;/h1&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_intro&#34;&gt;Intro&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Bacon ipsum dolor amet jowl kevin pig, jerky tri-tip hamburger burgdoggen venison corned beef filet mignon sirloin porchetta shoulder. Doner frankfurter pork loin sausage shoulder venison. Meatloaf capicola porchetta pastrami doner, beef pig ham cow. Pork chop andouille bacon jowl chuck drumstick pig turkey bresaola boudin beef ribs shoulder. Alcatra pork shank pancetta jowl.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_stuff&#34;&gt;Stuff&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Shank tail beef, drumstick chuck brisket tongue pork chop shoulder shankle kielbasa doner. Landjaeger swine filet mignon shankle jerky. Strip steak leberkas sausage sirloin tongue. Fatback porchetta kielbasa meatloaf filet mignon biltong. Tongue pork alcatra frankfurter pork loin corned beef.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Boudin drumstick ham, shank frankfurter burgdoggen pork belly short loin. Chicken corned beef ham hock short ribs landjaeger pork loin. Alcatra ground round ham, cupim picanha capicola pork loin. Chicken corned beef shank pork chop, hamburger kielbasa shoulder burgdoggen. Salami picanha turducken, filet mignon ground round rump pastrami ham. Shankle tenderloin short loin, venison porchetta tri-tip biltong. Tongue ham hock shank, spare ribs pig bacon flank pork belly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Burgdoggen ball tip swine, venison landjaeger shank pancetta. Alcatra tenderloin bacon turkey ham hock. Cupim beef turkey ground round. Jerky ribeye burgdoggen, prosciutto ham drumstick picanha biltong pork loin chuck short loin corned beef. Doner burgdoggen frankfurter spare ribs, prosciutto pork salami bacon bresaola tri-tip filet mignon drumstick. Tongue bacon ham hock picanha, prosciutto corned beef chuck. Drumstick pork loin bacon, jowl short loin ball tip meatloaf rump pig alcatra ribeye.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Jowl spare ribs brisket beef bacon, bresaola landjaeger cow tongue tri-tip salami. Bresaola ground round burgdoggen tail porchetta leberkas ball tip, brisket ham prosciutto pig flank spare ribs. Kielbasa venison tenderloin bacon burgdoggen sausage shankle. Ribeye doner porchetta, pork chuck salami jerky kielbasa landjaeger.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_stuff2&#34;&gt;Stuff2&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Shank tail beef, drumstick chuck brisket tongue pork chop shoulder shankle kielbasa doner. Landjaeger swine filet mignon shankle jerky. Strip steak leberkas sausage sirloin tongue. Fatback porchetta kielbasa meatloaf filet mignon biltong. Tongue pork alcatra frankfurter pork loin corned beef.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_stuff3&#34;&gt;Stuff3&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Shank tail beef, drumstick chuck brisket tongue pork chop shoulder shankle kielbasa doner. Landjaeger swine filet mignon shankle jerky. Strip steak leberkas sausage sirloin tongue. Fatback porchetta kielbasa meatloaf filet mignon biltong. Tongue pork alcatra frankfurter pork loin corned beef.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_stuff4&#34;&gt;Stuff4&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Shank tail beef, drumstick chuck brisket tongue pork chop shoulder shankle kielbasa doner. Landjaeger swine filet mignon shankle jerky. Strip steak leberkas sausage sirloin tongue. Fatback porchetta kielbasa meatloaf filet mignon biltong. Tongue pork alcatra frankfurter pork loin corned beef.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_stuff5&#34;&gt;Stuff5&lt;/h3&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Shank tail beef, drumstick chuck brisket tongue pork chop shoulder shankle kielbasa doner. Landjaeger swine filet mignon shankle jerky. Strip steak leberkas sausage sirloin tongue. Fatback porchetta kielbasa meatloaf filet mignon biltong. Tongue pork alcatra frankfurter pork loin corned beef.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpenShift 3.3 Workshop</title>
+      <link>https://dischord01.github.io/workshops/openshift.3.3/openshift3.3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dischord01.github.io/workshops/openshift.3.3/openshift3.3/</guid>
+      <description>
+
+&lt;h3 id=&#34;if-we-provided-you-a-laptop-for-this&#34;&gt;If we provided you a laptop for this&lt;/h3&gt;
+
+&lt;p&gt;We already set all this up for you - so you can skip everything below.&lt;/p&gt;
+
+&lt;h3 id=&#34;install-the-command-line-tools-for-your-operating-system&#34;&gt;Install the command line tools for your operating system&lt;/h3&gt;
+
+&lt;p&gt;The officially supported instructions for installing the oc client via Red Hat are &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html&#34;&gt;located here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;TL;DR:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Download a .tgz &lt;a href=&#34;https://en.wikipedia.org/wiki/Continuous_delivery&#34;&gt;from Red Hat&lt;/a&gt; and add to your PATH
+(If you don&amp;rsquo;t have a Red Hat account, you can download the CLI tool from &lt;a href=&#34;https://docs.openshift.com/enterprise/latest/creating_images/s2i_testing.html#creating-images-s2i-testing&#34;&gt;my host here&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!--For the unsupported community version:
+
+* Download a .tgz [from github][2] and add to your PATH
+* Mac users can [brew][3]: &#39;brew install openshift-cli&#39;
+
+--&gt;
+
+&lt;h3 id=&#34;install-git&#34;&gt;Install git&lt;/h3&gt;
+
+&lt;p&gt;We will use a few git commands directly in some of the advanced labs.  Please make sure git is installed on your system.  You can download the &lt;a href=&#34;http://developers.redhat.com/products/cdk/docs-and-apis/&#34;&gt;latest version here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;create-a-github-account&#34;&gt;Create a Github account&lt;/h3&gt;
+
+&lt;p&gt;Create a FREE github account by going &lt;a href=&#34;https://github.com/openshift/origin/blob/master/examples/jenkins/README.md&#34;&gt;to this link&lt;/a&gt; and following their instructions.&lt;/p&gt;
+
+&lt;h1 id=&#34;a-guided-tour-of-openshift-enterprise&#34;&gt;A Guided Tour of OpenShift Enterprise&lt;/h1&gt;
+
+&lt;h2 id=&#34;welcome-to-openshift&#34;&gt;Welcome to OpenShift!&lt;/h2&gt;
+
+&lt;p&gt;This lab provides a quick tour of the console to help you get familiar with the user interface along with some key terminology we will use in subsequent lab content.  If you are already familiar with the basics of OpenShift you can skip this lab - after making sure you can login.&lt;/p&gt;
+
+&lt;h2 id=&#34;key-terms&#34;&gt;Key Terms&lt;/h2&gt;
+
+&lt;p&gt;We will be using the following terms throughout the workshop labs so here are some basic definitions you should be familiar with.  And you&amp;rsquo;ll learn more terms along the way, but these are the basics to get you started.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Container - Your software wrapped in a complete filesystem containing everything it needs to run&lt;/li&gt;
+&lt;li&gt;Image - We are talking about docker images; read-only and used to create containers&lt;/li&gt;
+&lt;li&gt;Pod - One or more docker containers that run together&lt;/li&gt;
+&lt;li&gt;Service - Provides a common DNS name to access a pod (or replicated set of pods)&lt;/li&gt;
+&lt;li&gt;Project - A project is a group of services that are related logically&lt;/li&gt;
+&lt;li&gt;Deployment - an update to your application triggered by a image change or config change&lt;/li&gt;
+&lt;li&gt;Build - The process of turning your source code into a runnable image&lt;/li&gt;
+&lt;li&gt;BuildConfig - configuration data that determines how to manage your build&lt;/li&gt;
+&lt;li&gt;Route - a labeled and DNS mapped network path to a service from outside OpenShift&lt;/li&gt;
+&lt;li&gt;Master - The foreman of the OpenShift architecture, the master schedules operations, watches for problems, and orchestrates everything&lt;/li&gt;
+&lt;li&gt;Node - Where the compute happens, your software is run on nodes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;accessing-openshift&#34;&gt;Accessing OpenShift&lt;/h2&gt;
+
+&lt;p&gt;OpenShift provides a web console that allow you to perform various tasks via a web browser.  Additionally, you can utilize a command line tool to perfrom tasks.  Let&amp;rsquo;s get started by logging into both of these and checking the status of the platform.&lt;/p&gt;
+
+&lt;h3 id=&#34;let-s-login&#34;&gt;Let&amp;rsquo;s Login&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Navigate to the URI provided by your instructor and login with the user/password provided (if there&amp;rsquo;s an icon on the Desktop, just double click that)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/workshops/openshift.3.3/images/ose-login.png&#34; width=&#34;600&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;OpenShift Login Page&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;&lt;em&gt;Login Webpage&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Once logged in you should see your available projects - or a button to create a project if none exist already.&lt;/p&gt;
+
+&lt;h3 id=&#34;so-this-is-what-an-empty-project-looks-like&#34;&gt;So this is what an empty project looks like&lt;/h3&gt;
+
+&lt;p&gt;First let&amp;rsquo;s create a new project to do our workshop work in.  We will use the student number you were given to ensure you don&amp;rsquo;t clash with classmates, so in the steps below replace &amp;lsquo;YOUR#&amp;rsquo; with your student number.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Click on the &amp;ldquo;New Project&amp;rdquo; button and give it a name of demo-YOUR#&lt;/p&gt;
+
+&lt;p&gt;Populate &amp;ldquo;Display Name&amp;rdquo; with &amp;ldquo;demo-YOUR#&amp;rdquo; and populate &amp;ldquo;Description&amp;rdquo; boxes with whatever you like.  And click &amp;ldquo;Create&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is going to take you to the next logical step of adding something to the project, but we don&amp;rsquo;t want to do that just yet.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Click the &amp;ldquo;demo-YOUR#&amp;rdquo; link on the top left to goto your project&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Don&amp;rsquo;t worry, it&amp;rsquo;s supposed to look empty right now because you currently don&amp;rsquo;t have anything in your project (we&amp;rsquo;ll fix that in the next lab).&lt;/p&gt;
+
+&lt;h3 id=&#34;let-s-try-the-command-line&#34;&gt;Let&amp;rsquo;s try the command line&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Open a terminal and login using the same URI/user/password with following command:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;oc login [URI]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Check to see what projects you have access to:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ oc get projects
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;it-looks-empty-via-the-command-line-too&#34;&gt;It looks empty via the command line too&lt;/h3&gt;
+
+&lt;p&gt;You just created a project using the web console, let&amp;rsquo;s tell the terminal command line tool to use it.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Type the following command to use the demo project&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ oc project demo-YOUR#
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Type the following command to show services, deployment configs, build configurations, and active deployments (this will come in handy later):&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ oc status
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;You should now be ready to get hands-on with our workshop labs.&lt;/p&gt;
+
+&lt;h1 id=&#34;byo-docker&#34;&gt;BYO docker&lt;/h1&gt;
+
+&lt;h2 id=&#34;bring-your-own-docker&#34;&gt;Bring your own docker&lt;/h2&gt;
+
+&lt;p&gt;It&amp;rsquo;s easy to get started with OpenShift whether that be using our app templates or bringing your existing docker assets.  In this quick lab we will deploy app using an exisiting docker image.  OpenShift will create an image stream for the image as well as deploy and manage containers based on that image.  And we will dig into the details to show how all that works.&lt;/p&gt;
+
+&lt;h3 id=&#34;let-s-point-openshift-to-an-existing-built-docker-image&#34;&gt;Let&amp;rsquo;s point OpenShift to an existing built docker image&lt;/h3&gt;
+
+&lt;p&gt;
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionA&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseAOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseAOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseAOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        &lt;blockquote&gt;
+        &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+        &lt;/blockquote&gt;
+        &lt;strong&gt;
+          
+
+
+$ oc new-app kubernetes/guestbook&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;The output should show something *similar* to below:&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;--&amp;gt; Found docker image a49fe18 (17 months old) from docker Hub for &amp;quot;kubernetes/guestbook&amp;quot;
+    * An image stream will be created as &amp;quot;guestbook:latest&amp;quot; that will track this image
+    * This image will be deployed in deployment config &amp;quot;guestbook&amp;quot;
+    * Port 3000/tcp will be load balanced by service &amp;quot;guestbook&amp;quot;
+--&amp;gt; Creating resources with label app=guestbook ...
+    ImageStream &amp;quot;guestbook&amp;quot; created
+    DeploymentConfig &amp;quot;guestbook&amp;quot; created
+    Service &amp;quot;guestbook&amp;quot; created
+--&amp;gt; Success
+    Run &#39;oc status&#39; to view your app.
+&lt;/code&gt;&lt;/pre&gt;
+
+       &lt;/strong&gt;
+      &lt;/div&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordion&#34; href=&#34;#collapseTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+
+&lt;blockquote&gt;&lt;p&gt;Click &amp;#39;Add to Project&amp;#39;&lt;/p&gt;&lt;/blockquote&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/workshops/openshift.3.3/images/ose-lab-s2i-addbutton.png&#34; width=&#34;100&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;blockquote&gt;&lt;p&gt;Select the tab for &lt;/p&gt;&lt;/blockquote&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/workshops/openshift.3.3/images/ose-guestbook-deploy-image.png&#34; width=&#34;400&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;blockquote&gt;&lt;p&gt;Select the option for &amp;#39;Image Name&amp;#39; and enter &amp;#39;kubernetes/guestbook&amp;#39;, then click the magnifying glass to the far right to search for the image.&lt;/p&gt;&lt;/blockquote&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/workshops/openshift.3.3/images/ose-guestbook-imagename-expand.png&#34; width=&#34;600&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;blockquote&gt;&lt;p&gt;Observe default values that are populated in the search results:&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/workshops/openshift.3.3/images/ose-guestbook-create-1.png&#34; width=&#34;600&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/workshops/openshift.3.3/images/ose-guestbook-create-2.png&#34; width=&#34;600&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Scroll to the bottom and click Create&lt;/p&gt;&lt;/blockquote&gt;
+
+     &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; 
+
+&lt;h3 id=&#34;we-can-browse-our-project-details-with-the-command-line&#34;&gt;We can browse our project details with the command line&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Try typing the following to see what is available to &amp;lsquo;get&amp;rsquo;:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ oc get
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Now let&amp;rsquo;s look at what our image stream has in it&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ oc get is
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ oc describe is/guestbook
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; An image stream can be used to automatically perform an action, such as updating a deployment, when a new image, such as a new version of the guestbook image, is created.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; The app is running in a pod, let&amp;rsquo;s look at that&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ oc describe pods
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;we-can-see-those-details-using-the-web-console-too&#34;&gt;We can see those details using the web console too&lt;/h3&gt;
+
+&lt;p&gt;Let&amp;rsquo;s look at the image stream.&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click on &#34;Builds -&gt; Images&#34;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This shows a list of all image streams within the project.&lt;/p&gt;
+
+&lt;blockquote&gt;
+Now click on the guestbook image stream
+&lt;/blockquote&gt;
+
+&lt;p&gt;You should see something similar to this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-guestbook-is.png&#34; width=&#34;600&#34;/&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;does-this-guestbook-do-anything&#34;&gt;Does this guestbook do anything?&lt;/h3&gt;
+
+&lt;p&gt;Good catch, your service is running but there is no way for users to access it yet.  We can fix that with the web console or the command line, you decide which you&amp;rsquo;d rather do from the steps below.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordion&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordion&#34; href=&#34;#collapseOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseOne&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+To expose via the web console, click on &#34;Overview&#34; to get to this view:
+&lt;/blockquote&gt;
+&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-guestbook-noroute.png&#34; width=&#34;600&#34;/&gt;&lt;br/&gt;
+
+&lt;p&gt;Notice there is no exposed route &lt;/p&gt;
+
+&lt;blockquote&gt;
+Click on the &#34;Create Route&#34; link
+&lt;/blockquote&gt;
+
+&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-guestbook-createroute.png&#34; width=&#34;600&#34;/&gt;&lt;br/&gt;
+
+&lt;p&gt;This is where you could specify route parameters, but we will just use the defaults.&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click &#34;Create&#34;
+&lt;/blockquote&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordion&#34; href=&#34;#collapseTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseTwo&#34;&gt;
+          Alternatively: CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; In the command line type this:
+&lt;/blockquote&gt;
+
+{% highlight csh %}
+$ oc expose service guestbook
+{% endhighlight %}
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; You can also create secured HTTPS routes, but that&amp;rsquo;s an advanced topic for a later lab&lt;/p&gt;
+
+&lt;h3 id=&#34;test-out-the-guestbook-webapp&#34;&gt;Test out the guestbook webapp&lt;/h3&gt;
+
+&lt;p&gt;Notice that in the web console overview, you now have a URL in the service box.  There is no database setup, but you can see the webapp running by clicking the route you just exposed.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Click the link in the service box&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;You should see:
+&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-guestbook-app.png&#34; width=&#34;600&#34;/&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;good-work-let-s-clean-this-up&#34;&gt;Good work, let&amp;rsquo;s clean this up&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Let&amp;rsquo;s clean up all this to get ready for the next lab:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;{% highlight csh %}
+$ oc delete all &amp;ndash;all
+{% endhighlight %}&lt;/p&gt;
+
+&lt;h2 id=&#34;summary-1&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;In this lab you&amp;rsquo;ve deployed an example docker image, pulled from docker hub, into a pod running in OpenShift.  You exposed a route for clients to access that service via thier web browsers.  And you learned how to get and describe resources using the command line and the web console.  Hopefully, this basic lab also helped to get you familiar with using the CLI and navigating within the web console.&lt;/p&gt;
+
+&lt;h1 id=&#34;deploying-an-app-with-s2i&#34;&gt;Deploying an App with S2I&lt;/h1&gt;
+
+&lt;h2 id=&#34;source-to-image-s2i&#34;&gt;Source to Image (S2I)&lt;/h2&gt;
+
+&lt;p&gt;One of the useful components of OpenShift is its source-to-image capability.  S2I is a framework that makes it easy to turn your source code into runnable images.  The main advantage of using S2I for building reproducible docker images is the ease of use for developers.  You&amp;rsquo;ll see just how simple it can be in this lab.&lt;/p&gt;
+
+&lt;h3 id=&#34;let-s-build-a-node-js-web-server-using-s2i&#34;&gt;Let&amp;rsquo;s build a node.js web server using S2I&lt;/h3&gt;
+
+&lt;p&gt;We can do this either via the command line (CLI) or the web console.  You decide which you&amp;rsquo;d rather do and follow the steps below:&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionA&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseAOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseAOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseAOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc new-app --name=dc-metro-map https://github.com/dudash/openshift-workshops.git --context-dir=dc-metro-map
+$ oc expose service dc-metro-map
+{% endhighlight %}
+
+&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; OpenShift auotmatically detected the source code type and selected the nodejs builder image
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseATwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseATwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseATwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click &#34;Add to Project&#34;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-addbutton.png&#34; width=&#34;100&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click &#34;Browse Catalog&#34; and filter for nodejs, then click the nodejs:0.10 builder image
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-s2i-filternode.png&#34; width=&#34;600&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Fill out the boxes to look as follows:
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-addtoproject.png&#34; width=&#34;600&#34;/&gt;&lt;/p&gt;
+&lt;p&gt;
+Notes: You will need to click to expand the &#34;advanced options&#34;&lt;br/&gt;
+The github repository URL is: https://github.com/dudash/openshift-workshops.git&lt;br/&gt;
+The github context-dir is: dc-metro-map&lt;br/&gt;
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+Scroll to the bottom and click &#34;Create&#34;
+&lt;/blockquote&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;check-out-the-build-details&#34;&gt;Check out the build details&lt;/h3&gt;
+
+&lt;p&gt;We can see the details of what the S2I builder did.  This can be helpful to diagnose issues if builds are failing.&lt;/p&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-magic&#34;&gt;&lt;/i&gt; TIP: For a node.js app, running &amp;ldquo;npm shrinkwrap&amp;rdquo; is a good practice to perform on your branch before releasing changes that you plan to build/deploy as an image with S2I&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionB&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseBOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+
+{% highlight csh %}
+$ oc get builds
+{% endhighlight %}
+
+In the output, note the name of your build and use it to see the logs with:
+
+{% highlight csh %}
+$ oc logs builds/[BUILD_NAME]
+{% endhighlight %}
+
+The console will print out the full log for your build.  Note, you could pipe this to more or less for easier viewing in the CLI.
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseBTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click on &#34;Builds&#34; and then click on &#34;Builds&#34;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-s2i-builds.png&#34; width=&#34;300&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click on the &#34;dc-metro-map&#34; link
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-metromapbuild.png&#34; width=&#34;300&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click on the &#34;View Log&#34; tab to see the details of your latest build
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-metromapbuilds.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+You should see a log output similar to the one below:
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-metromapbuildlog.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;see-the-app-in-action&#34;&gt;See the app in action&lt;/h3&gt;
+
+&lt;p&gt;Let&amp;rsquo;s see this app in action!&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionC&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseCOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+
+{% highlight csh %}
+$ oc get routes
+{% endhighlight %}
+
+&lt;blockquote&gt;
+Copy the HOST/PORT and paste into your favorite web browser
+&lt;/blockquote&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseCTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click on Overview
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-s2i-overview.png&#34; width=&#34;100&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click the URL that is listed in the dc-metro-map header
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-s2i-dcmetromapsvc.png&#34; width=&#34;600&#34;/&gt;&lt;/p&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The app should look like this in your web browser:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-apprunning.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Clicking the checkboxes will toggle on/off the individual metro stations on each colored line.  A numbered icon indicates there is more than one metro station in that area and they have been consolidated - click the number or zoom in to see more.&lt;/p&gt;
+
+&lt;h2 id=&#34;summary-2&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;In this lab we deployed a sample application using source to image.  This process built our code and wrapped that in a docker image.  It then deployed the image into our OpenShift platform in a pod and exposed a route to allow outside web traffic to access our application.  In the next lab we will look at some details of this app&amp;rsquo;s deployment and make some changes to see how OpenShift can help to automate our development processes.&lt;/p&gt;
+
+&lt;h1 id=&#34;developing-and-managing-your-application&#34;&gt;Developing and Managing Your Application&lt;/h1&gt;
+
+&lt;h2 id=&#34;developing-and-managing-an-application-in-openshift&#34;&gt;Developing and managing an application in OpenShift&lt;/h2&gt;
+
+&lt;p&gt;In this lab we will explore some of the common activities undertaken by developers working in OpenShift.  You will become familiar with how to use environment variables, secrets, build configurations, and more.  Let&amp;rsquo;s look at some of the basic things a developer might care about for a deployed app.&lt;/p&gt;
+
+&lt;h3 id=&#34;setup&#34;&gt;Setup&lt;/h3&gt;
+
+&lt;p&gt;From the previous lab you should have the DC Metro Maps web app running in OpenShift.&lt;/p&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-warning&#34;&gt;&lt;/i&gt; &lt;strong&gt;Only if you don&amp;rsquo;t already have it running already, add it with the following steps.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type these commands:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;{% highlight csh %}
+$ oc new-app &amp;ndash;name=dc-metro-map &lt;a href=&#34;https://github.com/dudash/openshift-workshops.git&#34;&gt;https://github.com/dudash/openshift-workshops.git&lt;/a&gt; &amp;ndash;context-dir=dc-metro-map
+$ oc expose service dc-metro-map
+{% endhighlight %}&lt;/p&gt;
+
+&lt;h3 id=&#34;see-the-app-in-action-and-inspect-some-details&#34;&gt;See the app in action and inspect some details&lt;/h3&gt;
+
+&lt;p&gt;There is no more ambiguity or confusion about where the app came from.  OpenShift provides traceability for your running deployment back to the docker image and the registry it came from, as well as (for images built by openshift) back to the exact source code branch and commit.  Let&amp;rsquo;s take a look at that.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionA&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseAOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseAOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseAOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc status
+{% endhighlight %}
+
+This is going to show the status of your current project.  In this case it will show the dc-metro-map service (svc) with a nested deployment config (dc) along with some more info that you can ignore for now.  
+
+&lt;br/&gt;&lt;br/&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt;  A deployment in OpenShift is a replication controller based on a user defined template called a deployment configuration &lt;br/&gt;&lt;br/&gt;
+
+The dc provides us details we care about to see where our application image comes from, so let&#39;s check it out in more detail.
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Type the following to find out more about our dc:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc describe dc/dc-metro-map
+{% endhighlight %}
+
+Notice under the template section it lists the containers it wants to deploy along with the path to the container image.
+
+&lt;br/&gt;&lt;br/&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; There are a few other ways you could get to this information.  If you are feeling adventurous, you might want to describe the replication controller (oc describe rc -l app=dc-metro-map), the image stream (oc describe is -l app=dc-metro-map) or the running pod itself (oc describe pod -l app=dc-metro-map).&lt;br/&gt;&lt;br/&gt;
+
+Because we built this app using S2I, we get to see the details about the build - including the container image that was used for building the source code.  So let&#39;s find out where the image came from.  Here are the steps to get more information about the build configuration (bc) and the builds themselves.
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Type the following to find out more about our bc:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc describe bc/dc-metro-map
+{% endhighlight %}
+
+Notice the information about the configuration of how this app gets built.  In particular look at the github URL, the webhooks you can use to automatically trigger a new build, the docker image where the build runs inside of, and the builds that have been completed.  New let&#39;s look at one of those builds.
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Type the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc describe build/dc-metro-map-1
+{% endhighlight %}
+
+This shows us even more about the deployed container&#39;s build and source code including exact commit GUID for this build.  We can also can see the commit&#39;s author, and the commit message.  You can inspect the code by opening a web browser and pointing it to: https://github.com/dudash/openshift-workshops/commit/[COMMIT_GUID]
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseATwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseATwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseATwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click &#34;Overview&#34;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+Check out the details within the deployment (above and to the right of the Pods circle). 
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployment-shortcut.png&#34; width=&#34;200&#34;/&gt;&lt;/p&gt;
+
+Within the deployment for the dc-metro-map is a container summary that shows both the GUID for the image and the GUID for the git branch.
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-containertracibility.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click on the link next to &#34;Image:&#34;
+&lt;/blockquote&gt;
+Here are the details of the image stream for this deployment.
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-dcmteroimagestream.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; If you hover over the shortened image GUID or edit the image stream you can see the full GUID.&lt;br/&gt;&lt;br/&gt;
+
+&lt;blockquote&gt;
+Click &#34;Builds&#34; and then Builds to get back to the build summary
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+Click &#34;#1&#34; to see the build details
+&lt;/blockquote&gt;
+Because we built this app using S2I, we get to see the details about the build - including the container image that was used for building the source code.  Note that you can kick-off a rebuild here if something went wrong with the initial build and you&#39;d like to attempt it again.
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-buildsummary.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click &#34;Overview&#34; and then the deployment detail link to get back to the deployment summary again
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployment-shortcut.png&#34; width=&#34;200&#34;/&gt;&lt;/p&gt;
+Notice that next to the build # you can see the comment from the last commit when the build was started.  And you can see the that commit&#39;s author.  You can click that commit GUID to be taken to the exact version of the source code that is in this deployed application.
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-commitmsg.png&#34; width=&#34;400&#34;/&gt;&lt;/p&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;pod-logs&#34;&gt;Pod logs&lt;/h3&gt;
+
+&lt;p&gt;In the S2I lab we looked at a build log to inspect the process of turning source code into an image.  Now let&amp;rsquo;s inspect the log for a running pod - in particular let&amp;rsquo;s see the web application&amp;rsquo;s logs.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionB&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseBOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc get pods
+{% endhighlight %}
+
+This is going to show basic details for all pods in this project (including the builders).  Let&#39;s look at the log for the pod running our application.  Look for the POD NAME that that is &#34;Running&#34; you will use it below.
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following (replacing the POD ID with your pod&#39;s ID):
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc logs [POD NAME]
+{% endhighlight %}
+
+You will see in the output details of your app starting up and any status messages it has reported since it started.
+
+&lt;br/&gt;&lt;br/&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; You can see more details about the pod itself with &#39;oc describe pods/[POD NAME]&#39;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseBTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click on &#34;Applications&#34; and then click on &#34;Pods&#34;
+&lt;/blockquote&gt;
+This is going to show basic details for all pods in this project (including the builders).
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-allpods.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+Next let&#39;s look at the log for the pod running our application.
+
+&lt;blockquote&gt;
+Click the pod that starts with &#34;dc-metro-map-&#34; and has a status of Running
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-poddetails.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+Here you see the status details of your pod as well as its configuration.  Take a minute here and look at what details are available.
+
+&lt;blockquote&gt;
+Click the &#34;Logs&#34; button
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-podslogs.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+Now you can see in the output window the details of your app starting up and any status messages it has reported since it started.
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;how-about-we-set-some-environment-variables&#34;&gt;How about we set some environment variables?&lt;/h3&gt;
+
+&lt;p&gt;Whether it&amp;rsquo;s a database name or a configuration variable, most applications make use of environment variables.  It&amp;rsquo;s best not to bake these into your containers because they do change and you don&amp;rsquo;t want to rebuild an image just to change an environment variable.  Good news!  You don&amp;rsquo;t have to.  OpenShift let&amp;rsquo;s you specify environment variables in your deployment configuration and they get passed along through the pod to the container.  Let&amp;rsquo;s try doing that.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionC&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseCOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+Let&#39;s have a little fun.  The app has some easter eggs that get triggered when certain env vars are set to &#39;true&#39;.
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc env dc/dc-metro-map -e BEERME=true
+{% endhighlight %}
+
+{% highlight csh %}
+$ oc get pods -w
+{% endhighlight %}
+
+Due to the deployment config strategy being set to &#34;Rolling&#34; and the &#34;ConfigChange&#34; trigger being set, OpenShift auto deployed a new pod as soon as you updated with the env variable.  If you were quick enough you saw this happening with the get pods command
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Type Ctrl+C to stop watching the pods
+&lt;/blockquote&gt;
+
+&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; You can set env variables across all deployment configs with &#39;dc --all&#39; instead of specifying a specifc config
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseCTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click on &#34;Applications&#34; and then click on &#34;Deployments&#34;
+&lt;/blockquote&gt;
+This is going to show basic details for all deployment configurations in this project
+
+&lt;blockquote&gt;
+Click the &#34;dc-metro-map&#34; deployment config
+&lt;/blockquote&gt;
+There are a lot of details here, feel free to check them out and ask questions, but we are here to set some new environment variables.  
+
+&lt;blockquote&gt;
+Click the Environment tab next to the Details tab .
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployconfigdetails-config.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+This opens up a tab with the environment variables for this deployment config.
+
+&lt;blockquote&gt;
+Add an environment variable with the name BEERME and a value of &#39;true&#39;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployconfigdetails-populated.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click &#34;Save&#34;.  And go back to the summary view by clicking &#34;Overview&#34; on the left menu bar
+&lt;/blockquote&gt;
+If you are quick enough you will see a new pod spin up and an the old pod spin down.  This is due to the deployment config strategy being set to &#34;Rolling&#34; and having a &#34;ConfigChange&#34; trigger, OpenShift auto deployed a new pod as soon as you updated with the env variable.
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;With the new environment variables set the app should look like this in your web browser (with beers instead of busses):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-beerme.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;what-about-passwords-and-private-keys&#34;&gt;What about passwords and private keys?&lt;/h3&gt;
+
+&lt;p&gt;Environment variables are great, but sometimes we don&amp;rsquo;t want sensitive data exposed in the environment.  We will get into using &lt;strong&gt;secrets&lt;/strong&gt; later when you do the lab: &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/dev_guide/index.html&#34;&gt;Keep it Secret, Keep it Safe&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;getting-into-a-pod&#34;&gt;Getting into a pod&lt;/h3&gt;
+
+&lt;p&gt;There are situations when you might want to jump into a running pod, and OpenShift lets you do that pretty easily.  We set some environment variables and secrets in this lab, let&amp;rsquo;s jump onto our pod to inspect them.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionD&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingDOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionD&#34; href=&#34;#collapseDOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseDOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseDOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingDOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc get pods
+{% endhighlight %}
+
+Find the pod name for your Running pod
+
+{% highlight csh %}
+$ oc exec -it [POD NAME] /bin/bash
+{% endhighlight %}
+ 
+You are now interactively attached to the container in your pod.  Let&#39;s look for the environment variables we set:
+
+{% highlight csh %}
+$ env | grep BEER
+{% endhighlight %}
+
+That should return the **BEERME=true** matching the value that we set in the deployment config.
+
+{% highlight csh %}
+$ exit
+{% endhighlight %}
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingDTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionD&#34; href=&#34;#collapseDTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseDTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseDTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingDTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click on &#34;Applications&#34; and then click on &#34;Pods&#34;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+Click the pod that starts with &#34;dc-metro-map-&#34; and has a status of Running
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+Click the &#34;Terminal&#34; button
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-podterminal.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+Let&#39;s look for the environment variables we set:
+
+&lt;blockquote&gt;
+Inside the web page&#39;s terminal type: &#39;env | grep BEER&#39;
+&lt;/blockquote&gt;
+That should return the **BEERME=true** matching the value that we set in the deployment config.
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;good-work-let-s-clean-this-up-1&#34;&gt;Good work, let&amp;rsquo;s clean this up&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Let&amp;rsquo;s clean up all this to get ready for the next lab:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;{% highlight csh %}
+$ oc delete all -l app=dc-metro-map
+{% endhighlight %}&lt;/p&gt;
+
+&lt;h2 id=&#34;summary-3&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;In this lab you&amp;rsquo;ve seen how to trace running software back to its roots, how to see details on the pods running your software, how to update deployment configurations, how to inspect logs files, how to set environment variables consistently across your environment, and how to interactively attach to running containers.  All these things should come in handy for any developer working in an OpenShift platform.&lt;/p&gt;
+
+&lt;p&gt;To dig deeper in to details behind the steps you performed in this lab, check out the OSE &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html&#34;&gt;developer&amp;rsquo;s guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;webhooks-and-rollbacks&#34;&gt;Webhooks and Rollbacks&lt;/h1&gt;
+
+&lt;h2 id=&#34;build-triggers-webhooks-and-rollbacks-oh-my&#34;&gt;Build Triggers, Webhooks and Rollbacks - Oh My!&lt;/h2&gt;
+
+&lt;p&gt;Once you have an app deployed in OpenShift you can take advantage of some continuous capabilities that help to enable DevOps and automate your management process.  We will cover some of those in this lab: Build triggers, webhooks, and rollbacks.&lt;/p&gt;
+
+&lt;h3 id=&#34;a-bit-of-configuration&#34;&gt;A bit of configuration&lt;/h3&gt;
+
+&lt;p&gt;We are going to do some integration and coding with an external git repository.  For this lab we are going to use github, if you don&amp;rsquo;t already have an account, &lt;a href=&#34;http://developers.redhat.com/products/cdk/overview/&#34;&gt;you can create one here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;OK, let&amp;rsquo;s fork the dc-metro-map app from &lt;strong&gt;my&lt;/strong&gt; account into &lt;strong&gt;your&lt;/strong&gt; github account.  Goto &lt;a href=&#34;http://developers.redhat.com/products/cdk/docs-and-apis/&#34;&gt;https://github.com/dudash/openshift-workshops/&lt;/a&gt; and look to the top right for the &amp;ldquo;Fork&amp;rdquo; button.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-fork.png&#34; width=&#34;400&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Click the &amp;ldquo;Fork&amp;rdquo; button&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Github should redirect you to the newly created fork of the source code.&lt;/p&gt;
+
+&lt;h3 id=&#34;build-trigger-code-change-webhook&#34;&gt;Build Trigger / Code Change Webhook&lt;/h3&gt;
+
+&lt;p&gt;When using S2I there are a few different things that can be used to &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html&#34;&gt;trigger&lt;/a&gt; a rebuild of your source code.  The first is a configuration change, the second is an image change, and the last (which we are covering here) is a webhook.  A webhook is basically your git source code repository telling OpenShift that the code we care about has changed.  Let&amp;rsquo;s set that up for our project now to see it in action.&lt;/p&gt;
+
+&lt;p&gt;Jump back to your OpenShift web console and let&amp;rsquo;s add the webapp to our project.  You should know how to do this from previous lab work, but this time point to &lt;em&gt;your&lt;/em&gt; github URL for the source code.  If you need a refresher expand the box below.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordOpt&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headinOpt&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordOpt&#34; href=&#34;#collOpt&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collOpt&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collOpt&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headinOpt&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click the &#34;Add to Project&#34; button
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-rollbacks-add-to-project.png&#34; width=&#34;100&#34;/&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+Select the &#34;Browse Catalog&#34; tab and search for the nodejs:0.10 builder image.
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+Fill out the boxes to point to the fork and context dir
+&lt;/blockquote&gt;
+
+&lt;p&gt;
+Notes: You will need to click to expand the &#34;advanced options&#34;&lt;br/&gt;
+The github repository URL is: https://github.com/YOUR_ACCOUNT/openshift-workshops.git&lt;br/&gt;
+The github context-dir is: /dc-metro-map&lt;br/&gt;
+&lt;/p&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The node.js builder template creates a number of resources for you, but what we care about right now is the build configuration because that contains the webhooks.  So to get the URL:&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordion&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordion&#34; href=&#34;#collapseOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc describe bc/dc-metro-map | grep -i webhook
+{% endhighlight %}
+
+&lt;blockquote&gt;
+Copy the Generic webhook to the clipboard
+&lt;/blockquote&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordion&#34; href=&#34;#collapseTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        
+&lt;blockquote&gt;
+Click on &#34;Builds&#34; and then click on &#34;Builds&#34;
+&lt;/blockquote&gt;
+This is going to show basic details for all build configurations in this project
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-buildconfigs.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click the &#34;dc-metro-map&#34; build config
+&lt;/blockquote&gt;
+You will see the summary of builds using this build config
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-buildconfigsummary.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click the &#34;Configuration&#34; tab (next to the active Summary tab)
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployconfigconfig.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+Now you can see the various configuration details including the Github specific and Generic webhook URLs.
+
+&lt;blockquote&gt;
+Copy the Generic webhook to the clipboard
+&lt;/blockquote&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Now switch back over to github&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionC&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseCOne&#34;&gt;
+          Github Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+Let&#39;s put the webhook URL into the repository. At the main page for this repository (the fork), you should see a tab bar with code, pull requests, pulse, graphs, and settings.
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-settings.png&#34; width=&#34;400&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click the &#34;Settings&#34; tab
+&lt;/blockquote&gt;
+
+Now you will see a vertical list of settings groups.&lt;br/&gt;&lt;br/&gt;
+
+&lt;blockquote&gt;
+Click the &#34;Webhooks &amp; services&#34; item
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-githubwebhooks.png&#34; width=&#34;600&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click the &#34;Add webhook&#34; button
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+Paste in the URL you copied
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+Disable SSL verification by clicking the button
+&lt;/blockquote&gt;
+&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; You can learn how to setup SSH in the secrets lab&lt;br/&gt;&lt;br/&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-githubwebhooks-add.png&#34; width=&#34;600&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click the button to &#34;Add webhook&#34;
+&lt;/blockquote&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Good work!  Now any &amp;ldquo;push&amp;rdquo; to the forked repository will send a webhook that triggers OpenShift to: re-build the code and image using s2i, and then perform a new pod deployment.  In fact Github should have sent a test trigger and OpenShift should have kicked off a new build already.&lt;/p&gt;
+
+&lt;h3 id=&#34;deployment-triggers&#34;&gt;Deployment Triggers&lt;/h3&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; In addition to setting up triggers for rebuilding code, we can setup a different type of &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/dev_guide/index.html&#34;&gt;trigger&lt;/a&gt; to deploy pods.  Deployment triggers can be due to a configuration change (e.g. environment variables) or due to an image change.  This powerful feature will be covered in one of the advanced labs.&lt;/p&gt;
+
+&lt;h3 id=&#34;rollbacks&#34;&gt;Rollbacks&lt;/h3&gt;
+
+&lt;p&gt;Well, what if something isn&amp;rsquo;t quite right with the latest version of our app?  Let&amp;rsquo;s say some feature we thought was ready for the world really isn&amp;rsquo;t - and we didn&amp;rsquo;t figure that out until after we deployed it.  No problem, we can roll it back with the click of a button.  Let&amp;rsquo;s check that out:&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionB&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseBOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc rollback dc-metro-map-1
+$ oc get pods -w
+{% endhighlight %}
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseBTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click on &#34;Applications&#34; and then click on &#34;Deployments&#34;
+&lt;/blockquote&gt;
+This is going to show basic details for all deployment configurations in this project
+
+&lt;blockquote&gt;
+Click the &#34;dc-metro-map&#34; deployment config
+&lt;/blockquote&gt;
+Toward the bottom of the screen you will see a table of deployments using this deployment config
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-deploymentconfigsummary.png&#34; width=&#34;600&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+In the Deployments table click the #1
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-rollbacks-deploymentconfig1.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click the &#34;Rollback button&#34;, accept defaults, and click &#34;Rollback&#34; again
+&lt;/blockquote&gt;
+
+You can go back to the overview page to see your previous deployment spinning down and your new one spinning up.
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;OpenShift has done a graceful removal of the old pod and created a new one.&lt;/p&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; The old pod wasn&amp;rsquo;t killed until the new pod was successfully started and ready to be used.  This is so that OpenShift could continue to route traffic to the old pod until the new one was ready.&lt;/p&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; You can integrate your CI/CD tools to do &lt;a href=&#34;https://en.wikipedia.org/wiki/Continuous_delivery&#34;&gt;rollbacks with the REST API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;summary-4&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;In this lab we saw how you can configure a source code repository to trigger builds with webhooks.  This webhook could come from Github, Jenkins, Travis-CI, or any tool capable of sending a URL POST.  Keep in mind that there are other types of build triggers you can setup.  For example: if a new version of the upstream RHEL image changes.  We also inspected our deployment history and did a rollback of our running deployment to one based on an older image with the click of a button.&lt;/p&gt;
+
+&lt;h1 id=&#34;replication-and-recovery&#34;&gt;Replication and Recovery&lt;/h1&gt;
+
+&lt;h2 id=&#34;things-will-go-wrong-and-that-s-why-we-have-replication-and-recovery&#34;&gt;Things will go wrong, and that&amp;rsquo;s why we have replication and recovery&lt;/h2&gt;
+
+&lt;p&gt;Things will go wrong with your software, or your hardware, or from something out of your control.  But we can plan for that failure, and planning for it let&amp;rsquo;s us minimize the impact.  OpenShift supports this via what we call replication and recovery.&lt;/p&gt;
+
+&lt;h3 id=&#34;replication&#34;&gt;Replication&lt;/h3&gt;
+
+&lt;p&gt;Let&amp;rsquo;s walk through a simple example of how the replication controller can keep your deployment at a desired state.  Assuming you still have the dc-metro-map project running we can manually scale up our replicas to handle increased user load.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordion&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordion&#34; href=&#34;#collapseOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and try the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc scale --replicas=4 dc/dc-metro-map
+{% endhighlight %}
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Check out the new pods:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc get pods
+{% endhighlight %}
+
+Notice that you now have 4 unique pods availble to inspect.  If you want go ahead and inspect them you can see that each have their own IP address and logs (oc describe).
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordion&#34; href=&#34;#collapseTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click &#34;Overview&#34;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+In the deployment, click the up arrow 3 times.
+&lt;/blockquote&gt;
+The deployment should indicate that it is scaling to 4 pods, and eventually you will have 4 running pods.  Keep in mind that each pod has it&#39;s own container which is an identical deployment of the webapp.  OpenShift is now (by default) round robin load-balancing traffic to each pod.
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-replicationrecovery-4pods.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Hover over the pod counter (the circle) and click
+&lt;/blockquote&gt;
+Notice that you now have 4 unique webapp pods available to inspect.  If you want go ahead and inspect them you can see that each have their own IP address and logs.
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-4podslist.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;So you&amp;rsquo;ve told OpenShift that you&amp;rsquo;d like to maintain 4 running, load-balanced, instances of our web app.&lt;/p&gt;
+
+&lt;h3 id=&#34;recovery&#34;&gt;Recovery&lt;/h3&gt;
+
+&lt;p&gt;OK, now that we have a slightly more interesting desired replication state, we can test a service outages scenario. In this scenario, the dc-metro-map replication controller will ensure that other pods are created to replace those that become unhealthy.  Let&amp;rsquo;s force inflict an issue and see how OpenShift reponds.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionB&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseBOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Choose a random pod and delete it:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc get pods
+$ oc delete pod/PODNAME
+$ oc get pods -w
+{% endhighlight %}
+
+If you&#39;re fast enough you&#39;ll see the pod you deleted go &#34;Terminating&#34; and you&#39;ll also see a new pod immediately get created and from &#34;Pending&#34; to &#34;Running&#34;.  If you weren&#39;t fast enough you can see that your old pod is gone and a new pod is in the list with an age of only a few seconds.
+
+&lt;br/&gt;&lt;br/&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt;  You can see the more details about your replication controller with: $ oc describe rc
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseBTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+Assuming you are in the browse pods list.
+
+&lt;blockquote&gt;
+Click one of the running pods (not a build pod)
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+Click the &#34;Actions&#34; button in the top right and then select &#34;Delete&#34;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-deletepod.png&#34; width=&#34;400&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Quick switch back to the Overview
+&lt;/blockquote&gt;
+
+If you&#39;re fast enough you&#39;ll see the pod you deleted unfill a portion of the deployment circle, and then a new pod fill it back up.  You can browse the pods list again to see the old pod was deleted and a new pod with an age of &#34;a few seconds&#34; has been created to replace it.
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-podrecovery.png&#34; width=&#34;600&#34;/&gt;&lt;/p&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;application-health&#34;&gt;Application Health&lt;/h3&gt;
+
+&lt;p&gt;In addition to the health of your application&amp;rsquo;s pods, OpenShift will watch the containers inside those pods.  Let&amp;rsquo;s force inflict some issues and see how OpenShift reponds.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionC&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseCOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Choose a running pod and shell into it:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc get pods
+$ oc exec PODNAME -it /bin/bash
+{% endhighlight %}
+
+You are now executing a bash shell running in the container of the pod.  Let&#39;s kill our webapp and see what happens.
+&lt;br/&gt;&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; If we had multiple containers in the pod we could use &#34;-c CONTAINER_NAME&#34; to select the right one
+&lt;br/&gt;&lt;br/&gt;
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Choose a running pod and shell into its container:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ pkill -9 node
+{% endhighlight %}
+
+This will kick you out off the container with an error like &#34;Error executing command in container&#34;
+
+&lt;br/&gt;&lt;br/&gt;
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Do it again - shell in and execute the same command to kill node
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Watch for the container restart
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc get pods -w
+{% endhighlight %}
+
+If a container dies multiple times quickly, OpenShift is going to put the pod in a CrashBackOff state.  This ensures the system doesn&#39;t waste resources trying to restart containers that are continuously crashing.
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseCTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Navigate to browse the pods list, and click on a running pod
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+In the tab bar for this pod, click on &#34;Terminal&#34;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+Click inside the terminal view and type $ pkill -9 node
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-terminal.png&#34; width=&#34;400&#34;/&gt;&lt;/p&gt;
+
+This is going to kill the node.js web server and kick you off the container.
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-terminalkick.png&#34; width=&#34;400&#34;/&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+Click the refresh button (on the terminal) and do that a couple more times
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+Go back to the pods list
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-backoff.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+The container died multiple times so quickly that OpenShift is going to put the pod in a CrashBackOff state.  This ensures the system doesn&#39;t waste resources trying to restart containers that are continuously crashing.
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;clean-up&#34;&gt;Clean up&lt;/h3&gt;
+
+&lt;p&gt;Let&amp;rsquo;s scale back down to 1 replica.  If you are using the web console just click the down arrow from the Overview page.  If you are using the command line use the &amp;ldquo;oc scale&amp;rdquo; command.&lt;/p&gt;
+
+&lt;h2 id=&#34;summary-5&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;In this lab we learned about replication controllers and how they can be used to scale your applications and services.  We also tried to break a few things and saw how OpenShift responded to heal the system and keep it running.  This topic can get deeper than we&amp;rsquo;ve experimented with here, but getting deeper into application health and recovery is an advanced topic.  If you&amp;rsquo;re interested you can read more about it in the documentation &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html&#34;&gt;here&lt;/a&gt;, &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/dev_guide/index.html&#34;&gt;here&lt;/a&gt;, and &lt;a href=&#34;http://developers.redhat.com/products/cdk/overview/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;labels&#34;&gt;Labels&lt;/h1&gt;
+
+&lt;h2 id=&#34;labels-1&#34;&gt;Labels&lt;/h2&gt;
+
+&lt;p&gt;This is a pretty simple lab, we are going to explore labels.  You can use labels to organize, group, or select API objects.&lt;/p&gt;
+
+&lt;p&gt;For example, pods are &amp;ldquo;tagged&amp;rdquo; with labels, and then services use label selectors to identify the pods they proxy to. This makes it possible for services to reference groups of pods, even treating pods with potentially different docker containers as related entities.&lt;/p&gt;
+
+&lt;h3 id=&#34;labels-a-on-pod&#34;&gt;Labels a on pod&lt;/h3&gt;
+
+&lt;p&gt;In a previous lab we added our web app using a S2I template.  When we did that, OpenShift labeled our objects for us.  Let&amp;rsquo;s look at the labels on our running pod.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordion&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordion&#34; href=&#34;#collapseOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and try the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc get pods
+$ oc describe pod/PODNAME | more
+{% endhighlight %}
+
+You can see the Labels automatically added contain the app, deployment, and deploymentconfig.  Let&#39;s add a new label to this pod.
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Add a label
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc label pod/PODNAME testdate=4.30.2016 testedby=mylastname
+{% endhighlight %}
+
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Look at the labels
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc describe pod/PODNAME | more
+{% endhighlight %}
+
+
+&lt;i class=&#34;fa fa-info-circle&#34;&gt;&lt;/i&gt; Here&#39;s a handy way to search through all objects and look at all the labels:&lt;br/&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; oc describe all | grep -i &#34;labels:&#34;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordion&#34; href=&#34;#collapseTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+&lt;blockquote&gt;
+Click &#34;Applications&#34; and then click on &#34;Pods&#34;
+&lt;/blockquote&gt;
+This is going to show basic details for all pods in this project (including the builders).
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-allpods.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+Next let&#39;s look at the log for the pod running our application.
+
+&lt;blockquote&gt;
+Click the pod for the dc metro map webapp (it shoud have a status of Running)
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-labels-poddetails.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+Here, at the top, you can see the labels on this pod
+
+&lt;blockquote&gt;
+Click the &#34;Actions&#34; button, then click &#34;Edit YAML&#34; for the pod
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-labels-podedit.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+You will see all the labels under the metadata-&gt;labels section.
+
+&lt;blockquote&gt;
+Add a new label into the labels section
+&lt;/blockquote&gt;
+Your updated label will show up in the pod&#39;s list.
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;summary-6&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;That&amp;rsquo;s it for this lab, now you know that all the objects in OpenShift can be labeled.  This is important because those labels can be used as part of your CI/CD process.  Advanced labs will cover using labels for Blue/Green deployments and running yours apps on specific nodes (e.g. just on SSD nodes or just on east coast nodes).  You can read more about labels &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/dev_guide/index.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;ci-cd-pipelines&#34;&gt;CI | CD Pipelines&lt;/h1&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;In modern software projects many teams utilize the concept of continuous integration and continuous delivery (CI/CD).  By setting up a tool chain that continuously builds, tests, and stages software releases a team can ensure that their product can be reliably released at any time.  OpenShift can be an enabler in the creation and managecment of this tool chain.  In this lab we will walk through creating a simple example of a CI/CD &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html&#34;&gt;pipeline&lt;/a&gt; utlizing Jenkins, all running on top of OpenShift!&lt;/p&gt;
+
+&lt;h3 id=&#34;start-by-creating-a-new-project&#34;&gt;Start by creating a new project&lt;/h3&gt;
+
+&lt;p&gt;To begin, we will create a new project. Name the new project &amp;ldquo;cicd&amp;rdquo;.&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionAa&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingAaOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionAa&#34; href=&#34;#collapseAaOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseAaOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseAaOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingAaOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        &lt;blockquote&gt;
+        &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+        &lt;/blockquote&gt;
+        {% highlight csh %}
+        $ oc new-project cicd
+        {% endhighlight %}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionAa&#34; href=&#34;#collapseAaTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseAaTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseAaTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingAaTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+        &lt;blockquote&gt;Browse to original landing page, and click &#34;New Project&#34;.&lt;/blockquote&gt;
+        &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-new-project.png&#34; width=&#34;100&#34;/&gt;&lt;/p&gt;
+        &lt;blockquote&gt;Fill in the name of the project as &#34;cicd&#34; and click &#34;Create&#34;&lt;/blockquote&gt;
+        &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-new-project-detail.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;start-by-installing-jenkins&#34;&gt;Start by installing Jenkins&lt;/h3&gt;
+
+&lt;p&gt;First we will start by installing Jenkins to run in a pod within your workshop project.  Because this is just a workshop we use the ephemeral template to create our Jenkins sever (for a enterprise system you would probably want to use the persistent template).  Follow the steps below:&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionA&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseAOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseAOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseAOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        &lt;blockquote&gt;
+        &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+        &lt;/blockquote&gt;
+        {% highlight csh %}
+        $ oc new-app --template=jenkins-ephemeral -p JENKINS_PASSWORD=password
+        $ oc expose svc jenkins
+        $ oc policy add-role-to-user edit -z default
+        {% endhighlight %}
+
+        &lt;blockquote&gt;Copy hostname and paste in browser&#39;s address bar...&lt;/blockquote&gt;
+
+        {% highlight csh %}
+        $ oc get routes | grep &#39;jenkins&#39; | awk &#39;{print $2}&#39;
+        {% endhighlight %}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseATwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseATwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseATwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+        &lt;blockquote&gt;Click &#34;Add to Project&#34;, click &#34;Browse Catalog&#34; select &#34;jenkins-ephemeral&#34;.&lt;/blockquote&gt;
+        &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-jenkins-ephemeral.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+        &lt;blockquote&gt;Click &#34;continue to overview&#34;, wait for it to start&lt;/blockquote&gt;
+        &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-jenkins-start.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+  
+        &lt;blockquote&gt;Click the service link to open jenkins, login as admin/password&lt;/blockquote&gt;
+        &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-jenkins-login.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;the-openshift-pipeline-plugin&#34;&gt;The OpenShift pipeline plugin&lt;/h3&gt;
+
+&lt;p&gt;Now let&amp;rsquo;s make sure we have the OpenShift Pipeline &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/dev_guide/index.html&#34;&gt;plugin&lt;/a&gt; properly installed within Jenkins.  It will be used to define our application lifecycle and to let our Jenkins jobs perform commands on our OpenShift cluster. It is possible that the plugin is already installed in your environment, so use these steps to verify if it is installed and install it if is not.
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionB&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseBOne&#34;&gt;
+          Install OSE Plugin Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+  &lt;blockquote&gt;Click &amp;ldquo;Manage Jenkins&amp;rdquo;&lt;/blockquote&gt;
+  &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-manage-jenkins.png&#34; width=&#34;100&#34; height=&#34;100&#34;/&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;blockquote&gt;Click on &amp;ldquo;Manage Plugins&amp;rdquo;&lt;/blockquote&gt;
+  &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-manage-plugins.png&#34; width=&#34;500&#34; /&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;blockquote&gt;Click on &amp;ldquo;Available&amp;rdquo; tab, and filter on &amp;ldquo;openshift&amp;rdquo;. Find the&amp;rdquo;Openshift Pipeline Jenkins Plugin&amp;rdquo;. If it is not installed, then install it.&lt;/blockquote&gt;
+  &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-jenkins-plugin.png&#34; width=&#34;700&#34; /&gt;&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;You can read more about the plugin &lt;a href=&#34;http://developers.redhat.com/products/cdk/overview/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;our-deployments&#34;&gt;Our deployments&lt;/h3&gt;
+
+&lt;p&gt;In this example pipeline we will be building, tagging, staging and scaling a Node.js webapp.  We wrote all the code for you already, so don&amp;rsquo;t worry you won&amp;rsquo;t be coding in this lab.  You will just use the code and unit tests to see how CI/CD pipelines work.  And keep in mind that these principles are relevant whether your programming in Node.js, Ruby on Rails, Java, PHP or any one of today&amp;rsquo;s popular programming languages.&lt;/p&gt;
+
+&lt;blockquote&gt;Fork the project into your own GitHub account&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-fork.png&#34; width=&#34;700&#34; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;Create a dev deployment based on the forked repo
+&lt;/blockquote&gt;
+&lt;blockquote&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:&lt;/blockquote&gt;
+&lt;p&gt;
+{% highlight csh %}
+$ oc new-app https://github.com/YOUR_ACCOUNT/openshift-workshops.git \
+   --name=dev --context-dir=dc-metro-map
+$ oc expose svc/dev
+{% endhighlight %}&lt;/p&gt;
+
+&lt;blockquote&gt;Create a test deployment based on a tag of the dev ImageStream
+&lt;/blockquote&gt;
+&lt;blockquote&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:&lt;/blockquote&gt;
+&lt;p&gt;
+{% highlight csh %}
+$ oc new-app dev:readyToTest --name=test --allow-missing-imagestream-tags
+$ oc expose dc/test --port 8080
+$ oc expose svc/test
+{% endhighlight %}&lt;/p&gt;
+
+#### Setup Jekins jobs to use their openshift image stream (which is off your GitHub fork)
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionC&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseCOne&#34;&gt;
+          Steps to Create Jenkins Job
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+&lt;blockquote&gt;click &#34;New Item&#34;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-new-item.png&#34; width=&#34;500&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;call it yourname-ci-devel, select freestyle, click OK&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-name-job.png&#34; width=&#34;500&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;Click add build step and choose &#34;Tag OpenShift Image&#34;. Enter in all the info, tag as &#34;readyToTest&#34;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-new-tag.png&#34; width=&#34;700&#34; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;In the &#34;Post-build actions&#34; subsection click &#34;Add post-build action&#34; and select &#34;Build other projects&#34;. Type in &#34;yourname-ci-deploytotest&#34;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-build-other-project.png&#34; width=&#34;500&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;Click &#34;Save&#34;, don&#39;t worry about the error here, we are about to build that Jenkins job.&lt;/blockquote&gt;
+
+&lt;p&gt;
+&lt;b&gt;Notes:&lt;/b&gt; You will not need the URL of the OpenShift api endpoint or the Authorization Token&lt;br/&gt;
+to get this to work
+&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+#### Connecting the pipeline for dev-&gt;test
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionD&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingDOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionD&#34; href=&#34;#collapseDOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseDOne&#34;&gt;
+          Steps to Connect Pipeline
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseDOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingDOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+&lt;blockquote&gt;Click &#34;Back to dashboard&#34;&lt;/blockquote&gt;
+&lt;blockquote&gt;Click &#34;New Item&#34;&lt;/blockquote&gt;
+&lt;blockquote&gt;Call it &#34;yourname-ci-deploytotest&#34;, select &#34;freestyle&#34;, click &#34;OK&#34;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-deploy-to-test.png&#34; width=&#34;500&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;Click add build step and choose &#34;Execute shell&#34;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-add-exec.png&#34; width=&#34;200&#34; /&gt;&lt;/p&gt;
+Additional steps could go here. For now let&#39;s just add some bash to the text area:
+{% highlight csh %}
+echo &#34;inside my jenkins job&#34;
+{% endhighlight%}
+&lt;blockquote&gt;Click add build step and choose &#34;Trigger OpenShift Deployment&#34;.&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-trigger-deployment.png&#34; width=&#34;700&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;Click add build step and choose &#34;Scale OpenShift Deployment&#34;.&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-scale-deployment.png&#34; width=&#34;700&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;Click &#34;Save&#34;.&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-save.png&#34; width=&#34;200&#34; /&gt;&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+### Watch me release!
+
+At this point you should see the following scenario play out:
+
+  * Inside of Jenkins, you will click the dev pipline that was created we created. On the left-hand side you will see an option to &lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-build-now.png&#34; width=&#34;100&#34; /&gt;. When you click this, the first job will begin to run. 
+
+  * This first job will use the OpenShift Pipeline plugin to create a new tag of the image called &#34;readyToTest&#34;.
+
+  * When this job completes, a second job will execute. This second job cause the deployment to initiate of our test application and then scale the test application to 2 pods.
+
+  * You can see the history of this new tag by browsing to initiate two jobs in the pipeline with the final step being the new tag of &#34;readyToTest&#34;. The new tag can then be used for automatic or manual builds of the new test application. You can view the status of the new tag in OpenShift by browsing to Builds -&gt; Images -&gt; your image stream
+
+  &lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-image-stream-view.png&#34; width=&#34;700&#34; /&gt;&lt;/p&gt; 
+
+&lt;h2 id=&#34;summary-7&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Coming soon&amp;hellip;  Read more about usage of &lt;a href=&#34;http://developers.redhat.com/products/cdk/docs-and-apis/&#34;&gt;Jenkins on OpenShift here&lt;/a&gt;.  Read more about the concepts behind &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html&#34;&gt;pipelines in Jenkins here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;blue-green-deployment&#34;&gt;Blue | Green Deployment&lt;/h1&gt;
+
+&lt;h2 id=&#34;blue-green-deployments&#34;&gt;Blue/Green deployments&lt;/h2&gt;
+
+&lt;p&gt;When implementing continuous delivery for your software one very useful technique is called Blue/Green deployments.  It addresses the desire to minimize downtime during the release of a new version of an application to production.  Essentially, it involves running two production versions of your app side-by-side and then switching the routing from the last stable version to the new version once it is verified.  Using OpenShift, this can be very seamless because using containers we can easily and rapidly deploy a duplicate infrastructure to support alternate versions and modify routes as a service.  In this lab, we will walk through a simple Blue/Green workflow with an simple web application on OpenShift.&lt;/p&gt;
+
+&lt;h3 id=&#34;before-starting&#34;&gt;Before starting&lt;/h3&gt;
+
+&lt;p&gt;Before we get started with the Blue/Green deployment lab, let us clean up some of the projects from the previous lab.
+{% highlight csh %}
+$ oc delete all -l app=jenkins-ephemeral
+$ oc delete all -l app=dev
+$ oc delete all -l app=test
+{% endhighlight %}&lt;/p&gt;
+
+&lt;h3 id=&#34;let-s-deploy-an-application&#34;&gt;Let&amp;rsquo;s deploy an application&lt;/h3&gt;
+
+&lt;p&gt;To demonstrate Blue/Green deployments, we&amp;rsquo;ll use a simple application that renders a colored box as an example. Using your GitHub account, please fork the following &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html&#34;&gt;project&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You should be comfortable deploying an app at this point, but here are the steps anyway:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type these commands:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;{% highlight csh %}
+$ oc new-app &amp;ndash;name=green [your-project-repo-url] &amp;ndash;context-dir=dc-metro-map
+$ oc expose service green
+{% endhighlight %}&lt;/p&gt;
+
+&lt;p&gt;Note that we exposed this application using a route named &amp;ldquo;green&amp;rdquo;. Wait for the application to become available, then navigate to your application and validate it deployed correctly.&lt;/p&gt;
+
+&lt;h3 id=&#34;release-a-new-version-of-our-app-and-test-it-in-the-same-environment&#34;&gt;Release a new version of our app and test it in the same environment&lt;/h3&gt;
+
+&lt;p&gt;What we&amp;rsquo;ll do next is create a new version of the application called &amp;ldquo;blue&amp;rdquo;. The quickest way to make a change to the code is directly in the GitHub web interface. In GitHub, edit the dc-metro-map/views/dcmetro.jade file in your repo.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-editgithub.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;We can change the text labels indicated by name of a color. If you want to change the label for the &amp;ldquo;Red Line&amp;rdquo;, change line 22 from &amp;ldquo;Red Line&amp;rdquo; to  &amp;ldquo;Silver Line&amp;rdquo;. These changes will be easily viewable on the main screen of the application.&lt;/p&gt;
+
+&lt;p&gt;Use the same commands to deploy this new version of the app, but this time name the service &amp;ldquo;blue&amp;rdquo;. No need to expose a new route &amp;ndash; we&amp;rsquo;ll instead switch the &amp;ldquo;green&amp;rdquo; route to point to the &amp;ldquo;blue&amp;rdquo; service once we&amp;rsquo;ve verified it.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type these commands:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;{% highlight csh %}
+$ oc new-app &amp;ndash;name=blue [your-project-repo-url] &amp;ndash;context-dir=dc-metro-map
+{% endhighlight %}&lt;/p&gt;
+
+&lt;p&gt;Wait for the &amp;ldquo;blue&amp;rdquo; application to become avialable before proceeding.&lt;/p&gt;
+
+&lt;h3 id=&#34;switch-from-green-to-blue&#34;&gt;Switch from Green to Blue&lt;/h3&gt;
+
+&lt;p&gt;Now that we are satisfied with our change we can do the Green/Blue switch.  With OpenShift services and routes, this is super simple.  Follow the steps below to make the switch:&lt;/p&gt;
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionA&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseAOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseAOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseAOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+      
+&lt;blockquote&gt;
+&lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+&lt;/blockquote&gt;
+{% highlight csh %}
+$ oc edit route green
+{% endhighlight %}
+
+This will bring up the Route configuration yaml. Edit the element spec: to: name and change it&#39;s value from &#34;green&#34; to &#34;blue&#34;.
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseATwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseATwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseATwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+Navigate to the Routes view from the left-hand menu:
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-navtoroutes.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+In your Routes overview, click on the &#34;green&#34; route:
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-routesoverview.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+
+In the Route detail page, click on Actions &gt; Edit:
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-routedetail.png&#34; width=&#34;300&#34;/&gt;&lt;/p&gt;
+
+Edit the Route: select the name dropdown and change the value from &#34;green&#34; to &#34;blue&#34;:
+&lt;p&gt;&lt;img src=&#34;{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-edit.png&#34; width=&#34;500&#34;/&gt;&lt;/p&gt;
+      
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!--### Good work, let&#39;s clean this up
+&gt; &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Let&#39;s clean up all this to get ready for the next lab:
+
+{% highlight csh %}
+$ oc delete all -l subproject=dc-busses
+{% endhighlight %}
+--&gt;
+
+&lt;h2 id=&#34;summary-8&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Pretty easy, right?&lt;/p&gt;
+
+&lt;p&gt;If you want to read more about Blue/Green check out &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/dev_guide/index.html&#34;&gt;this post&lt;/a&gt; with a longer description as well as links to additional resources.&lt;/p&gt;
+
+&lt;h1 id=&#34;workshop-is-done&#34;&gt;Workshop is Done&lt;/h1&gt;
+
+&lt;h2 id=&#34;that-s-it&#34;&gt;That&amp;rsquo;s it!&lt;/h2&gt;
+
+&lt;p&gt;Hopefully, these labs provided you some idea of how to perform common tasks within the OpenShift environment.  And hopefully, you have a deeper understanding of how containers and container orchestration works.  Please feel free to continue to &amp;ldquo;kick the tires&amp;rdquo; in the demo environment we&amp;rsquo;ve setup and explore both the web console and the oc command line client.&lt;/p&gt;
+
+&lt;h2 id=&#34;get-even-deeper&#34;&gt;Get even deeper&lt;/h2&gt;
+
+&lt;p&gt;While you&amp;rsquo;re here, we can help you install the &lt;a href=&#34;http://developers.redhat.com/products/cdk/overview/&#34;&gt;Container Development Kit (CDK)&lt;/a&gt; on your laptop.  It requires a couple large downloads, but the install process is reallly easy.  You can find the &lt;a href=&#34;http://developers.redhat.com/products/cdk/docs-and-apis/&#34;&gt;install and getting started guides here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here are some good resources to continue learning OpenShift:
+* &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html&#34;&gt;OpenShift Architecture&lt;/a&gt;
+* &lt;a href=&#34;https://docs.openshift.com/container-platform/3.3/dev_guide/index.html&#34;&gt;OpenShift Developer&amp;rsquo;s Guide&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Template Variables</title>
+      <link>https://dischord01.github.io/workshops/toc/</link>
+      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://dischord01.github.io/workshops/toc/</guid>
+      <description>
+
+&lt;h1 id=&#34;template-variables&#34;&gt;Template Variables&lt;/h1&gt;
+
+&lt;p&gt;Hugo makes a set of values available to the templates. Go templates are context based. The following
+are available in the context for the templates.&lt;/p&gt;
+
+&lt;h2 id=&#34;page-variables&#34;&gt;Page Variables&lt;/h2&gt;
+
+&lt;p&gt;The following is a list of most of the accessible variables which can be
+defined for a piece of content. Many of these will be defined in the front
+matter, content or derived from file location.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;See also:&lt;/strong&gt; &lt;a href=&#34;https://dischord01.github.io/extras/scratch&#34;&gt;Scratch&lt;/a&gt; for page-scoped writable variables.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;.Content&lt;/strong&gt; The content itself, defined below the front matter.&lt;br&gt;
+&lt;strong&gt;.Data&lt;/strong&gt; The data specific to this type of page.&lt;br&gt;
+&lt;strong&gt;.Date&lt;/strong&gt; The date the page is associated with.&lt;br&gt;
+&lt;strong&gt;.Description&lt;/strong&gt; The description for the page.&lt;br&gt;
+&lt;strong&gt;.Draft&lt;/strong&gt; A boolean, &lt;code&gt;true&lt;/code&gt; if the content is marked as a draft in the front matter.&lt;br&gt;
+&lt;strong&gt;.ExpiryDate&lt;/strong&gt; The date where the content is scheduled to expire on.&lt;br&gt;
+&lt;strong&gt;.FuzzyWordCount&lt;/strong&gt; The approximate number of words in the content.&lt;br&gt;
+&lt;strong&gt;.Hugo&lt;/strong&gt; See &lt;a href=&#34;#hugo-variables&#34;&gt;Hugo Variables&lt;/a&gt; below.&lt;br&gt;
+&lt;strong&gt;.IsHome&lt;/strong&gt; True if this is the home page.&lt;br&gt;
+&lt;strong&gt;.IsNode&lt;/strong&gt; Always false for regular content pages.&lt;br&gt;
+&lt;strong&gt;.IsPage&lt;/strong&gt; Always true for regular content pages.&lt;br&gt;
+&lt;strong&gt;.IsTranslated&lt;/strong&gt; Whether there are any translations to display.&lt;br&gt;
+&lt;strong&gt;.Keywords&lt;/strong&gt; The meta keywords for this content.&lt;br&gt;
+&lt;strong&gt;.Kind&lt;/strong&gt; What &lt;em&gt;kind&lt;/em&gt; of page is this: is one of &lt;em&gt;page, home, section, taxonomy or taxonomyTerm.&lt;/em&gt; There are also &lt;em&gt;RSS, sitemap, robotsTXT and 404&lt;/em&gt;, but these will only available during rendering of that kind of page, and not available in any of the &lt;code&gt;Pages&lt;/code&gt; collections.&lt;br&gt;
+&lt;strong&gt;.Lang&lt;/strong&gt; Language taken from the language extension notation.&lt;br&gt;
+&lt;strong&gt;.Language&lt;/strong&gt; A language object that points to this the language&amp;rsquo;s definition in the site config.&lt;br&gt;
+&lt;strong&gt;.Lastmod&lt;/strong&gt; The date the content was last modified.&lt;br&gt;
+&lt;strong&gt;.LinkTitle&lt;/strong&gt; Access when creating links to this content. Will use &lt;code&gt;linktitle&lt;/code&gt; if set in front matter, else &lt;code&gt;title&lt;/code&gt;.&lt;br&gt;
+&lt;strong&gt;.Next&lt;/strong&gt; Pointer to the following content (based on pub date).&lt;br&gt;
+&lt;strong&gt;.NextInSection&lt;/strong&gt; Pointer to the following content within the same section (based on pub date)&lt;br&gt;
+&lt;strong&gt;.Pages&lt;/strong&gt; a collection of associated pages. This will be nil for regular content pages. This is an alias for &lt;strong&gt;.Data.Pages&lt;/strong&gt;.&lt;br&gt;
+&lt;strong&gt;.Permalink&lt;/strong&gt; The Permanent link for this page.&lt;br&gt;
+&lt;strong&gt;.Prev&lt;/strong&gt; Pointer to the previous content (based on pub date).&lt;br&gt;
+&lt;strong&gt;.PrevInSection&lt;/strong&gt; Pointer to the previous content within the same section (based on pub date). For example, &lt;code&gt;{{if .PrevInSection}}{{.PrevInSection.Permalink}}{{end}}&lt;/code&gt;.&lt;br&gt;
+&lt;strong&gt;.PublishDate&lt;/strong&gt; The date the content is published on.&lt;br&gt;
+&lt;strong&gt;.RSSLink&lt;/strong&gt; Link to the taxonomies&amp;rsquo; RSS link.&lt;br&gt;
+&lt;strong&gt;.RawContent&lt;/strong&gt; Raw Markdown content without the metadata header. Useful with &lt;a href=&#34;http://remarkjs.com&#34;&gt;remarkjs.com&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;.ReadingTime&lt;/strong&gt; The estimated time it takes to read the content in minutes.&lt;br&gt;
+&lt;strong&gt;.Ref&lt;/strong&gt; Returns the permalink for a given reference.  Example: &lt;code&gt;.Ref &amp;quot;sample.md&amp;quot;&lt;/code&gt;. See &lt;a href=&#34;No page found with path or logical name &#34;extras/crossreferences.md&#34;.
+&#34;&gt;cross-references&lt;/a&gt;. Does not handle in-page fragments correctly.&lt;br&gt;
+&lt;strong&gt;.RelPermalink&lt;/strong&gt; The Relative permanent link for this page.&lt;br&gt;
+&lt;strong&gt;.RelRef&lt;/strong&gt; Returns the relative permalink for a given reference.  Example: &lt;code&gt;RelRef &amp;quot;sample.md&amp;quot;&lt;/code&gt;. See &lt;a href=&#34;No page found with path or logical name &#34;extras/crossreferences.md&#34;.
+&#34;&gt;cross-references&lt;/a&gt;. Does not handle in-page fragments.&lt;br&gt;
+&lt;strong&gt;.Section&lt;/strong&gt; The &lt;a href=&#34;https://dischord01.github.io/content/sections/&#34;&gt;section&lt;/a&gt; this content belongs to.&lt;br&gt;
+&lt;strong&gt;.Site&lt;/strong&gt; See &lt;a href=&#34;#site-variables&#34;&gt;Site Variables&lt;/a&gt; below.&lt;br&gt;
+&lt;strong&gt;.Summary&lt;/strong&gt; A generated summary of the content for easily showing a snippet in a summary view. Note that the breakpoint can be set manually by inserting &lt;code&gt;&amp;lt;!&amp;#x2d;&amp;#x2d;more&amp;#x2d;&amp;#x2d;&amp;gt;&lt;/code&gt; at the appropriate place in the content page.  See &lt;a href=&#34;https://dischord01.github.io/content/summaries/&#34;&gt;Summaries&lt;/a&gt; for more details.&lt;br&gt;
+&lt;strong&gt;.TableOfContents&lt;/strong&gt; The rendered table of contents for this content.&lt;br&gt;
+&lt;strong&gt;.Title&lt;/strong&gt;  The title for this page.&lt;br&gt;
+&lt;strong&gt;.Translations&lt;/strong&gt; A list of translated versions of the current page. See &lt;a href=&#34;No page found with path or logical name &#34;content/multilingual.md&#34;.
+&#34;&gt;Multilingual&lt;/a&gt; for more info.&lt;br&gt;
+&lt;strong&gt;.Truncated&lt;/strong&gt; A boolean, &lt;code&gt;true&lt;/code&gt; if the &lt;code&gt;.Summary&lt;/code&gt; is truncated.  Useful for showing a &amp;ldquo;Read more&amp;hellip;&amp;rdquo; link only if necessary.  See &lt;a href=&#34;https://dischord01.github.io/content/summaries/&#34;&gt;Summaries&lt;/a&gt; for more details.&lt;br&gt;
+&lt;strong&gt;.Type&lt;/strong&gt; The content &lt;a href=&#34;https://dischord01.github.io/content/types/&#34;&gt;type&lt;/a&gt; (e.g. post).&lt;br&gt;
+&lt;strong&gt;.URL&lt;/strong&gt; The relative URL for this page. Note that if &lt;code&gt;URL&lt;/code&gt; is set directly in frontmatter, that URL is returned as-is.&lt;br&gt;
+&lt;strong&gt;.UniqueID&lt;/strong&gt; The MD5-checksum of the content file&amp;rsquo;s path&lt;br&gt;
+&lt;strong&gt;.Weight&lt;/strong&gt; Assigned weight (in the front matter) to this content, used in sorting.&lt;br&gt;
+&lt;strong&gt;.WordCount&lt;/strong&gt; The number of words in the content.&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;page-params&#34;&gt;Page Params&lt;/h2&gt;
+
+&lt;p&gt;Any other value defined in the front matter, including taxonomies, will be made available under &lt;code&gt;.Params&lt;/code&gt;.
+For example, the &lt;em&gt;tags&lt;/em&gt; and &lt;em&gt;categories&lt;/em&gt; taxonomies are accessed with:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;.Params.tags&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;.Params.categories&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;All Params are only accessible using all lowercase characters.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This is particularly useful for the introduction of user defined fields in content files. For example, a Hugo website on book reviews could have in the front matter of &lt;code&gt;/content/review/book01.md&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;---
+...
+affiliatelink: &amp;quot;http://www.my-book-link.here&amp;quot;
+recommendedby: &amp;quot;my Mother&amp;quot;
+---
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which would then be accessible to a template at &lt;code&gt;/themes/yourtheme/layouts/review/single.html&lt;/code&gt; through &lt;code&gt;.Params.affiliatelink&lt;/code&gt; and &lt;code&gt;.Params.recommendedby&lt;/code&gt;, respectively. Two common situations where these could be introduced are as a value of a certain attribute (like &lt;code&gt;href=&amp;quot;&amp;quot;&lt;/code&gt; below) or by itself to be displayed. Sample syntaxes include:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;h3&amp;gt;&amp;lt;a href={{ printf &amp;quot;%s&amp;quot; $.Params.affiliatelink }}&amp;gt;Buy this book&amp;lt;/a&amp;gt;&amp;lt;/h3&amp;gt;
+&amp;lt;p&amp;gt;It was recommended by {{ .Params.recommendedby }}.&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which would render&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;h3&amp;gt;&amp;lt;a href=&amp;quot;http://www.my-book-link.here&amp;quot;&amp;gt;Buy this book&amp;lt;/a&amp;gt;&amp;lt;/h3&amp;gt;
+&amp;lt;p&amp;gt;It was recommended by my Mother.&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;See also:&lt;/strong&gt; &lt;a href=&#34;No page found with path or logical name &#34;content/archetypes.md&#34;.
+&#34;&gt;Archetypes&lt;/a&gt; for consistency of &lt;code&gt;Params&lt;/code&gt; across pieces of content.&lt;/p&gt;
+
+&lt;h3 id=&#34;param-method&#34;&gt;Param method&lt;/h3&gt;
+
+&lt;p&gt;In Hugo you can declare params both for the site and the individual page. A
+common use case is to have a general value for the site and a more specific
+value for some of the pages (i.e. a header image):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{{ $.Param &amp;quot;header_image&amp;quot; }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;.Param&lt;/code&gt; method provides a way to resolve a single value whether it&amp;rsquo;s
+in a page parameter or a site parameter.&lt;/p&gt;
+
+&lt;p&gt;When frontmatter contains nested fields, like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;---
+author:
+  given_name: John
+  family_name: Feminella
+  display_name: John Feminella
+---
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;then &lt;code&gt;.Param&lt;/code&gt; can access them by concatenating the field names together with a
+dot:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{{ $.Param &amp;quot;author.display_name&amp;quot; }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If your frontmatter contains a top-level key that is ambiguous with a nested
+key, as in the following case,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;---
+favorites.flavor: vanilla
+favorites:
+  flavor: chocolate
+---
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;then the top-level key will be preferred. In the previous example, this&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{{ $.Param &amp;quot;favorites.flavor&amp;quot; }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;will print &lt;code&gt;vanilla&lt;/code&gt;, not &lt;code&gt;chocolate&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;taxonomy-terms-page-variables&#34;&gt;Taxonomy Terms Page Variables&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://dischord01.github.io/templates/terms/&#34;&gt;Taxonomy Terms&lt;/a&gt; pages are of the type &lt;code&gt;Page&lt;/code&gt; and have the following additional variables. These are available in &lt;code&gt;layouts/_defaults/terms.html&lt;/code&gt; for example.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;.Data.Singular&lt;/strong&gt; The singular name of the taxonomy&lt;br&gt;
+&lt;strong&gt;.Data.Plural&lt;/strong&gt; The plural name of the taxonomy&lt;br&gt;
+&lt;strong&gt;.Data.Pages&lt;/strong&gt; the list of pages in this taxonomy&lt;br&gt;
+&lt;strong&gt;.Data.Terms&lt;/strong&gt; The taxonomy itself&lt;br&gt;
+&lt;strong&gt;.Data.Terms.Alphabetical&lt;/strong&gt; The Terms alphabetized&lt;br&gt;
+&lt;strong&gt;.Data.Terms.ByCount&lt;/strong&gt; The Terms ordered by popularity&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;The last two can also be reversed: &lt;strong&gt;.Data.Terms.Alphabetical.Reverse&lt;/strong&gt;, &lt;strong&gt;.Data.Terms.ByCount.Reverse&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;taxonomies-elsewhere&#34;&gt;Taxonomies elsewhere&lt;/h3&gt;
+
+&lt;p&gt;The &lt;strong&gt;.Site.Taxonomies&lt;/strong&gt; variable holds all taxonomies defines site-wide.  It is a map of the taxonomy name to a list of its values. For example: &amp;ldquo;tags&amp;rdquo; -&amp;gt; [&amp;ldquo;tag1&amp;rdquo;, &amp;ldquo;tag2&amp;rdquo;, &amp;ldquo;tag3&amp;rdquo;]. Each value, though, is not a string but rather a &lt;a href=&#34;#the-taxonomy-variable&#34;&gt;Taxonomy variable&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-taxonomy-variable&#34;&gt;The Taxonomy variable&lt;/h4&gt;
+
+&lt;p&gt;The Taxonomy variable, available as &lt;strong&gt;.Site.Taxonomies.tags&lt;/strong&gt; for example, contains the list of tags (values) and, for each of those, their corresponding content pages.&lt;/p&gt;
+
+&lt;h2 id=&#34;site-variables&#34;&gt;Site Variables&lt;/h2&gt;
+
+&lt;p&gt;Also available is &lt;code&gt;.Site&lt;/code&gt; which has the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;.Site.BaseURL&lt;/strong&gt; The base URL for the site as defined in the site configuration file.&lt;br&gt;
+&lt;strong&gt;.Site.RSSLink&lt;/strong&gt; The URL for the site RSS.&lt;br&gt;
+&lt;strong&gt;.Site.Taxonomies&lt;/strong&gt; The &lt;a href=&#34;https://dischord01.github.io/taxonomies/usage/&#34;&gt;taxonomies&lt;/a&gt; for the entire site.  Replaces the now-obsolete &lt;code&gt;.Site.Indexes&lt;/code&gt; since v0.11. Also see section &lt;a href=&#34;#taxonomies-elsewhere&#34;&gt;Taxonomies elsewhere&lt;/a&gt;.&lt;br&gt;
+&lt;strong&gt;.Site.Pages&lt;/strong&gt; Array of all content ordered by Date, newest first.  Replaces the now-deprecated &lt;code&gt;.Site.Recent&lt;/code&gt; starting v0.13. This array contains only the pages in the current language.&lt;br&gt;
+&lt;strong&gt;.Site.AllPages&lt;/strong&gt; Array of all pages regardless of their translation.&lt;br&gt;
+&lt;strong&gt;.Site.Params&lt;/strong&gt; A container holding the values from the &lt;code&gt;params&lt;/code&gt; section of your site configuration file. For example, a TOML config file might look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;baseURL = &amp;quot;http://yoursite.example.com/&amp;quot;
+
+[params]
+  description = &amp;quot;Tesla&#39;s Awesome Hugo Site&amp;quot;
+  author = &amp;quot;Nikola Tesla&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;.Site.Sections&lt;/strong&gt; Top level directories of the site.&lt;br&gt;
+&lt;strong&gt;.Site.Files&lt;/strong&gt; All of the source files of the site.&lt;br&gt;
+&lt;strong&gt;.Site.Menus&lt;/strong&gt; All of the menus in the site.&lt;br&gt;
+&lt;strong&gt;.Site.Title&lt;/strong&gt; A string representing the title of the site.&lt;br&gt;
+&lt;strong&gt;.Site.Author&lt;/strong&gt; A map of the authors as defined in the site configuration.&lt;br&gt;
+&lt;strong&gt;.Site.LanguageCode&lt;/strong&gt; A string representing the language as defined in the site configuration. This is mostly used to populate the RSS feeds with the right language code.&lt;br&gt;
+&lt;strong&gt;.Site.DisqusShortname&lt;/strong&gt; A string representing the shortname of the Disqus shortcode as defined in the site configuration.&lt;br&gt;
+&lt;strong&gt;.Site.GoogleAnalytics&lt;/strong&gt; A string representing your tracking code for Google Analytics as defined in the site configuration.&lt;br&gt;
+&lt;strong&gt;.Site.Copyright&lt;/strong&gt; A string representing the copyright of your web site as defined in the site configuration.&lt;br&gt;
+&lt;strong&gt;.Site.LastChange&lt;/strong&gt; A string representing the date/time of the most recent change to your site, based on the &lt;a href=&#34;No page found with path or logical name &#34;content/front-matter.md&#34;.
+&#34;&gt;&lt;code&gt;date&lt;/code&gt; variable&lt;/a&gt; in the front matter of your content pages.&lt;br&gt;
+&lt;strong&gt;.Site.Permalinks&lt;/strong&gt; A string to override the default permalink format. Defined in the site configuration.&lt;br&gt;
+&lt;strong&gt;.Site.BuildDrafts&lt;/strong&gt; A boolean (Default: false) to indicate whether to build drafts. Defined in the site configuration.&lt;br&gt;
+&lt;strong&gt;.Site.Data&lt;/strong&gt;  Custom data, see &lt;a href=&#34;https://dischord01.github.io/extras/datafiles/&#34;&gt;Data Files&lt;/a&gt;.&lt;br&gt;
+&lt;strong&gt;.Site.IsMultiLingual&lt;/strong&gt; Whether there are more than one language in this site.&lt;br&gt; See &lt;a href=&#34;No page found with path or logical name &#34;content/multilingual.md&#34;.
+&#34;&gt;Multilingual&lt;/a&gt; for more info.&lt;br&gt;
+&lt;strong&gt;.Site.Language&lt;/strong&gt; This indicates which language you are currently rendering the website for.  This is an object with the attributes set in your language definition in your site config.&lt;br&gt;
+&lt;strong&gt;.Site.Language.Lang&lt;/strong&gt; The language code of the current locale, e.g. &lt;code&gt;en&lt;/code&gt;.&lt;br&gt;
+&lt;strong&gt;.Site.Language.Weight&lt;/strong&gt; The weight that defines the order in the &lt;code&gt;.Site.Languages&lt;/code&gt; list.&lt;br&gt;
+&lt;strong&gt;.Site.Language.LanguageName&lt;/strong&gt; The full language name, e.g. &lt;code&gt;English&lt;/code&gt;.&lt;br&gt;
+&lt;strong&gt;.Site.LanguagePrefix&lt;/strong&gt; This can be used to prefix  theURLs with whats needed to point to the correct language. It will even work when only one language defined. See also the functions &lt;a href=&#34;No page found with path or logical name &#34;templates/functions.md&#34;.
+&#34;&gt;absLangURL and relLangURL&lt;/a&gt;.&lt;br&gt;
+&lt;strong&gt;.Site.Languages&lt;/strong&gt; An ordered list (ordered by defined weight) of languages.&lt;br&gt;
+&lt;strong&gt;.Site.RegularPages&lt;/strong&gt; A shortcut to the &lt;em&gt;regular page&lt;/em&gt; collection. Equivalent to &lt;code&gt;where .Site.Pages &amp;quot;Kind&amp;quot; &amp;quot;page&amp;quot;&lt;/code&gt;.&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;file-variables&#34;&gt;File Variables&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;.File&lt;/code&gt; variable gives you additional information of a page.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;code&gt;.File&lt;/code&gt; is only accessible on &lt;em&gt;Pages&lt;/em&gt; that has a content page attached to it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Available are the following attributes:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;.File.Path&lt;/strong&gt; The original relative path of the page, e.g. &lt;code&gt;content/posts/foo.en.md&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;.File.LogicalName&lt;/strong&gt; The name of the content file that represents a page, e.g. &lt;code&gt;foo.en.md&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;.File.TranslationBaseName&lt;/strong&gt; The filename without extension or optional language identifier, e.g. &lt;code&gt;foo&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;.File.BaseFileName&lt;/strong&gt; The filename without extension, e.g. &lt;code&gt;foo.en&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;.File.Ext&lt;/strong&gt; or &lt;strong&gt;.File.Extension&lt;/strong&gt; The file extension of the content file, e.g. &lt;code&gt;md&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;.File.Lang&lt;/strong&gt; The language associated with the given file if &lt;a href=&#34;No page found with path or logical name &#34;content/multilingual.md&#34;.
+&#34;&gt;Multilingual&lt;/a&gt; is enabled, e.g. &lt;code&gt;en&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;.File.Dir&lt;/strong&gt; Given the path &lt;code&gt;content/posts/dir1/dir2/&lt;/code&gt;, the relative directory path of the content file will be returned, e.g. &lt;code&gt;posts/dir1/dir2/&lt;/code&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;hugo-variables&#34;&gt;Hugo Variables&lt;/h2&gt;
+
+&lt;p&gt;Also available is &lt;code&gt;.Hugo&lt;/code&gt; which has the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;.Hugo.Generator&lt;/strong&gt; Meta tag for the version of Hugo that generated the site. Highly recommended to be included by default in all theme headers so we can start to track the usage and popularity of Hugo. Unlike other variables it outputs a &lt;strong&gt;complete&lt;/strong&gt; HTML tag, e.g. &lt;code&gt;&amp;lt;meta name=&amp;quot;generator&amp;quot; content=&amp;quot;Hugo 0.15&amp;quot; /&amp;gt;&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;.Hugo.Version&lt;/strong&gt; The current version of the Hugo binary you are using e.g. &lt;code&gt;0.13-DEV&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;.Hugo.CommitHash&lt;/strong&gt; The git commit hash of the current Hugo binary e.g. &lt;code&gt;0e8bed9ccffba0df554728b46c5bbf6d78ae5247&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;.Hugo.BuildDate&lt;/strong&gt; The compile date of the current Hugo binary formatted with RFC 3339 e.g. &lt;code&gt;2002-10-02T10:00:00-05:00&lt;/code&gt;&lt;br&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Ansible Workshop</title>
+
+  <meta name="author" content="" />
+  <meta name="keywords" content="">
+
+  
+
+  <meta name="generator" content="Hugo 0.19" />
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+  
+  <link href="https://dischord01.github.io/css/animate.css" rel="stylesheet">
+
+  
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+  
+
+  
+  <link href="https://dischord01.github.io/css/redhatgov.css" rel="stylesheet">
+  
+  <link href="https://dischord01.github.io/css/highlight/github.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/perfect-scrollbar.min.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/featherlight.min.css" rel="stylesheet">
+
+  
+
+  
+    
+
+  
+  <link rel="shortcut icon" href="https://dischord01.github.io/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="https://dischord01.github.io/img/apple-touch-icon.png" />
+
+  <link rel="alternate" href="https://dischord01.github.io/index.xml" type="application/rss+xml" title="RedHatGov">
+
+  
+  <meta property="og:title" content="Ansible Workshop" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/workshops/ansible_v2//" />
+  <meta property="og:image" content="img/redhat.png" />
+
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <nav class="navbar navbar-default navbar-pf" role="navigation">
+  <div class="navbar-header">
+  <a class="navbar-brand home" href="https://dischord01.github.io/">
+    <img src="https://dischord01.github.io/img/redhat.png" alt="Ansible Workshop logo" class="hidden-xs hidden-sm">
+    <img src="https://dischord01.github.io/img/logo-small.png" alt="Ansible Workshop logo" class="visible-xs visible-sm">
+    <span class="sr-only">Ansible Workshop - go to homepage</span>
+  </a>
+
+
+  <div class="collapse navbar-collapse navbar-collapse-11">
+    <ul class="nav navbar-nav navbar-right">
+      
+       <li class="dropdown">
+         <a href="/cloud/">Cloud</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/platform/">Platform</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/workshops/">Workshops</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/quickstarts/">Quickstarts</a>
+       </li>
+      
+    </ul>
+  </div>
+</nav>
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Ansible Workshop</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                        <p class="text-muted text-uppercase mb-small text-right">January 26, 2017</p>
+
+                        <div id="post-content">
+                          <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel2">
+<li><a href="#_exercise_1_0_running_ad_hoc_commands">Exercise 1.0 - Running Ad-hoc commands</a></li>
+<li><a href="#_exercise_1_2_running_your_playbook">Exercise 1.2 - Running Your Playbook</a></li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Before We Get Started</div>
+<div class="paragraph lead">
+<p>Overview</p>
+</div>
+<div class="paragraph">
+<p>Today is meant for anyone who has any exposure to Ansible, whether you have used it or not. We are going to start with a short overview (yes, slideware) and then we&#8217;ll get into the lab as soon as possible. That is where we will spend most of our time.</p>
+</div>
+<div class="paragraph lead">
+<p>Your Responsibilities</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Have a discussion. This will be boring if it&#8217;s just us up here talking for over 4 hours.</p>
+</li>
+<li>
+<p>Participate. We are going to cut you loose with Ansible here in just a little while. Have questions. Have opinions.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Hopefully you have your laptop with you. If not, please find a shoulder-surfing buddy. See? Not only can we dig into Ansible but you can make a new friend!</p>
+</div>
+<div class="paragraph lead">
+<p>Conventions Used in This Document</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Whenever you see a section like this, please pay close attention.  We are leading you through a process.</div>
+
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Step 1: Run this command to do something or other</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">ansible web -m setup</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Step 2: Edit this file in this specific way</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">---
+ - hosts: web
+   name: This is a play within a playbook
+   become: yes
+   vars:
+     httpd_packages:
+       - httpd
+       - mod_wsgi</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Do not cut and paste text from this document.  We really want you to learn ansible during this workshop,
+and part of that experience is typing out YAML and understanding it&#8217;s syntax, spacing, and alignments.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Location-Specific Information</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">WiFi Access</div>
+<div class="paragraph">
+<p>ssid: <code>TBD</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Today&#8217;s Team</div>
+<div class="paragraph lead">
+<p>Jamie Duncan - Cloud Architect</p>
+</div>
+<div class="paragraph lead">
+<p>John Hoffer - Cloud Architect</p>
+</div>
+<div class="paragraph lead">
+<p>Justin Burdine - Cloud Architect</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Document Copyright</p>
+</div>
+<div class="paragraph">
+<p>This document was created by and for Red Hat, Inc. It is being released under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License 4.0</a>. You are free to re-use it in whole or in part.</p>
+</div>
+<div class="paragraph">
+<p>You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exercise_1_0_running_ad_hoc_commands">Exercise 1.0 - Running Ad-hoc commands</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>For our first exercise, we are going to run some ad-hoc commands to help you get
+a feel for how Ansible works.  Ansible Ad-Hoc commands enable you to perform tasks
+on remote nodes without having to write a playbook.  They are very useful when you
+simply need to do one or two things quickly and often, to many remote nodes.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Like many Linux commands, <code><code>ansible</code></code> allows for long-form options as well as short-form.  For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">ansible --module-name ping</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is the same as running</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">ansible -m ping</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We are going to be using the short-form options throughout this workshop</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Step 1:</strong> Let&#8217;s start with something really basic - pinging a host.  The <code><code>ping</code></code> module makes sure our web hosts are responsive.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">ansible -m ping web</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 2:</strong>  Now let&#8217;s see how we can run a good ol' fashioned Linux command and format the output using the <code><code>command</code></code> module.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">ansible -m command -a "uptime" web -o</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 3:</strong> Take a look at your web node&#8217;s configuration.  The <code><code>setup</code></code> module displays ansible facts (and a lot of them) about an endpoint.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">ansible web -m setup</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 4:</strong> Now, let&#8217;s install Apache using the <code><code>yum</code></code> module</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">ansible web -m yum -a "name=httpd state=present" -b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 5:</strong> OK, Apache is installed now so let&#8217;s start it up using the <code><code>service</code></code> module</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">ansible web -m service -a "name=httpd state=started" -b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 6:</strong> Finally, let&#8217;s clean up after ourselves.  First, stop the httpd service</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">ansible web -m service -a "name=httpd state=stopped" -b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 7:</strong> Next, remove the Apache package</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">ansible web -m yum -a "name=httpd state=absent" -b</code></pre>
+</div>
+</div>
+<hr>
+<div class="paragraph">
+<p>=== Exercise 1.1 - Writing Your First playbook</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Now that you&#8217;ve gotten a sense of how ansible works, we are going to write our first
+ansible <strong>playbook</strong>.  The playbook is where you can take some of those ad-hoc commands you just ran
+and put them into a repeatable set of <strong>plays</strong> and <strong>tasks</strong>.</p>
+</div>
+<div class="paragraph">
+<p>A playbook can have multiple plays and a play
+can have one or multiple tasks.  The goal of a <strong>play</strong> is to map a group of hosts.  The goal of a <strong>task</strong> is to implement modules against those hosts.</p>
+</div>
+<div class="paragraph">
+<p>For our first playbook, we are only going to write one play and two tasks.</p>
+</div>
+<div class="paragraph lead">
+<p>Section 1 - Creating a Directory Structure and Files for your Playbook</p>
+</div>
+<div class="paragraph">
+<p>There is a <a href="{dir_url}">best practice</a> on the preferred directory structures for playbooks.  We strongly encourage
+you to read and understand these practices as you develop your Ansible ninja skills.  That said,
+our playbook today is very basic and creating a complex structure will just confuse things.</p>
+</div>
+<div class="paragraph">
+<p>Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Step 1: Create a directory called <strong>apache_basic</strong> in your home directory and change directories into it</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">% mkdir ~/apache_basic
+% cd ~/apache_basic</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2: Define your inventory.  Inventories are crucial to Ansible as they define remote machines on which you wish to run
+your playbook(s).  Use <code><code>vi</code></code> or <code><code>vim</code></code> to create a file called <code><code>hosts</code></code>.  Then, add the appropriate definitions which can
+be viewed in <code><code>~/lighbulb/inventory</code></code>.  (And yes, I <strong>suppose</strong> you could copy the file, but we&#8217;d rather you type it in so you can
+become familiar with the syntax)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">[web]
+node-1 ansible_host=&lt;IP Address of your node-1&gt;
+node-2 ansible_host=&lt;IP Address of your node-2&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3: Use <code><code>vi</code></code> or <code><code>vim</code></code> to open a file called <code><code>install_apache.yml</code></code></p>
+</div>
+</div>
+</div>
+<div class="paragraph lead">
+<p>Section 2 - Defining Your Play</p>
+</div>
+<div class="paragraph">
+<p>Now that you are editing <code><code>install_apache.yml</code></code>, let&#8217;s begin by defining the play and then understanding what each line accomplishes</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">---
+- hosts: web
+  name: Install the apache web service
+  become: yes</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><code>---</code></code> Defines the beginning of YAML</p>
+</li>
+<li>
+<p><code><code>hosts: web</code></code> Defines which host group in your inventory on which this play will run against</p>
+</li>
+<li>
+<p><code><code>name: Install the apache web service</code></code> This describes our play</p>
+</li>
+<li>
+<p><code><code>become: yes</code></code> Enables user privilege escalation.  The default is sudo, but su, pbrun, and <a href="{become_url}">several others</a> are also supported.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph lead">
+<p>Section 3: Adding Tasks to Your Play</p>
+</div>
+<div class="paragraph">
+<p>Now that we&#8217;ve defined your play, let&#8217;s add some tasks to get some things done</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">tasks:
+ - name: install apache
+   yum:
+     name: httpd
+     state: present
+
+ - name: start httpd
+   service:
+     name: httpd
+     state: started</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><code>tasks:</code></code> This denotes that one or more tasks are about to be defined</p>
+</li>
+<li>
+<p><code><code>- name:</code></code> Each task requires a name which will print to standard output when you run your playbook.
+Therefore, give your tasks a name that is short, sweet, and to the point</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-text" data-lang="text">yum:
+  name: httpd
+  state: present</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>These three lines are calling the Ansible module <strong>yum</strong> to install httpd.
+<a href="{yum_url}">Click here</a> to see all options for the yum module.</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-text" data-lang="text">service:
+  name: httpd
+  state: started</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The next few lines are using the ansible module <strong>service</strong> to start the httpd service.  The service module
+is the preferred way of controlling services on remote hosts.  <a href="{service_url}">Click here</a> to learn more
+about the <strong>service</strong> module.</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph lead">
+<p>Section 4: Saving your Playbook</p>
+</div>
+<div class="paragraph">
+<p>Now that you&#8217;ve completed writing your playbook, it would be a shame not to keep it.</p>
+</div>
+<div class="paragraph">
+<p>Use the <code><code>write/quit</code></code> method in <code><code>vi</code></code> or <code><code>vim</code></code> to save your playbook, i.e. <code><code>Esc :wq!</code></code></p>
+</div>
+<div class="paragraph">
+<p>And that should do it.  You should now have a fully written playbook called <code><code>install_apache.yml</code></code>.
+You are ready to automate!</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Ansible (well, YAML really) can be a bit particular about formatting especially around indentation/spacing.  When you all get back to the office,
+read up on this <a href="{yaml_url}">YAML Syntax</a> a bit more and it will save you some headaches later.  In the meantime, your completed playbook should look
+like this.  Take note of the spacing and alignment.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">---
+- hosts: web
+  name: Install the apache web service
+  become: yes
+
+  tasks:
+    - name: install apache
+      yum:
+        name: httpd
+        state: present
+
+    - name: start httpd
+      service:
+        name: httpd
+        state: started</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exercise_1_2_running_your_playbook">Exercise 1.2 - Running Your Playbook</h3>
+<hr>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>We are now going to run you&#8217;re brand spankin' new playbook on your two web nodes.  To do this,
+ you are going to use the <code><code>ansible-playbook</code></code> command.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Step 1:</strong> From your playbook directory ( <code><code>~/apache_basic</code></code> ), run your playbook.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">ansible-playbook -i ./hosts -k install_apache.yml</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>However, before you go ahead and run that command, lets take a few moments to understand the options.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>-i</strong> This option allows you to specify the inventory file you wish to use.</p>
+</li>
+<li>
+<p><strong>-k</strong> This option prompts you for the password of the user running the playbook.</p>
+</li>
+<li>
+<p><strong>-v</strong> Altough not used here, this increases verbosity.  Try running your playbook a second time using <code><code>-v</code></code> or <code><code>-vv</code></code> to increase the verbosity</p>
+</li>
+<li>
+<p><strong>--syntax-check</strong> If you run into any issues with your playbook running properly; you know, from that copy/pasting that you didn&#8217;t do because we said "<em>don&#8217;t do that</em>"; you could use this option to help find those issues like so&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">ansible-playbook -i ./hosts -k install_apache.yml --syntax-check</pre>
+</div>
+</div>
+<hr>
+<div class="paragraph">
+<p>OK, go ahead and run your playbook as specified in <strong>Step 1</strong></p>
+</div>
+<div class="paragraph">
+<p>In standard output, you should see something that looks very similar to the following:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="data:image/png:base64," alt="stdout 1">
+</div>
+<div class="title">Figure 1: apache_basic playbook stdout</div>
+</div>
+<div class="paragraph">
+<p>Notice that the play and each task is named so that you can see what is being done and to which node it is being done to.
+You also may notice a task in there that you didn&#8217;t write;  &lt;cough&gt; <code><code>setup</code></code> &lt;cough&gt;.  This is because the <code><code>setup</code></code> module
+runs by default.  To turn if off, you can specify <a href="{gather_facts-url}">gather_facts: false</a> in your play definition like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-bash" data-lang="bash">---
+- hosts: web
+  name: Install the apache web service
+  become: yes
+  gather_facts: false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 2:</strong> Remove Apache</p>
+</div>
+<div class="paragraph">
+<p>OK, for the next several minutes or as much time as we can afford, we want to to experiment a little.
+We would like you to reverse what you&#8217;ve done, i.e. stop and uninstall apache on your web nodes.
+So, go ahead and edit your playbook and then when your finished, rerun it as specified in <strong>Step 1</strong>.
+For this exercise we aren&#8217;t going to show you line by line, but we will give you a few hints.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If your first task in the playbook was to install httpd and the second task was to start the service, which order do you think
+those tasks should be in now?</p>
+</li>
+<li>
+<p>If <code><code>started</code></code> makes sure a service is started, then what option ensures it is stopped?</p>
+</li>
+<li>
+<p>If <code><code>present</code></code> makes sure a package is installed, then what option ensures it is removed?  Er&#8230;&#8203; starts with an <strong>ab</strong>, ends with a <strong>sent</strong></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Feel free to browse the help pages to see a list of all options.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="{yum_url}">Ansible yum module</a></p>
+</li>
+<li>
+<p><a href="{service_url}">Ansible service module</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+                        </div>
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+                         
+                        <h1>Table of Contents</h1>
+
+
+
+
+<div id="toc2">
+  
+</div>
+
+
+
+
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            <p>Open source is not only behind many of the technology industry’s most significant innovations, but it is also pervasive across the U.S. government. For more than a decade, Red Hat has been working closely with federal government customers to help them embrace open source technologies. </p>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+        
+        
+        <div class="col-md-4 col-sm-6">
+            
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+            <h4>Contact</h4>
+
+            <p><strong>Red Hat Public Sector</strong>
+        <br>8260 Greensboro Dr
+        <br># 300
+        <br>McLean, VA 22102
+        <br>
+        <strong>United States</strong>
+      </p>
+      
+
+            <a href="/contact" class="btn btn-small btn-template-main">Contact Us.</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright  2017-01-26</p>
+            
+            <p class="pull-right">
+
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="https://dischord01.github.io/bower_components/jquery/dist/jquery.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/patternfly/dist/js/patternfly.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/perfect-scrollbar.js"></script>
+<script src="https://dischord01.github.io/js/perfect-scrollbar.jquery.js"></script>
+
+
+<script src="https://dischord01.github.io/js/featherlight.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/redhat.js"></script>
+
+
+<script src="https://dischord01.github.io/js/clipboard.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+  </body>
+</html>

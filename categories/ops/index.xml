@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ops on RedHatGov</title>
+    <link>https://dischord01.github.io/categories/ops/index.xml</link>
+    <description>Recent content in Ops on RedHatGov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright</copyright>
+    <atom:link href="https://dischord01.github.io/categories/ops/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Ansible Workshop</title>
+      <link>https://dischord01.github.io/workshops/ansible_v2/</link>
+      <pubDate>Thu, 26 Jan 2017 23:02:01 -0500</pubDate>
+      
+      <guid>https://dischord01.github.io/workshops/ansible_v2/</guid>
+      <description>&lt;div id=&#34;preamble&#34;&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div id=&#34;toc&#34; class=&#34;toc&#34;&gt;
+&lt;div id=&#34;toctitle&#34; class=&#34;title&#34;&gt;&lt;/div&gt;
+&lt;ul class=&#34;sectlevel2&#34;&gt;
+&lt;li&gt;&lt;a href=&#34;#_exercise_1_0_running_ad_hoc_commands&#34;&gt;Exercise 1.0 - Running Ad-hoc commands&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#_exercise_1_2_running_your_playbook&#34;&gt;Exercise 1.2 - Running Your Playbook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sidebarblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Before We Get Started&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Overview&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Today is meant for anyone who has any exposure to Ansible, whether you have used it or not. We are going to start with a short overview (yes, slideware) and then we&amp;#8217;ll get into the lab as soon as possible. That is where we will spend most of our time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Your Responsibilities&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Have a discussion. This will be boring if it&amp;#8217;s just us up here talking for over 4 hours.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Participate. We are going to cut you loose with Ansible here in just a little while. Have questions. Have opinions.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Hopefully you have your laptop with you. If not, please find a shoulder-surfing buddy. See? Not only can we dig into Ansible but you can make a new friend!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Conventions Used in This Document&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock tip&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-tip&#34; title=&#34;Tip&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Whenever you see a section like this, please pay close attention.  We are leading you through a process.&lt;/div&gt;
+
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Step 1: Run this command to do something or other&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m setup&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Step 2: Edit this file in this specific way&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+ - hosts: web
+   name: This is a play within a playbook
+   become: yes
+   vars:
+     httpd_packages:
+       - httpd
+       - mod_wsgi&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock important&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-important&#34; title=&#34;Important&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+Do not cut and paste text from this document.  We really want you to learn ansible during this workshop,
+and part of that experience is typing out YAML and understanding it&amp;#8217;s syntax, spacing, and alignments.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Location-Specific Information&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock important&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-important&#34; title=&#34;Important&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;WiFi Access&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;ssid: &lt;code&gt;TBD&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sidebarblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Today&amp;#8217;s Team&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Jamie Duncan - Cloud Architect&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;John Hoffer - Cloud Architect&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Justin Burdine - Cloud Architect&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Document Copyright&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This document was created by and for Red Hat, Inc. It is being released under &lt;a href=&#34;https://creativecommons.org/licenses/by/4.0/&#34;&gt;Creative Commons License 4.0&lt;/a&gt;. You are free to re-use it in whole or in part.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_exercise_1_0_running_ad_hoc_commands&#34;&gt;Exercise 1.0 - Running Ad-hoc commands&lt;/h3&gt;
+&lt;div class=&#34;sidebarblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For our first exercise, we are going to run some ad-hoc commands to help you get
+a feel for how Ansible works.  Ansible Ad-Hoc commands enable you to perform tasks
+on remote nodes without having to write a playbook.  They are very useful when you
+simply need to do one or two things quickly and often, to many remote nodes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock note&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-note&#34; title=&#34;Note&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Like many Linux commands, &lt;code&gt;&lt;code&gt;ansible&lt;/code&gt;&lt;/code&gt; allows for long-form options as well as short-form.  For example:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;ansible --module-name ping&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;is the same as running&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;ansible -m ping&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;We are going to be using the short-form options throughout this workshop&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 1:&lt;/strong&gt; Let&amp;#8217;s start with something really basic - pinging a host.  The &lt;code&gt;&lt;code&gt;ping&lt;/code&gt;&lt;/code&gt; module makes sure our web hosts are responsive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible -m ping web&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 2:&lt;/strong&gt;  Now let&amp;#8217;s see how we can run a good ol&#39; fashioned Linux command and format the output using the &lt;code&gt;&lt;code&gt;command&lt;/code&gt;&lt;/code&gt; module.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible -m command -a &#34;uptime&#34; web -o&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 3:&lt;/strong&gt; Take a look at your web node&amp;#8217;s configuration.  The &lt;code&gt;&lt;code&gt;setup&lt;/code&gt;&lt;/code&gt; module displays ansible facts (and a lot of them) about an endpoint.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m setup&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 4:&lt;/strong&gt; Now, let&amp;#8217;s install Apache using the &lt;code&gt;&lt;code&gt;yum&lt;/code&gt;&lt;/code&gt; module&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m yum -a &#34;name=httpd state=present&#34; -b&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 5:&lt;/strong&gt; OK, Apache is installed now so let&amp;#8217;s start it up using the &lt;code&gt;&lt;code&gt;service&lt;/code&gt;&lt;/code&gt; module&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m service -a &#34;name=httpd state=started&#34; -b&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 6:&lt;/strong&gt; Finally, let&amp;#8217;s clean up after ourselves.  First, stop the httpd service&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m service -a &#34;name=httpd state=stopped&#34; -b&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 7:&lt;/strong&gt; Next, remove the Apache package&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ansible web -m yum -a &#34;name=httpd state=absent&#34; -b&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;=== Exercise 1.1 - Writing Your First playbook&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now that you&amp;#8217;ve gotten a sense of how ansible works, we are going to write our first
+ansible &lt;strong&gt;playbook&lt;/strong&gt;.  The playbook is where you can take some of those ad-hoc commands you just ran
+and put them into a repeatable set of &lt;strong&gt;plays&lt;/strong&gt; and &lt;strong&gt;tasks&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;A playbook can have multiple plays and a play
+can have one or multiple tasks.  The goal of a &lt;strong&gt;play&lt;/strong&gt; is to map a group of hosts.  The goal of a &lt;strong&gt;task&lt;/strong&gt; is to implement modules against those hosts.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;For our first playbook, we are only going to write one play and two tasks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Section 1 - Creating a Directory Structure and Files for your Playbook&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;There is a &lt;a href=&#34;{dir_url}&#34;&gt;best practice&lt;/a&gt; on the preferred directory structures for playbooks.  We strongly encourage
+you to read and understand these practices as you develop your Ansible ninja skills.  That said,
+our playbook today is very basic and creating a complex structure will just confuse things.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Instead, we are going to create a very simple directory structure for our playbook, and add just a couple of files to it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Step 1: Create a directory called &lt;strong&gt;apache_basic&lt;/strong&gt; in your home directory and change directories into it&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;% mkdir ~/apache_basic
+% cd ~/apache_basic&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Step 2: Define your inventory.  Inventories are crucial to Ansible as they define remote machines on which you wish to run
+your playbook(s).  Use &lt;code&gt;&lt;code&gt;vi&lt;/code&gt;&lt;/code&gt; or &lt;code&gt;&lt;code&gt;vim&lt;/code&gt;&lt;/code&gt; to create a file called &lt;code&gt;&lt;code&gt;hosts&lt;/code&gt;&lt;/code&gt;.  Then, add the appropriate definitions which can
+be viewed in &lt;code&gt;&lt;code&gt;~/lighbulb/inventory&lt;/code&gt;&lt;/code&gt;.  (And yes, I &lt;strong&gt;suppose&lt;/strong&gt; you could copy the file, but we&amp;#8217;d rather you type it in so you can
+become familiar with the syntax)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;[web]
+node-1 ansible_host=&amp;lt;IP Address of your node-1&amp;gt;
+node-2 ansible_host=&amp;lt;IP Address of your node-2&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Step 3: Use &lt;code&gt;&lt;code&gt;vi&lt;/code&gt;&lt;/code&gt; or &lt;code&gt;&lt;code&gt;vim&lt;/code&gt;&lt;/code&gt; to open a file called &lt;code&gt;&lt;code&gt;install_apache.yml&lt;/code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Section 2 - Defining Your Play&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now that you are editing &lt;code&gt;&lt;code&gt;install_apache.yml&lt;/code&gt;&lt;/code&gt;, let&amp;#8217;s begin by defining the play and then understanding what each line accomplishes&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+- hosts: web
+  name: Install the apache web service
+  become: yes&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;---&lt;/code&gt;&lt;/code&gt; Defines the beginning of YAML&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;hosts: web&lt;/code&gt;&lt;/code&gt; Defines which host group in your inventory on which this play will run against&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;name: Install the apache web service&lt;/code&gt;&lt;/code&gt; This describes our play&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;become: yes&lt;/code&gt;&lt;/code&gt; Enables user privilege escalation.  The default is sudo, but su, pbrun, and &lt;a href=&#34;{become_url}&#34;&gt;several others&lt;/a&gt; are also supported.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Section 3: Adding Tasks to Your Play&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now that we&amp;#8217;ve defined your play, let&amp;#8217;s add some tasks to get some things done&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;tasks:
+ - name: install apache
+   yum:
+     name: httpd
+     state: present
+
+ - name: start httpd
+   service:
+     name: httpd
+     state: started&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;tasks:&lt;/code&gt;&lt;/code&gt; This denotes that one or more tasks are about to be defined&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;&lt;code&gt;- name:&lt;/code&gt;&lt;/code&gt; Each task requires a name which will print to standard output when you run your playbook.
+Therefore, give your tasks a name that is short, sweet, and to the point&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;yum:
+  name: httpd
+  state: present&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;These three lines are calling the Ansible module &lt;strong&gt;yum&lt;/strong&gt; to install httpd.
+&lt;a href=&#34;{yum_url}&#34;&gt;Click here&lt;/a&gt; to see all options for the yum module.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;service:
+  name: httpd
+  state: started&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The next few lines are using the ansible module &lt;strong&gt;service&lt;/strong&gt; to start the httpd service.  The service module
+is the preferred way of controlling services on remote hosts.  &lt;a href=&#34;{service_url}&#34;&gt;Click here&lt;/a&gt; to learn more
+about the &lt;strong&gt;service&lt;/strong&gt; module.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;paragraph lead&#34;&gt;
+&lt;p&gt;Section 4: Saving your Playbook&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now that you&amp;#8217;ve completed writing your playbook, it would be a shame not to keep it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Use the &lt;code&gt;&lt;code&gt;write/quit&lt;/code&gt;&lt;/code&gt; method in &lt;code&gt;&lt;code&gt;vi&lt;/code&gt;&lt;/code&gt; or &lt;code&gt;&lt;code&gt;vim&lt;/code&gt;&lt;/code&gt; to save your playbook, i.e. &lt;code&gt;&lt;code&gt;Esc :wq!&lt;/code&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;And that should do it.  You should now have a fully written playbook called &lt;code&gt;&lt;code&gt;install_apache.yml&lt;/code&gt;&lt;/code&gt;.
+You are ready to automate!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock note&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-note&#34; title=&#34;Note&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+Ansible (well, YAML really) can be a bit particular about formatting especially around indentation/spacing.  When you all get back to the office,
+read up on this &lt;a href=&#34;{yaml_url}&#34;&gt;YAML Syntax&lt;/a&gt; a bit more and it will save you some headaches later.  In the meantime, your completed playbook should look
+like this.  Take note of the spacing and alignment.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+- hosts: web
+  name: Install the apache web service
+  become: yes
+
+  tasks:
+    - name: install apache
+      yum:
+        name: httpd
+        state: present
+
+    - name: start httpd
+      service:
+        name: httpd
+        state: started&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect2&#34;&gt;
+&lt;h3 id=&#34;_exercise_1_2_running_your_playbook&#34;&gt;Exercise 1.2 - Running Your Playbook&lt;/h3&gt;
+&lt;hr&gt;
+&lt;div class=&#34;sidebarblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;We are now going to run you&amp;#8217;re brand spankin&#39; new playbook on your two web nodes.  To do this,
+ you are going to use the &lt;code&gt;&lt;code&gt;ansible-playbook&lt;/code&gt;&lt;/code&gt; command.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;exampleblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 1:&lt;/strong&gt; From your playbook directory ( &lt;code&gt;&lt;code&gt;~/apache_basic&lt;/code&gt;&lt;/code&gt; ), run your playbook.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;ansible-playbook -i ./hosts -k install_apache.yml&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;However, before you go ahead and run that command, lets take a few moments to understand the options.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-i&lt;/strong&gt; This option allows you to specify the inventory file you wish to use.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-k&lt;/strong&gt; This option prompts you for the password of the user running the playbook.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-v&lt;/strong&gt; Altough not used here, this increases verbosity.  Try running your playbook a second time using &lt;code&gt;&lt;code&gt;-v&lt;/code&gt;&lt;/code&gt; or &lt;code&gt;&lt;code&gt;-vv&lt;/code&gt;&lt;/code&gt; to increase the verbosity&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;--syntax-check&lt;/strong&gt; If you run into any issues with your playbook running properly; you know, from that copy/pasting that you didn&amp;#8217;t do because we said &#34;&lt;em&gt;don&amp;#8217;t do that&lt;/em&gt;&#34;; you could use this option to help find those issues like so&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;nowrap&#34;&gt;ansible-playbook -i ./hosts -k install_apache.yml --syntax-check&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;OK, go ahead and run your playbook as specified in &lt;strong&gt;Step 1&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;In standard output, you should see something that looks very similar to the following:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;imageblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;img src=&#34;data:image/png:base64,&#34; alt=&#34;stdout 1&#34;&gt;
+&lt;/div&gt;
+&lt;div class=&#34;title&#34;&gt;Figure 1: apache_basic playbook stdout&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Notice that the play and each task is named so that you can see what is being done and to which node it is being done to.
+You also may notice a task in there that you didn&amp;#8217;t write;  &amp;lt;cough&amp;gt; &lt;code&gt;&lt;code&gt;setup&lt;/code&gt;&lt;/code&gt; &amp;lt;cough&amp;gt;.  This is because the &lt;code&gt;&lt;code&gt;setup&lt;/code&gt;&lt;/code&gt; module
+runs by default.  To turn if off, you can specify &lt;a href=&#34;{gather_facts-url}&#34;&gt;gather_facts: false&lt;/a&gt; in your play definition like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlightjs highlight nowrap&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;---
+- hosts: web
+  name: Install the apache web service
+  become: yes
+  gather_facts: false&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Step 2:&lt;/strong&gt; Remove Apache&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;OK, for the next several minutes or as much time as we can afford, we want to to experiment a little.
+We would like you to reverse what you&amp;#8217;ve done, i.e. stop and uninstall apache on your web nodes.
+So, go ahead and edit your playbook and then when your finished, rerun it as specified in &lt;strong&gt;Step 1&lt;/strong&gt;.
+For this exercise we aren&amp;#8217;t going to show you line by line, but we will give you a few hints.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock note&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;i class=&#34;fa icon-note&#34; title=&#34;Note&#34;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;If your first task in the playbook was to install httpd and the second task was to start the service, which order do you think
+those tasks should be in now?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If &lt;code&gt;&lt;code&gt;started&lt;/code&gt;&lt;/code&gt; makes sure a service is started, then what option ensures it is stopped?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If &lt;code&gt;&lt;code&gt;present&lt;/code&gt;&lt;/code&gt; makes sure a package is installed, then what option ensures it is removed?  Er&amp;#8230;&amp;#8203; starts with an &lt;strong&gt;ab&lt;/strong&gt;, ends with a &lt;strong&gt;sent&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Feel free to browse the help pages to see a list of all options.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;ulist&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;{yum_url}&#34;&gt;Ansible yum module&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;{service_url}&#34;&gt;Ansible service module&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CI | CD Pipelines</title>
+      <link>https://dischord01.github.io/workshops/imported/cicd/</link>
+      <pubDate>Thu, 26 Jan 2017 23:02:01 -0500</pubDate>
+      
+      <guid>https://dischord01.github.io/workshops/imported/cicd/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;In modern software projects many teams utilize the concept of continuous integration and continuous delivery (CI/CD).  By setting up a tool chain that continuously builds, tests, and stages software releases a team can ensure that their product can be reliably released at any time.  OpenShift can be an enabler in the creation and managecment of this tool chain.  In this lab we will walk through creating a simple example of a CI/CD [pipeline][1] utlizing Jenkins, all running on top of OpenShift!&lt;/p&gt;
+
+&lt;h2 id=&#34;step-1&#34;&gt;Step 1&lt;/h2&gt;
+
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionA&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseAOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseAOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseAOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingAOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        &lt;blockquote&gt;
+        &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+        &lt;/blockquote&gt;
+        &lt;strong&gt;
+          
+
+
+
+&lt;p&gt;oc new project cicd&lt;/p&gt;
+
+       &lt;/strong&gt;
+      &lt;/div&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionA&#34; href=&#34;#collapseATwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseATwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseATwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingATwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+
+&lt;p&gt;Browse to original landing page, and click &amp;ldquo;New Project&amp;rdquo;.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/workshops/imported/images/englishinwhat.jpg&#34;  /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;This image resides in /workshops/&amp;lt;*your-workshop*&amp;gt;/images/&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+
+
+
+&lt;blockquote&gt;&lt;p&gt;Fill in the name of the project as &amp;#39;cicd&amp;#39; and click &amp;#39;Create&amp;#39; &lt;/p&gt;&lt;/blockquote&gt;
+
+     &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; 
+
+&lt;h2 id=&#34;step-2&#34;&gt;Step 2&lt;/h2&gt;
+
+&lt;h3 id=&#34;start-by-installing-yo-mamma&#34;&gt;Start by installing Yo Mamma.&lt;/h3&gt;
+
+&lt;p&gt;First we will start by installing Jenkins to run in a pod within your workshop project.  Because this is just a workshop we use the ephemeral template to create our Jenkins sever (for a enterprise system you would probably want to use the persistent template).  Follow the steps below:&lt;/p&gt;
+
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionB&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseBOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        &lt;blockquote&gt;
+        &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+        &lt;/blockquote&gt;
+        &lt;strong&gt;
+          
+
+
+
+&lt;p&gt;oc new project cicd&lt;/p&gt;
+
+       &lt;/strong&gt;
+      &lt;/div&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionB&#34; href=&#34;#collapseBTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseBTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseBTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingBTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+
+&lt;p&gt;Browse to original landing page, and click &amp;ldquo;New Project&amp;rdquo;.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/img/Openshift-Cartridge.png&#34;  /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;OpenShift Img 1&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+
+
+
+&lt;blockquote&gt;&lt;p&gt;Fill in the name of the project as &amp;#39;cicd&amp;#39; and click &amp;#39;Create&amp;#39; &lt;/p&gt;&lt;/blockquote&gt;
+
+     &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; 
+
+&lt;h2 id=&#34;step-3&#34;&gt;Step 3&lt;/h2&gt;
+
+&lt;h3 id=&#34;start-by-installing-jenkins&#34;&gt;Start by installing Jenkins&lt;/h3&gt;
+
+&lt;p&gt;First we will start by installing Jenkins to run in a pod within your workshop project.  Because this is just a workshop we use the ephemeral template to create our Jenkins sever (for a enterprise system you would probably want to use the persistent template).  Follow the steps below:&lt;/p&gt;
+
+
+&lt;div class=&#34;panel-group&#34; id=&#34;accordionC&#34; role=&#34;tablist&#34; aria-multiselectable=&#34;true&#34;&gt;
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCOne&#34; aria-expanded=&#34;true&#34; aria-controls=&#34;collapseCOne&#34;&gt;
+          CLI Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCOne&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCOne&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+        &lt;blockquote&gt;
+        &lt;i class=&#34;fa fa-terminal&#34;&gt;&lt;/i&gt; Goto the terminal and type the following:
+        &lt;/blockquote&gt;
+        &lt;strong&gt;
+          
+
+
+
+&lt;p&gt;oc new project cicd&lt;/p&gt;
+
+       &lt;/strong&gt;
+      &lt;/div&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+  
+  &lt;div class=&#34;panel panel-default&#34;&gt;
+    &lt;div class=&#34;panel-heading&#34; role=&#34;tab&#34; id=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-title&#34;&gt;
+        &lt;a class=&#34;collapsed&#34; role=&#34;button&#34; data-toggle=&#34;collapse&#34; data-parent=&#34;#accordionC&#34; href=&#34;#collapseCTwo&#34; aria-expanded=&#34;false&#34; aria-controls=&#34;collapseCTwo&#34;&gt;
+          Web Console Steps
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;collapseCTwo&#34; class=&#34;panel-collapse collapse&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;headingCTwo&#34;&gt;
+      &lt;div class=&#34;panel-body&#34;&gt;
+
+
+&lt;p&gt;Browse to original landing page, and click &amp;ldquo;New Project&amp;rdquo;.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://dischord01.github.io/img/Openshift-Cartridge.png&#34;  /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;OpenShift Img 1&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+
+
+
+&lt;blockquote&gt;&lt;p&gt;Fill in the name of the project as &amp;#39;cicd&amp;#39; and click &amp;#39;Create&amp;#39; &lt;/p&gt;&lt;/blockquote&gt;
+
+     &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; 
+
+&lt;h1 id=&#34;tag&#34;&gt;TAG:&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;rh_workshop_public_sector&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;workshop-test-1&#34;&gt;workshop-test-1&lt;/h1&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Red Hat Satellite</title>
+      <link>https://dischord01.github.io/quickstarts/satellite/</link>
+      <pubDate>Thu, 26 Jan 2017 23:02:01 -0500</pubDate>
+      
+      <guid>https://dischord01.github.io/quickstarts/satellite/</guid>
+      <description>&lt;div class=&#34;admonitionblock important&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Important&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;This document is still a work in progress! When this label is removed, you can consider this fully functional.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect1&#34;&gt;
+&lt;h2 id=&#34;_quick_start&#34;&gt;Quick Start&lt;/h2&gt;
+&lt;div class=&#34;sectionbody&#34;&gt;
+&lt;div class=&#34;admonitionblock note&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;This is designed to provide a copy and paste quick start for &lt;strong&gt;demo&lt;/strong&gt; enviorments. This is not intended for &lt;strong&gt;production&lt;/strong&gt; enviroments.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect3&#34;&gt;
+&lt;h4 id=&#34;_export_the_variables&#34;&gt;Export the Variables&lt;/h4&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;First we start by setting a couple environment variables. These will serve the rest of the copy and paste operation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;You only need to set the first 4 variables, the rest is automated via bash for you&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre class=&#34;highlight&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;export HOST=satellite.redhatdod.local &lt;b class=&#34;conum&#34;&gt;(1)&lt;/b&gt;
+export ADMINUSER=administrator &lt;b class=&#34;conum&#34;&gt;(2)&lt;/b&gt;
+export ADMINPASS=supersecretpassword &lt;b class=&#34;conum&#34;&gt;(3)&lt;/b&gt;
+export IFACE=eth0 &lt;b class=&#34;conum&#34;&gt;(4)&lt;/b&gt;
+export SUBNET=$(ip -f inet address show $IFACE |grep inet|awk &#39;{print $2}&#39; |awk -F. &#39;{print $1&#34;.&#34; $2&#34;.&#34;$3}&#39;) &lt;b class=&#34;conum&#34;&gt;(5)&lt;/b&gt;
+export REVSUB=$(echo $SUBNET |awk -F. &#39;{print $3&#34;.&#34; $2&#34;.&#34;$1}&#39;) &lt;b class=&#34;conum&#34;&gt;(6)&lt;/b&gt;
+export IPADDR=$(ip -f inet address show $IFACE |grep inet|awk &#39;{print $2}&#39; |cut -f1 -d &#39;/&#39;) &lt;b class=&#34;conum&#34;&gt;(7)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;colist arabic&#34;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Change this variable to the hostname you are going to use for your satellite&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This is the admin user you will create, feel free to change the name to suit your liking&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Please change this value to a password that is actually secure&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;This is the interface you are using for Satellite&lt;/strong&gt; This value is what the next three variables are based from!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This is the subnet you will run DHCP and DNS on for satellite&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This take the subnet you entered and provides the reverse for DNS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This gets your ip address based on the interface you gave in step 5&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock important&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Important&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;If you are not comfortable setting a password on the command line, you can not export the ADMINPASS variable.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Satellite will generate one for you if one is not created&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect3&#34;&gt;
+&lt;h4 id=&#34;_setup_the_subscriptions&#34;&gt;Setup the Subscriptions&lt;/h4&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Next we are going to setup your subscriptions with subscription-manager.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;admonitionblock warning&#34;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&#34;icon&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;Warning&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&#34;content&#34;&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;&lt;strong&gt;NOTE to maintainer&lt;/strong&gt; This section needs to be updated with a more automated/copy&amp;amp;paste way to do this&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;subscription-manager register
+subscription-manager list --available --matches &#39;Red Hat Satellite&#39;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;sect3&#34;&gt;
+&lt;h4 id=&#34;_copy_and_paste_deploy&#34;&gt;Copy and Paste deploy&lt;/h4&gt;
+&lt;div class=&#34;paragraph&#34;&gt;
+&lt;p&gt;Now you can copy and paste from below, and you will have a complete satellite install upon completion.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;listingblock&#34;&gt;
+&lt;div class=&#34;content&#34;&gt;
+&lt;pre&gt;echo &#34;$IPADDR $HOST&#34; &amp;gt;&amp;gt; /etc/hosts
+hostnamectl set-hostname $HOST
+firewall-cmd --add-service=RH-Satellite-6
+firewall-cmd --permanent --add-service=RH-Satellite-6
+subscription-manager repos --disable &#34;*&#34;
+subscription-manager repos --enable=rhel-7-server-rpms \
+--enable=rhel-server-rhscl-7-rpms \
+--enable=rhel-7-server-satellite-6.2-rpms
+yum clean all
+yum -y update
+yum -y install satellite chrony sos
+systemctl start chronyd
+systemctl enable chronyd
+satellite-installer --scenario satellite \
+--foreman-initial-organization &#34;Red Hat DoD&#34; \
+--foreman-initial-location &#34;Local Systems&#34; \
+--foreman-admin-username $ADMINUSER \
+--foreman-admin-password $ADMINPASS \
+--foreman-proxy-dns true \
+--foreman-proxy-dns-interface $IFACE \
+--foreman-proxy-dns-zone $(hostname -d) \
+--foreman-proxy-dns-forwarders $SUBNET.1 \
+--foreman-proxy-dns-reverse $REVSUB.in-addr.arpa \
+--foreman-proxy-dhcp true \
+--foreman-proxy-dhcp-interface $IFACE \
+--foreman-proxy-dhcp-range &#34;$SUBNET.100 $SUBNET.150&#34; \
+--foreman-proxy-dhcp-gateway $SUBNET.1 \
+--foreman-proxy-dhcp-nameservers $SUBNET.2 \
+--foreman-proxy-tftp true \
+--foreman-proxy-tftp-servername $IPADDR&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

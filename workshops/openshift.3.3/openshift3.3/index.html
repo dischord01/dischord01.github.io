@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>OpenShift 3.3 Workshop</title>
+
+  <meta name="author" content="" />
+  <meta name="keywords" content="">
+
+  
+
+  <meta name="generator" content="Hugo 0.19" />
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+  
+  <link href="https://dischord01.github.io/css/animate.css" rel="stylesheet">
+
+  
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+  
+
+  
+  <link href="https://dischord01.github.io/css/redhatgov.css" rel="stylesheet">
+  
+  <link href="https://dischord01.github.io/css/highlight/github.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/perfect-scrollbar.min.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/featherlight.min.css" rel="stylesheet">
+
+  
+
+  
+    
+
+  
+  <link rel="shortcut icon" href="https://dischord01.github.io/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="https://dischord01.github.io/img/apple-touch-icon.png" />
+
+  <link rel="alternate" href="https://dischord01.github.io/index.xml" type="application/rss+xml" title="RedHatGov">
+
+  
+  <meta property="og:title" content="OpenShift 3.3 Workshop" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/workshops/openshift.3.3/openshift3.3//" />
+  <meta property="og:image" content="img/redhat.png" />
+
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <nav class="navbar navbar-default navbar-pf" role="navigation">
+  <div class="navbar-header">
+  <a class="navbar-brand home" href="https://dischord01.github.io/">
+    <img src="https://dischord01.github.io/img/redhat.png" alt="OpenShift 3.3 Workshop logo" class="hidden-xs hidden-sm">
+    <img src="https://dischord01.github.io/img/logo-small.png" alt="OpenShift 3.3 Workshop logo" class="visible-xs visible-sm">
+    <span class="sr-only">OpenShift 3.3 Workshop - go to homepage</span>
+  </a>
+
+
+  <div class="collapse navbar-collapse navbar-collapse-11">
+    <ul class="nav navbar-nav navbar-right">
+      
+       <li class="dropdown">
+         <a href="/cloud/">Cloud</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/platform/">Platform</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/workshops/">Workshops</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/quickstarts/">Quickstarts</a>
+       </li>
+      
+    </ul>
+  </div>
+</nav>
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>OpenShift 3.3 Workshop</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                        <p class="text-muted text-uppercase mb-small text-right">January 1, 0001</p>
+
+                        <div id="post-content">
+                          
+
+<h3 id="if-we-provided-you-a-laptop-for-this">If we provided you a laptop for this</h3>
+
+<p>We already set all this up for you - so you can skip everything below.</p>
+
+<h3 id="install-the-command-line-tools-for-your-operating-system">Install the command line tools for your operating system</h3>
+
+<p>The officially supported instructions for installing the oc client via Red Hat are <a href="https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html">located here</a>.</p>
+
+<p>TL;DR:</p>
+
+<ul>
+<li>Download a .tgz <a href="https://en.wikipedia.org/wiki/Continuous_delivery">from Red Hat</a> and add to your PATH
+(If you don&rsquo;t have a Red Hat account, you can download the CLI tool from <a href="https://docs.openshift.com/enterprise/latest/creating_images/s2i_testing.html#creating-images-s2i-testing">my host here</a>)</li>
+</ul>
+
+<!--For the unsupported community version:
+
+* Download a .tgz [from github][2] and add to your PATH
+* Mac users can [brew][3]: 'brew install openshift-cli'
+
+-->
+
+<h3 id="install-git">Install git</h3>
+
+<p>We will use a few git commands directly in some of the advanced labs.  Please make sure git is installed on your system.  You can download the <a href="http://developers.redhat.com/products/cdk/docs-and-apis/">latest version here</a>.</p>
+
+<h3 id="create-a-github-account">Create a Github account</h3>
+
+<p>Create a FREE github account by going <a href="https://github.com/openshift/origin/blob/master/examples/jenkins/README.md">to this link</a> and following their instructions.</p>
+
+<h1 id="a-guided-tour-of-openshift-enterprise">A Guided Tour of OpenShift Enterprise</h1>
+
+<h2 id="welcome-to-openshift">Welcome to OpenShift!</h2>
+
+<p>This lab provides a quick tour of the console to help you get familiar with the user interface along with some key terminology we will use in subsequent lab content.  If you are already familiar with the basics of OpenShift you can skip this lab - after making sure you can login.</p>
+
+<h2 id="key-terms">Key Terms</h2>
+
+<p>We will be using the following terms throughout the workshop labs so here are some basic definitions you should be familiar with.  And you&rsquo;ll learn more terms along the way, but these are the basics to get you started.</p>
+
+<ul>
+<li>Container - Your software wrapped in a complete filesystem containing everything it needs to run</li>
+<li>Image - We are talking about docker images; read-only and used to create containers</li>
+<li>Pod - One or more docker containers that run together</li>
+<li>Service - Provides a common DNS name to access a pod (or replicated set of pods)</li>
+<li>Project - A project is a group of services that are related logically</li>
+<li>Deployment - an update to your application triggered by a image change or config change</li>
+<li>Build - The process of turning your source code into a runnable image</li>
+<li>BuildConfig - configuration data that determines how to manage your build</li>
+<li>Route - a labeled and DNS mapped network path to a service from outside OpenShift</li>
+<li>Master - The foreman of the OpenShift architecture, the master schedules operations, watches for problems, and orchestrates everything</li>
+<li>Node - Where the compute happens, your software is run on nodes</li>
+</ul>
+
+<h2 id="accessing-openshift">Accessing OpenShift</h2>
+
+<p>OpenShift provides a web console that allow you to perform various tasks via a web browser.  Additionally, you can utilize a command line tool to perfrom tasks.  Let&rsquo;s get started by logging into both of these and checking the status of the platform.</p>
+
+<h3 id="let-s-login">Let&rsquo;s Login</h3>
+
+<blockquote>
+<p>Navigate to the URI provided by your instructor and login with the user/password provided (if there&rsquo;s an icon on the Desktop, just double click that)</p>
+</blockquote>
+
+
+<figure >
+    
+        <img src="/workshops/openshift.3.3/images/ose-login.png" width="600" />
+    
+    
+    <figcaption>
+        <h4>OpenShift Login Page</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p><em>Login Webpage</em></p>
+
+<p>Once logged in you should see your available projects - or a button to create a project if none exist already.</p>
+
+<h3 id="so-this-is-what-an-empty-project-looks-like">So this is what an empty project looks like</h3>
+
+<p>First let&rsquo;s create a new project to do our workshop work in.  We will use the student number you were given to ensure you don&rsquo;t clash with classmates, so in the steps below replace &lsquo;YOUR#&rsquo; with your student number.</p>
+
+<blockquote>
+<p>Click on the &ldquo;New Project&rdquo; button and give it a name of demo-YOUR#</p>
+
+<p>Populate &ldquo;Display Name&rdquo; with &ldquo;demo-YOUR#&rdquo; and populate &ldquo;Description&rdquo; boxes with whatever you like.  And click &ldquo;Create&rdquo;</p>
+</blockquote>
+
+<p>This is going to take you to the next logical step of adding something to the project, but we don&rsquo;t want to do that just yet.</p>
+
+<blockquote>
+<p>Click the &ldquo;demo-YOUR#&rdquo; link on the top left to goto your project</p>
+</blockquote>
+
+<p>Don&rsquo;t worry, it&rsquo;s supposed to look empty right now because you currently don&rsquo;t have anything in your project (we&rsquo;ll fix that in the next lab).</p>
+
+<h3 id="let-s-try-the-command-line">Let&rsquo;s try the command line</h3>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Open a terminal and login using the same URI/user/password with following command:</p>
+</blockquote>
+
+<pre><code class="language-bash">oc login [URI]
+</code></pre>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Check to see what projects you have access to:</p>
+</blockquote>
+
+<pre><code class="language-bash">$ oc get projects
+</code></pre>
+
+<h3 id="it-looks-empty-via-the-command-line-too">It looks empty via the command line too</h3>
+
+<p>You just created a project using the web console, let&rsquo;s tell the terminal command line tool to use it.</p>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Type the following command to use the demo project</p>
+</blockquote>
+
+<pre><code class="language-bash">$ oc project demo-YOUR#
+</code></pre>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Type the following command to show services, deployment configs, build configurations, and active deployments (this will come in handy later):</p>
+</blockquote>
+
+<pre><code class="language-bash">$ oc status
+</code></pre>
+
+<h2 id="summary">Summary</h2>
+
+<p>You should now be ready to get hands-on with our workshop labs.</p>
+
+<h1 id="byo-docker">BYO docker</h1>
+
+<h2 id="bring-your-own-docker">Bring your own docker</h2>
+
+<p>It&rsquo;s easy to get started with OpenShift whether that be using our app templates or bringing your existing docker assets.  In this quick lab we will deploy app using an exisiting docker image.  OpenShift will create an image stream for the image as well as deploy and manage containers based on that image.  And we will dig into the details to show how all that works.</p>
+
+<h3 id="let-s-point-openshift-to-an-existing-built-docker-image">Let&rsquo;s point OpenShift to an existing built docker image</h3>
+
+<p>
+<div class="panel-group" id="accordionA" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingAOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapseAOne" aria-expanded="true" aria-controls="collapseAOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseAOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAOne">
+      <div class="panel-body">
+        <blockquote>
+        <i class="fa fa-terminal"></i> Goto the terminal and type the following:
+        </blockquote>
+        <strong>
+          
+
+
+$ oc new-app kubernetes/guestbook</p>
+
+<blockquote><p>The output should show something *similar* to below:</p></blockquote>
+
+<pre><code>--&gt; Found docker image a49fe18 (17 months old) from docker Hub for &quot;kubernetes/guestbook&quot;
+    * An image stream will be created as &quot;guestbook:latest&quot; that will track this image
+    * This image will be deployed in deployment config &quot;guestbook&quot;
+    * Port 3000/tcp will be load balanced by service &quot;guestbook&quot;
+--&gt; Creating resources with label app=guestbook ...
+    ImageStream &quot;guestbook&quot; created
+    DeploymentConfig &quot;guestbook&quot; created
+    Service &quot;guestbook&quot; created
+--&gt; Success
+    Run 'oc status' to view your app.
+</code></pre>
+
+       </strong>
+      </div>
+     </div>
+    </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+
+
+<blockquote><p>Click &#39;Add to Project&#39;</p></blockquote>
+
+
+<figure >
+    
+        <img src="/workshops/openshift.3.3/images/ose-lab-s2i-addbutton.png" width="100" />
+    
+    
+</figure>
+
+
+<blockquote><p>Select the tab for </p></blockquote>
+
+
+<figure >
+    
+        <img src="/workshops/openshift.3.3/images/ose-guestbook-deploy-image.png" width="400" />
+    
+    
+</figure>
+
+
+<blockquote><p>Select the option for &#39;Image Name&#39; and enter &#39;kubernetes/guestbook&#39;, then click the magnifying glass to the far right to search for the image.</p></blockquote>
+
+
+<figure >
+    
+        <img src="/workshops/openshift.3.3/images/ose-guestbook-imagename-expand.png" width="600" />
+    
+    
+</figure>
+
+
+<blockquote><p>Observe default values that are populated in the search results:</p></blockquote>
+
+<p>
+<figure >
+    
+        <img src="/workshops/openshift.3.3/images/ose-guestbook-create-1.png" width="600" />
+    
+    
+</figure>
+
+
+<figure >
+    
+        <img src="/workshops/openshift.3.3/images/ose-guestbook-create-2.png" width="600" />
+    
+    
+</figure>
+</p>
+
+<blockquote><p>Scroll to the bottom and click Create</p></blockquote>
+
+     </div>
+    </div>
+  </div>
+</div> 
+
+<h3 id="we-can-browse-our-project-details-with-the-command-line">We can browse our project details with the command line</h3>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Try typing the following to see what is available to &lsquo;get&rsquo;:</p>
+</blockquote>
+
+<pre><code class="language-bash">$ oc get
+</code></pre>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Now let&rsquo;s look at what our image stream has in it</p>
+</blockquote>
+
+<pre><code class="language-bash">$ oc get is
+</code></pre>
+
+<pre><code class="language-bash">$ oc describe is/guestbook
+</code></pre>
+
+<p><i class="fa fa-info-circle"></i> An image stream can be used to automatically perform an action, such as updating a deployment, when a new image, such as a new version of the guestbook image, is created.</p>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> The app is running in a pod, let&rsquo;s look at that</p>
+</blockquote>
+
+<pre><code class="language-bash">$ oc describe pods
+</code></pre>
+
+<h3 id="we-can-see-those-details-using-the-web-console-too">We can see those details using the web console too</h3>
+
+<p>Let&rsquo;s look at the image stream.</p>
+
+<blockquote>
+Click on "Builds -> Images"
+</blockquote>
+
+<p>This shows a list of all image streams within the project.</p>
+
+<blockquote>
+Now click on the guestbook image stream
+</blockquote>
+
+<p>You should see something similar to this:</p>
+
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-guestbook-is.png" width="600"/><br/></p>
+
+<h3 id="does-this-guestbook-do-anything">Does this guestbook do anything?</h3>
+
+<p>Good catch, your service is running but there is no way for users to access it yet.  We can fix that with the web console or the command line, you decide which you&rsquo;d rather do from the steps below.</p>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+
+<blockquote>
+To expose via the web console, click on "Overview" to get to this view:
+</blockquote>
+<img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-guestbook-noroute.png" width="600"/><br/>
+
+<p>Notice there is no exposed route </p>
+
+<blockquote>
+Click on the "Create Route" link
+</blockquote>
+
+<img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-guestbook-createroute.png" width="600"/><br/>
+
+<p>This is where you could specify route parameters, but we will just use the defaults.</p>
+
+<blockquote>
+Click "Create"
+</blockquote>
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Alternatively: CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> In the command line type this:
+</blockquote>
+
+{% highlight csh %}
+$ oc expose service guestbook
+{% endhighlight %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p><i class="fa fa-info-circle"></i> You can also create secured HTTPS routes, but that&rsquo;s an advanced topic for a later lab</p>
+
+<h3 id="test-out-the-guestbook-webapp">Test out the guestbook webapp</h3>
+
+<p>Notice that in the web console overview, you now have a URL in the service box.  There is no database setup, but you can see the webapp running by clicking the route you just exposed.</p>
+
+<blockquote>
+<p>Click the link in the service box</p>
+</blockquote>
+
+<p>You should see:
+<img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-guestbook-app.png" width="600"/><br/></p>
+
+<h3 id="good-work-let-s-clean-this-up">Good work, let&rsquo;s clean this up</h3>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Let&rsquo;s clean up all this to get ready for the next lab:</p>
+</blockquote>
+
+<p>{% highlight csh %}
+$ oc delete all &ndash;all
+{% endhighlight %}</p>
+
+<h2 id="summary-1">Summary</h2>
+
+<p>In this lab you&rsquo;ve deployed an example docker image, pulled from docker hub, into a pod running in OpenShift.  You exposed a route for clients to access that service via thier web browsers.  And you learned how to get and describe resources using the command line and the web console.  Hopefully, this basic lab also helped to get you familiar with using the CLI and navigating within the web console.</p>
+
+<h1 id="deploying-an-app-with-s2i">Deploying an App with S2I</h1>
+
+<h2 id="source-to-image-s2i">Source to Image (S2I)</h2>
+
+<p>One of the useful components of OpenShift is its source-to-image capability.  S2I is a framework that makes it easy to turn your source code into runnable images.  The main advantage of using S2I for building reproducible docker images is the ease of use for developers.  You&rsquo;ll see just how simple it can be in this lab.</p>
+
+<h3 id="let-s-build-a-node-js-web-server-using-s2i">Let&rsquo;s build a node.js web server using S2I</h3>
+
+<p>We can do this either via the command line (CLI) or the web console.  You decide which you&rsquo;d rather do and follow the steps below:</p>
+
+<div class="panel-group" id="accordionA" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingAOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapseAOne" aria-expanded="true" aria-controls="collapseAOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseAOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+{% highlight csh %}
+$ oc new-app --name=dc-metro-map https://github.com/dudash/openshift-workshops.git --context-dir=dc-metro-map
+$ oc expose service dc-metro-map
+{% endhighlight %}
+
+<i class="fa fa-info-circle"></i> OpenShift auotmatically detected the source code type and selected the nodejs builder image
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingATwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapseATwo" aria-expanded="false" aria-controls="collapseATwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseATwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingATwo">
+      <div class="panel-body">
+
+<blockquote>
+Click "Add to Project"
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-addbutton.png" width="100"/></p>
+
+<blockquote>
+Click "Browse Catalog" and filter for nodejs, then click the nodejs:0.10 builder image
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-s2i-filternode.png" width="600"/></p>
+
+<blockquote>
+Fill out the boxes to look as follows:
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-addtoproject.png" width="600"/></p>
+<p>
+Notes: You will need to click to expand the "advanced options"<br/>
+The github repository URL is: https://github.com/dudash/openshift-workshops.git<br/>
+The github context-dir is: dc-metro-map<br/>
+</p>
+
+<blockquote>
+Scroll to the bottom and click "Create"
+</blockquote>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="check-out-the-build-details">Check out the build details</h3>
+
+<p>We can see the details of what the S2I builder did.  This can be helpful to diagnose issues if builds are failing.</p>
+
+<p><i class="fa fa-magic"></i> TIP: For a node.js app, running &ldquo;npm shrinkwrap&rdquo; is a good practice to perform on your branch before releasing changes that you plan to build/deploy as an image with S2I</p>
+
+<div class="panel-group" id="accordionB" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingBOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseBOne" aria-expanded="true" aria-controls="collapseBOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseBOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+
+{% highlight csh %}
+$ oc get builds
+{% endhighlight %}
+
+In the output, note the name of your build and use it to see the logs with:
+
+{% highlight csh %}
+$ oc logs builds/[BUILD_NAME]
+{% endhighlight %}
+
+The console will print out the full log for your build.  Note, you could pipe this to more or less for easier viewing in the CLI.
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingBTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseBTwo" aria-expanded="false" aria-controls="collapseBTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseBTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBTwo">
+      <div class="panel-body">
+
+<blockquote>
+Click on "Builds" and then click on "Builds"
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-s2i-builds.png" width="300"/></p>
+
+<blockquote>
+Click on the "dc-metro-map" link
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-metromapbuild.png" width="300"/></p>
+
+<blockquote>
+Click on the "View Log" tab to see the details of your latest build
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-metromapbuilds.png" width="500"/></p>
+
+You should see a log output similar to the one below:
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-metromapbuildlog.png" width="500"/></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="see-the-app-in-action">See the app in action</h3>
+
+<p>Let&rsquo;s see this app in action!</p>
+
+<div class="panel-group" id="accordionC" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionC" href="#collapseCOne" aria-expanded="true" aria-controls="collapseCOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseCOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCOne">
+      <div class="panel-body">
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+
+{% highlight csh %}
+$ oc get routes
+{% endhighlight %}
+
+<blockquote>
+Copy the HOST/PORT and paste into your favorite web browser
+</blockquote>
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionC" href="#collapseCTwo" aria-expanded="false" aria-controls="collapseCTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseCTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCTwo">
+      <div class="panel-body">
+
+<blockquote>
+Click on Overview
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-s2i-overview.png" width="100"/></p>
+
+<blockquote>
+Click the URL that is listed in the dc-metro-map header
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-s2i-dcmetromapsvc.png" width="600"/></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>The app should look like this in your web browser:</p>
+
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-s2i-apprunning.png" width="500"/></p>
+
+<p>Clicking the checkboxes will toggle on/off the individual metro stations on each colored line.  A numbered icon indicates there is more than one metro station in that area and they have been consolidated - click the number or zoom in to see more.</p>
+
+<h2 id="summary-2">Summary</h2>
+
+<p>In this lab we deployed a sample application using source to image.  This process built our code and wrapped that in a docker image.  It then deployed the image into our OpenShift platform in a pod and exposed a route to allow outside web traffic to access our application.  In the next lab we will look at some details of this app&rsquo;s deployment and make some changes to see how OpenShift can help to automate our development processes.</p>
+
+<h1 id="developing-and-managing-your-application">Developing and Managing Your Application</h1>
+
+<h2 id="developing-and-managing-an-application-in-openshift">Developing and managing an application in OpenShift</h2>
+
+<p>In this lab we will explore some of the common activities undertaken by developers working in OpenShift.  You will become familiar with how to use environment variables, secrets, build configurations, and more.  Let&rsquo;s look at some of the basic things a developer might care about for a deployed app.</p>
+
+<h3 id="setup">Setup</h3>
+
+<p>From the previous lab you should have the DC Metro Maps web app running in OpenShift.</p>
+
+<p><i class="fa fa-warning"></i> <strong>Only if you don&rsquo;t already have it running already, add it with the following steps.</strong></p>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Goto the terminal and type these commands:</p>
+</blockquote>
+
+<p>{% highlight csh %}
+$ oc new-app &ndash;name=dc-metro-map <a href="https://github.com/dudash/openshift-workshops.git">https://github.com/dudash/openshift-workshops.git</a> &ndash;context-dir=dc-metro-map
+$ oc expose service dc-metro-map
+{% endhighlight %}</p>
+
+<h3 id="see-the-app-in-action-and-inspect-some-details">See the app in action and inspect some details</h3>
+
+<p>There is no more ambiguity or confusion about where the app came from.  OpenShift provides traceability for your running deployment back to the docker image and the registry it came from, as well as (for images built by openshift) back to the exact source code branch and commit.  Let&rsquo;s take a look at that.</p>
+
+<div class="panel-group" id="accordionA" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingAOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapseAOne" aria-expanded="true" aria-controls="collapseAOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseAOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+{% highlight csh %}
+$ oc status
+{% endhighlight %}
+
+This is going to show the status of your current project.  In this case it will show the dc-metro-map service (svc) with a nested deployment config (dc) along with some more info that you can ignore for now.  
+
+<br/><br/><i class="fa fa-info-circle"></i>  A deployment in OpenShift is a replication controller based on a user defined template called a deployment configuration <br/><br/>
+
+The dc provides us details we care about to see where our application image comes from, so let's check it out in more detail.
+
+<blockquote>
+<i class="fa fa-terminal"></i> Type the following to find out more about our dc:
+</blockquote>
+{% highlight csh %}
+$ oc describe dc/dc-metro-map
+{% endhighlight %}
+
+Notice under the template section it lists the containers it wants to deploy along with the path to the container image.
+
+<br/><br/><i class="fa fa-info-circle"></i> There are a few other ways you could get to this information.  If you are feeling adventurous, you might want to describe the replication controller (oc describe rc -l app=dc-metro-map), the image stream (oc describe is -l app=dc-metro-map) or the running pod itself (oc describe pod -l app=dc-metro-map).<br/><br/>
+
+Because we built this app using S2I, we get to see the details about the build - including the container image that was used for building the source code.  So let's find out where the image came from.  Here are the steps to get more information about the build configuration (bc) and the builds themselves.
+
+<blockquote>
+<i class="fa fa-terminal"></i> Type the following to find out more about our bc:
+</blockquote>
+{% highlight csh %}
+$ oc describe bc/dc-metro-map
+{% endhighlight %}
+
+Notice the information about the configuration of how this app gets built.  In particular look at the github URL, the webhooks you can use to automatically trigger a new build, the docker image where the build runs inside of, and the builds that have been completed.  New let's look at one of those builds.
+
+<blockquote>
+<i class="fa fa-terminal"></i> Type the following:
+</blockquote>
+{% highlight csh %}
+$ oc describe build/dc-metro-map-1
+{% endhighlight %}
+
+This shows us even more about the deployed container's build and source code including exact commit GUID for this build.  We can also can see the commit's author, and the commit message.  You can inspect the code by opening a web browser and pointing it to: https://github.com/dudash/openshift-workshops/commit/[COMMIT_GUID]
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingATwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapseATwo" aria-expanded="false" aria-controls="collapseATwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseATwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingATwo">
+      <div class="panel-body">
+
+<blockquote>
+Click "Overview"
+</blockquote>
+<blockquote>
+Check out the details within the deployment (above and to the right of the Pods circle). 
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployment-shortcut.png" width="200"/></p>
+
+Within the deployment for the dc-metro-map is a container summary that shows both the GUID for the image and the GUID for the git branch.
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-containertracibility.png" width="500"/></p>
+
+<blockquote>
+Click on the link next to "Image:"
+</blockquote>
+Here are the details of the image stream for this deployment.
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-dcmteroimagestream.png" width="500"/></p>
+
+<i class="fa fa-info-circle"></i> If you hover over the shortened image GUID or edit the image stream you can see the full GUID.<br/><br/>
+
+<blockquote>
+Click "Builds" and then Builds to get back to the build summary
+</blockquote>
+
+<blockquote>
+Click "#1" to see the build details
+</blockquote>
+Because we built this app using S2I, we get to see the details about the build - including the container image that was used for building the source code.  Note that you can kick-off a rebuild here if something went wrong with the initial build and you'd like to attempt it again.
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-buildsummary.png" width="500"/></p>
+
+<blockquote>
+Click "Overview" and then the deployment detail link to get back to the deployment summary again
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployment-shortcut.png" width="200"/></p>
+Notice that next to the build # you can see the comment from the last commit when the build was started.  And you can see the that commit's author.  You can click that commit GUID to be taken to the exact version of the source code that is in this deployed application.
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-commitmsg.png" width="400"/></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="pod-logs">Pod logs</h3>
+
+<p>In the S2I lab we looked at a build log to inspect the process of turning source code into an image.  Now let&rsquo;s inspect the log for a running pod - in particular let&rsquo;s see the web application&rsquo;s logs.</p>
+
+<div class="panel-group" id="accordionB" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingBOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseBOne" aria-expanded="true" aria-controls="collapseBOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseBOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+{% highlight csh %}
+$ oc get pods
+{% endhighlight %}
+
+This is going to show basic details for all pods in this project (including the builders).  Let's look at the log for the pod running our application.  Look for the POD NAME that that is "Running" you will use it below.
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following (replacing the POD ID with your pod's ID):
+</blockquote>
+{% highlight csh %}
+$ oc logs [POD NAME]
+{% endhighlight %}
+
+You will see in the output details of your app starting up and any status messages it has reported since it started.
+
+<br/><br/><i class="fa fa-info-circle"></i> You can see more details about the pod itself with 'oc describe pods/[POD NAME]'
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingBTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseBTwo" aria-expanded="false" aria-controls="collapseBTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseBTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBTwo">
+      <div class="panel-body">
+
+<blockquote>
+Click on "Applications" and then click on "Pods"
+</blockquote>
+This is going to show basic details for all pods in this project (including the builders).
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-allpods.png" width="500"/></p>
+Next let's look at the log for the pod running our application.
+
+<blockquote>
+Click the pod that starts with "dc-metro-map-" and has a status of Running
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-poddetails.png" width="500"/></p>
+Here you see the status details of your pod as well as its configuration.  Take a minute here and look at what details are available.
+
+<blockquote>
+Click the "Logs" button
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-podslogs.png" width="500"/></p>
+Now you can see in the output window the details of your app starting up and any status messages it has reported since it started.
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="how-about-we-set-some-environment-variables">How about we set some environment variables?</h3>
+
+<p>Whether it&rsquo;s a database name or a configuration variable, most applications make use of environment variables.  It&rsquo;s best not to bake these into your containers because they do change and you don&rsquo;t want to rebuild an image just to change an environment variable.  Good news!  You don&rsquo;t have to.  OpenShift let&rsquo;s you specify environment variables in your deployment configuration and they get passed along through the pod to the container.  Let&rsquo;s try doing that.</p>
+
+<div class="panel-group" id="accordionC" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionC" href="#collapseCOne" aria-expanded="true" aria-controls="collapseCOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseCOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCOne">
+      <div class="panel-body">
+
+Let's have a little fun.  The app has some easter eggs that get triggered when certain env vars are set to 'true'.
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+{% highlight csh %}
+$ oc env dc/dc-metro-map -e BEERME=true
+{% endhighlight %}
+
+{% highlight csh %}
+$ oc get pods -w
+{% endhighlight %}
+
+Due to the deployment config strategy being set to "Rolling" and the "ConfigChange" trigger being set, OpenShift auto deployed a new pod as soon as you updated with the env variable.  If you were quick enough you saw this happening with the get pods command
+
+<blockquote>
+<i class="fa fa-terminal"></i> Type Ctrl+C to stop watching the pods
+</blockquote>
+
+<i class="fa fa-info-circle"></i> You can set env variables across all deployment configs with 'dc --all' instead of specifying a specifc config
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionC" href="#collapseCTwo" aria-expanded="false" aria-controls="collapseCTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseCTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCTwo">
+      <div class="panel-body">
+
+<blockquote>
+Click on "Applications" and then click on "Deployments"
+</blockquote>
+This is going to show basic details for all deployment configurations in this project
+
+<blockquote>
+Click the "dc-metro-map" deployment config
+</blockquote>
+There are a lot of details here, feel free to check them out and ask questions, but we are here to set some new environment variables.  
+
+<blockquote>
+Click the Environment tab next to the Details tab .
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployconfigdetails-config.png" width="500"/></p>
+This opens up a tab with the environment variables for this deployment config.
+
+<blockquote>
+Add an environment variable with the name BEERME and a value of 'true'
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployconfigdetails-populated.png" width="500"/></p>
+
+<blockquote>
+Click "Save".  And go back to the summary view by clicking "Overview" on the left menu bar
+</blockquote>
+If you are quick enough you will see a new pod spin up and an the old pod spin down.  This is due to the deployment config strategy being set to "Rolling" and having a "ConfigChange" trigger, OpenShift auto deployed a new pod as soon as you updated with the env variable.
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>With the new environment variables set the app should look like this in your web browser (with beers instead of busses):</p>
+
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-beerme.png" width="500"/></p>
+
+<h3 id="what-about-passwords-and-private-keys">What about passwords and private keys?</h3>
+
+<p>Environment variables are great, but sometimes we don&rsquo;t want sensitive data exposed in the environment.  We will get into using <strong>secrets</strong> later when you do the lab: <a href="https://docs.openshift.com/container-platform/3.3/dev_guide/index.html">Keep it Secret, Keep it Safe</a></p>
+
+<h3 id="getting-into-a-pod">Getting into a pod</h3>
+
+<p>There are situations when you might want to jump into a running pod, and OpenShift lets you do that pretty easily.  We set some environment variables and secrets in this lab, let&rsquo;s jump onto our pod to inspect them.</p>
+
+<div class="panel-group" id="accordionD" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingDOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionD" href="#collapseDOne" aria-expanded="true" aria-controls="collapseDOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseDOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingDOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+{% highlight csh %}
+$ oc get pods
+{% endhighlight %}
+
+Find the pod name for your Running pod
+
+{% highlight csh %}
+$ oc exec -it [POD NAME] /bin/bash
+{% endhighlight %}
+ 
+You are now interactively attached to the container in your pod.  Let's look for the environment variables we set:
+
+{% highlight csh %}
+$ env | grep BEER
+{% endhighlight %}
+
+That should return the **BEERME=true** matching the value that we set in the deployment config.
+
+{% highlight csh %}
+$ exit
+{% endhighlight %}
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingDTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionD" href="#collapseDTwo" aria-expanded="false" aria-controls="collapseDTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseDTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingDTwo">
+      <div class="panel-body">
+
+<blockquote>
+Click on "Applications" and then click on "Pods"
+</blockquote>
+
+<blockquote>
+Click the pod that starts with "dc-metro-map-" and has a status of Running
+</blockquote>
+
+<blockquote>
+Click the "Terminal" button
+</blockquote>
+
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-podterminal.png" width="500"/></p>
+Let's look for the environment variables we set:
+
+<blockquote>
+Inside the web page's terminal type: 'env | grep BEER'
+</blockquote>
+That should return the **BEERME=true** matching the value that we set in the deployment config.
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="good-work-let-s-clean-this-up-1">Good work, let&rsquo;s clean this up</h3>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Let&rsquo;s clean up all this to get ready for the next lab:</p>
+</blockquote>
+
+<p>{% highlight csh %}
+$ oc delete all -l app=dc-metro-map
+{% endhighlight %}</p>
+
+<h2 id="summary-3">Summary</h2>
+
+<p>In this lab you&rsquo;ve seen how to trace running software back to its roots, how to see details on the pods running your software, how to update deployment configurations, how to inspect logs files, how to set environment variables consistently across your environment, and how to interactively attach to running containers.  All these things should come in handy for any developer working in an OpenShift platform.</p>
+
+<p>To dig deeper in to details behind the steps you performed in this lab, check out the OSE <a href="https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html">developer&rsquo;s guide</a>.</p>
+
+<h1 id="webhooks-and-rollbacks">Webhooks and Rollbacks</h1>
+
+<h2 id="build-triggers-webhooks-and-rollbacks-oh-my">Build Triggers, Webhooks and Rollbacks - Oh My!</h2>
+
+<p>Once you have an app deployed in OpenShift you can take advantage of some continuous capabilities that help to enable DevOps and automate your management process.  We will cover some of those in this lab: Build triggers, webhooks, and rollbacks.</p>
+
+<h3 id="a-bit-of-configuration">A bit of configuration</h3>
+
+<p>We are going to do some integration and coding with an external git repository.  For this lab we are going to use github, if you don&rsquo;t already have an account, <a href="http://developers.redhat.com/products/cdk/overview/">you can create one here</a>.</p>
+
+<p>OK, let&rsquo;s fork the dc-metro-map app from <strong>my</strong> account into <strong>your</strong> github account.  Goto <a href="http://developers.redhat.com/products/cdk/docs-and-apis/">https://github.com/dudash/openshift-workshops/</a> and look to the top right for the &ldquo;Fork&rdquo; button.</p>
+
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-fork.png" width="400"/></p>
+
+<blockquote>
+<p>Click the &ldquo;Fork&rdquo; button</p>
+</blockquote>
+
+<p>Github should redirect you to the newly created fork of the source code.</p>
+
+<h3 id="build-trigger-code-change-webhook">Build Trigger / Code Change Webhook</h3>
+
+<p>When using S2I there are a few different things that can be used to <a href="https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html">trigger</a> a rebuild of your source code.  The first is a configuration change, the second is an image change, and the last (which we are covering here) is a webhook.  A webhook is basically your git source code repository telling OpenShift that the code we care about has changed.  Let&rsquo;s set that up for our project now to see it in action.</p>
+
+<p>Jump back to your OpenShift web console and let&rsquo;s add the webapp to our project.  You should know how to do this from previous lab work, but this time point to <em>your</em> github URL for the source code.  If you need a refresher expand the box below.</p>
+
+<div class="panel-group" id="accordOpt" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headinOpt">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordOpt" href="#collOpt" aria-expanded="false" aria-controls="collOpt">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collOpt" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headinOpt">
+      <div class="panel-body">
+
+<blockquote>
+Click the "Add to Project" button
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-rollbacks-add-to-project.png" width="100"/></p>
+<blockquote>
+Select the "Browse Catalog" tab and search for the nodejs:0.10 builder image.
+</blockquote>
+<blockquote>
+Fill out the boxes to point to the fork and context dir
+</blockquote>
+
+<p>
+Notes: You will need to click to expand the "advanced options"<br/>
+The github repository URL is: https://github.com/YOUR_ACCOUNT/openshift-workshops.git<br/>
+The github context-dir is: /dc-metro-map<br/>
+</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>The node.js builder template creates a number of resources for you, but what we care about right now is the build configuration because that contains the webhooks.  So to get the URL:</p>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+{% highlight csh %}
+$ oc describe bc/dc-metro-map | grep -i webhook
+{% endhighlight %}
+
+<blockquote>
+Copy the Generic webhook to the clipboard
+</blockquote>
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        
+<blockquote>
+Click on "Builds" and then click on "Builds"
+</blockquote>
+This is going to show basic details for all build configurations in this project
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-buildconfigs.png" width="500"/></p>
+
+<blockquote>
+Click the "dc-metro-map" build config
+</blockquote>
+You will see the summary of builds using this build config
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-buildconfigsummary.png" width="500"/></p>
+
+<blockquote>
+Click the "Configuration" tab (next to the active Summary tab)
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-devman-deployconfigconfig.png" width="500"/></p>
+Now you can see the various configuration details including the Github specific and Generic webhook URLs.
+
+<blockquote>
+Copy the Generic webhook to the clipboard
+</blockquote>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p><br/></p>
+
+<blockquote>
+<p>Now switch back over to github</p>
+</blockquote>
+
+<div class="panel-group" id="accordionC" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionC" href="#collapseCOne" aria-expanded="true" aria-controls="collapseCOne">
+          Github Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseCOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCOne">
+      <div class="panel-body">
+
+Let's put the webhook URL into the repository. At the main page for this repository (the fork), you should see a tab bar with code, pull requests, pulse, graphs, and settings.
+
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-settings.png" width="400"/></p>
+
+<blockquote>
+Click the "Settings" tab
+</blockquote>
+
+Now you will see a vertical list of settings groups.<br/><br/>
+
+<blockquote>
+Click the "Webhooks & services" item
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-githubwebhooks.png" width="600"/></p>
+
+<blockquote>
+Click the "Add webhook" button
+</blockquote>
+<blockquote>
+Paste in the URL you copied
+</blockquote>
+<blockquote>
+Disable SSL verification by clicking the button
+</blockquote>
+<i class="fa fa-info-circle"></i> You can learn how to setup SSH in the secrets lab<br/><br/>
+
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-githubwebhooks-add.png" width="600"/></p>
+
+<blockquote>
+Click the button to "Add webhook"
+</blockquote>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>Good work!  Now any &ldquo;push&rdquo; to the forked repository will send a webhook that triggers OpenShift to: re-build the code and image using s2i, and then perform a new pod deployment.  In fact Github should have sent a test trigger and OpenShift should have kicked off a new build already.</p>
+
+<h3 id="deployment-triggers">Deployment Triggers</h3>
+
+<p><i class="fa fa-info-circle"></i> In addition to setting up triggers for rebuilding code, we can setup a different type of <a href="https://docs.openshift.com/container-platform/3.3/dev_guide/index.html">trigger</a> to deploy pods.  Deployment triggers can be due to a configuration change (e.g. environment variables) or due to an image change.  This powerful feature will be covered in one of the advanced labs.</p>
+
+<h3 id="rollbacks">Rollbacks</h3>
+
+<p>Well, what if something isn&rsquo;t quite right with the latest version of our app?  Let&rsquo;s say some feature we thought was ready for the world really isn&rsquo;t - and we didn&rsquo;t figure that out until after we deployed it.  No problem, we can roll it back with the click of a button.  Let&rsquo;s check that out:</p>
+
+<div class="panel-group" id="accordionB" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingBOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseBOne" aria-expanded="true" aria-controls="collapseBOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseBOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+{% highlight csh %}
+$ oc rollback dc-metro-map-1
+$ oc get pods -w
+{% endhighlight %}
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingBTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseBTwo" aria-expanded="false" aria-controls="collapseBTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseBTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBTwo">
+      <div class="panel-body">
+
+<blockquote>
+Click on "Applications" and then click on "Deployments"
+</blockquote>
+This is going to show basic details for all deployment configurations in this project
+
+<blockquote>
+Click the "dc-metro-map" deployment config
+</blockquote>
+Toward the bottom of the screen you will see a table of deployments using this deployment config
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-rollbacks-deploymentconfigsummary.png" width="600"/></p>
+
+<blockquote>
+In the Deployments table click the #1
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-rollbacks-deploymentconfig1.png" width="500"/></p>
+
+<blockquote>
+Click the "Rollback button", accept defaults, and click "Rollback" again
+</blockquote>
+
+You can go back to the overview page to see your previous deployment spinning down and your new one spinning up.
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>OpenShift has done a graceful removal of the old pod and created a new one.</p>
+
+<p><i class="fa fa-info-circle"></i> The old pod wasn&rsquo;t killed until the new pod was successfully started and ready to be used.  This is so that OpenShift could continue to route traffic to the old pod until the new one was ready.</p>
+
+<p><i class="fa fa-info-circle"></i> You can integrate your CI/CD tools to do <a href="https://en.wikipedia.org/wiki/Continuous_delivery">rollbacks with the REST API</a>.</p>
+
+<h2 id="summary-4">Summary</h2>
+
+<p>In this lab we saw how you can configure a source code repository to trigger builds with webhooks.  This webhook could come from Github, Jenkins, Travis-CI, or any tool capable of sending a URL POST.  Keep in mind that there are other types of build triggers you can setup.  For example: if a new version of the upstream RHEL image changes.  We also inspected our deployment history and did a rollback of our running deployment to one based on an older image with the click of a button.</p>
+
+<h1 id="replication-and-recovery">Replication and Recovery</h1>
+
+<h2 id="things-will-go-wrong-and-that-s-why-we-have-replication-and-recovery">Things will go wrong, and that&rsquo;s why we have replication and recovery</h2>
+
+<p>Things will go wrong with your software, or your hardware, or from something out of your control.  But we can plan for that failure, and planning for it let&rsquo;s us minimize the impact.  OpenShift supports this via what we call replication and recovery.</p>
+
+<h3 id="replication">Replication</h3>
+
+<p>Let&rsquo;s walk through a simple example of how the replication controller can keep your deployment at a desired state.  Assuming you still have the dc-metro-map project running we can manually scale up our replicas to handle increased user load.</p>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and try the following:
+</blockquote>
+{% highlight csh %}
+$ oc scale --replicas=4 dc/dc-metro-map
+{% endhighlight %}
+
+<blockquote>
+<i class="fa fa-terminal"></i> Check out the new pods:
+</blockquote>
+{% highlight csh %}
+$ oc get pods
+{% endhighlight %}
+
+Notice that you now have 4 unique pods availble to inspect.  If you want go ahead and inspect them you can see that each have their own IP address and logs (oc describe).
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+
+<blockquote>
+Click "Overview"
+</blockquote>
+<blockquote>
+In the deployment, click the up arrow 3 times.
+</blockquote>
+The deployment should indicate that it is scaling to 4 pods, and eventually you will have 4 running pods.  Keep in mind that each pod has it's own container which is an identical deployment of the webapp.  OpenShift is now (by default) round robin load-balancing traffic to each pod.
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-replicationrecovery-4pods.png" width="500"/></p>
+
+<blockquote>
+Hover over the pod counter (the circle) and click
+</blockquote>
+Notice that you now have 4 unique webapp pods available to inspect.  If you want go ahead and inspect them you can see that each have their own IP address and logs.
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-4podslist.png" width="500"/></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>So you&rsquo;ve told OpenShift that you&rsquo;d like to maintain 4 running, load-balanced, instances of our web app.</p>
+
+<h3 id="recovery">Recovery</h3>
+
+<p>OK, now that we have a slightly more interesting desired replication state, we can test a service outages scenario. In this scenario, the dc-metro-map replication controller will ensure that other pods are created to replace those that become unhealthy.  Let&rsquo;s force inflict an issue and see how OpenShift reponds.</p>
+
+<div class="panel-group" id="accordionB" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingBOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseBOne" aria-expanded="true" aria-controls="collapseBOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseBOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Choose a random pod and delete it:
+</blockquote>
+{% highlight csh %}
+$ oc get pods
+$ oc delete pod/PODNAME
+$ oc get pods -w
+{% endhighlight %}
+
+If you're fast enough you'll see the pod you deleted go "Terminating" and you'll also see a new pod immediately get created and from "Pending" to "Running".  If you weren't fast enough you can see that your old pod is gone and a new pod is in the list with an age of only a few seconds.
+
+<br/><br/><i class="fa fa-info-circle"></i>  You can see the more details about your replication controller with: $ oc describe rc
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingBTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseBTwo" aria-expanded="false" aria-controls="collapseBTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseBTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBTwo">
+      <div class="panel-body">
+
+Assuming you are in the browse pods list.
+
+<blockquote>
+Click one of the running pods (not a build pod)
+</blockquote>
+<blockquote>
+Click the "Actions" button in the top right and then select "Delete"
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-deletepod.png" width="400"/></p>
+
+<blockquote>
+Quick switch back to the Overview
+</blockquote>
+
+If you're fast enough you'll see the pod you deleted unfill a portion of the deployment circle, and then a new pod fill it back up.  You can browse the pods list again to see the old pod was deleted and a new pod with an age of "a few seconds" has been created to replace it.
+
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-podrecovery.png" width="600"/></p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="application-health">Application Health</h3>
+
+<p>In addition to the health of your application&rsquo;s pods, OpenShift will watch the containers inside those pods.  Let&rsquo;s force inflict some issues and see how OpenShift reponds.</p>
+
+<div class="panel-group" id="accordionC" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionC" href="#collapseCOne" aria-expanded="true" aria-controls="collapseCOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseCOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Choose a running pod and shell into it:
+</blockquote>
+{% highlight csh %}
+$ oc get pods
+$ oc exec PODNAME -it /bin/bash
+{% endhighlight %}
+
+You are now executing a bash shell running in the container of the pod.  Let's kill our webapp and see what happens.
+<br/><i class="fa fa-info-circle"></i> If we had multiple containers in the pod we could use "-c CONTAINER_NAME" to select the right one
+<br/><br/>
+<blockquote>
+<i class="fa fa-terminal"></i> Choose a running pod and shell into its container:
+</blockquote>
+{% highlight csh %}
+$ pkill -9 node
+{% endhighlight %}
+
+This will kick you out off the container with an error like "Error executing command in container"
+
+<br/><br/>
+<blockquote>
+<i class="fa fa-terminal"></i> Do it again - shell in and execute the same command to kill node
+</blockquote>
+
+<blockquote>
+<i class="fa fa-terminal"></i> Watch for the container restart
+</blockquote>
+{% highlight csh %}
+$ oc get pods -w
+{% endhighlight %}
+
+If a container dies multiple times quickly, OpenShift is going to put the pod in a CrashBackOff state.  This ensures the system doesn't waste resources trying to restart containers that are continuously crashing.
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionC" href="#collapseCTwo" aria-expanded="false" aria-controls="collapseCTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseCTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCTwo">
+      <div class="panel-body">
+
+<blockquote>
+Navigate to browse the pods list, and click on a running pod
+</blockquote>
+<blockquote>
+In the tab bar for this pod, click on "Terminal"
+</blockquote>
+<blockquote>
+Click inside the terminal view and type $ pkill -9 node
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-terminal.png" width="400"/></p>
+
+This is going to kill the node.js web server and kick you off the container.
+
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-terminalkick.png" width="400"/></p>
+
+<blockquote>
+Click the refresh button (on the terminal) and do that a couple more times
+</blockquote>
+
+<blockquote>
+Go back to the pods list
+</blockquote>
+
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-replicationrecovery-backoff.png" width="500"/></p>
+
+The container died multiple times so quickly that OpenShift is going to put the pod in a CrashBackOff state.  This ensures the system doesn't waste resources trying to restart containers that are continuously crashing.
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="clean-up">Clean up</h3>
+
+<p>Let&rsquo;s scale back down to 1 replica.  If you are using the web console just click the down arrow from the Overview page.  If you are using the command line use the &ldquo;oc scale&rdquo; command.</p>
+
+<h2 id="summary-5">Summary</h2>
+
+<p>In this lab we learned about replication controllers and how they can be used to scale your applications and services.  We also tried to break a few things and saw how OpenShift responded to heal the system and keep it running.  This topic can get deeper than we&rsquo;ve experimented with here, but getting deeper into application health and recovery is an advanced topic.  If you&rsquo;re interested you can read more about it in the documentation <a href="https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html">here</a>, <a href="https://docs.openshift.com/container-platform/3.3/dev_guide/index.html">here</a>, and <a href="http://developers.redhat.com/products/cdk/overview/">here</a>.</p>
+
+<h1 id="labels">Labels</h1>
+
+<h2 id="labels-1">Labels</h2>
+
+<p>This is a pretty simple lab, we are going to explore labels.  You can use labels to organize, group, or select API objects.</p>
+
+<p>For example, pods are &ldquo;tagged&rdquo; with labels, and then services use label selectors to identify the pods they proxy to. This makes it possible for services to reference groups of pods, even treating pods with potentially different docker containers as related entities.</p>
+
+<h3 id="labels-a-on-pod">Labels a on pod</h3>
+
+<p>In a previous lab we added our web app using a S2I template.  When we did that, OpenShift labeled our objects for us.  Let&rsquo;s look at the labels on our running pod.</p>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and try the following:
+</blockquote>
+{% highlight csh %}
+$ oc get pods
+$ oc describe pod/PODNAME | more
+{% endhighlight %}
+
+You can see the Labels automatically added contain the app, deployment, and deploymentconfig.  Let's add a new label to this pod.
+
+<blockquote>
+<i class="fa fa-terminal"></i> Add a label
+</blockquote>
+{% highlight csh %}
+$ oc label pod/PODNAME testdate=4.30.2016 testedby=mylastname
+{% endhighlight %}
+
+<blockquote>
+<i class="fa fa-terminal"></i> Look at the labels
+</blockquote>
+{% highlight csh %}
+$ oc describe pod/PODNAME | more
+{% endhighlight %}
+
+
+<i class="fa fa-info-circle"></i> Here's a handy way to search through all objects and look at all the labels:<br/>
+<i class="fa fa-terminal"></i> oc describe all | grep -i "labels:"
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+
+<blockquote>
+Click "Applications" and then click on "Pods"
+</blockquote>
+This is going to show basic details for all pods in this project (including the builders).
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-devman-allpods.png" width="500"/></p>
+Next let's look at the log for the pod running our application.
+
+<blockquote>
+Click the pod for the dc metro map webapp (it shoud have a status of Running)
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-labels-poddetails.png" width="500"/></p>
+Here, at the top, you can see the labels on this pod
+
+<blockquote>
+Click the "Actions" button, then click "Edit YAML" for the pod
+</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-labels-podedit.png" width="500"/></p>
+You will see all the labels under the metadata->labels section.
+
+<blockquote>
+Add a new label into the labels section
+</blockquote>
+Your updated label will show up in the pod's list.
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 id="summary-6">Summary</h2>
+
+<p>That&rsquo;s it for this lab, now you know that all the objects in OpenShift can be labeled.  This is important because those labels can be used as part of your CI/CD process.  Advanced labs will cover using labels for Blue/Green deployments and running yours apps on specific nodes (e.g. just on SSD nodes or just on east coast nodes).  You can read more about labels <a href="https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html">here</a> and <a href="https://docs.openshift.com/container-platform/3.3/dev_guide/index.html">here</a>.</p>
+
+<h1 id="ci-cd-pipelines">CI | CD Pipelines</h1>
+
+<h2 id="overview">Overview</h2>
+
+<p>In modern software projects many teams utilize the concept of continuous integration and continuous delivery (CI/CD).  By setting up a tool chain that continuously builds, tests, and stages software releases a team can ensure that their product can be reliably released at any time.  OpenShift can be an enabler in the creation and managecment of this tool chain.  In this lab we will walk through creating a simple example of a CI/CD <a href="https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html">pipeline</a> utlizing Jenkins, all running on top of OpenShift!</p>
+
+<h3 id="start-by-creating-a-new-project">Start by creating a new project</h3>
+
+<p>To begin, we will create a new project. Name the new project &ldquo;cicd&rdquo;.</p>
+
+<div class="panel-group" id="accordionAa" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingAaOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionAa" href="#collapseAaOne" aria-expanded="true" aria-controls="collapseAaOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseAaOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAaOne">
+      <div class="panel-body">
+        <blockquote>
+        <i class="fa fa-terminal"></i> Goto the terminal and type the following:
+        </blockquote>
+        {% highlight csh %}
+        $ oc new-project cicd
+        {% endhighlight %}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingATwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAa" href="#collapseAaTwo" aria-expanded="false" aria-controls="collapseAaTwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseAaTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAaTwo">
+      <div class="panel-body">
+
+        <blockquote>Browse to original landing page, and click "New Project".</blockquote>
+        <p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-new-project.png" width="100"/></p>
+        <blockquote>Fill in the name of the project as "cicd" and click "Create"</blockquote>
+        <p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-new-project-detail.png" width="500"/></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="start-by-installing-jenkins">Start by installing Jenkins</h3>
+
+<p>First we will start by installing Jenkins to run in a pod within your workshop project.  Because this is just a workshop we use the ephemeral template to create our Jenkins sever (for a enterprise system you would probably want to use the persistent template).  Follow the steps below:</p>
+
+<div class="panel-group" id="accordionA" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingAOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapseAOne" aria-expanded="true" aria-controls="collapseAOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseAOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAOne">
+      <div class="panel-body">
+        <blockquote>
+        <i class="fa fa-terminal"></i> Goto the terminal and type the following:
+        </blockquote>
+        {% highlight csh %}
+        $ oc new-app --template=jenkins-ephemeral -p JENKINS_PASSWORD=password
+        $ oc expose svc jenkins
+        $ oc policy add-role-to-user edit -z default
+        {% endhighlight %}
+
+        <blockquote>Copy hostname and paste in browser's address bar...</blockquote>
+
+        {% highlight csh %}
+        $ oc get routes | grep 'jenkins' | awk '{print $2}'
+        {% endhighlight %}
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingATwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapseATwo" aria-expanded="false" aria-controls="collapseATwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseATwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingATwo">
+      <div class="panel-body">
+
+        <blockquote>Click "Add to Project", click "Browse Catalog" select "jenkins-ephemeral".</blockquote>
+        <p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-jenkins-ephemeral.png" width="500"/></p>
+        <blockquote>Click "continue to overview", wait for it to start</blockquote>
+        <p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-jenkins-start.png" width="500"/></p>
+  
+        <blockquote>Click the service link to open jenkins, login as admin/password</blockquote>
+        <p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-jenkins-login.png" width="500"/></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="the-openshift-pipeline-plugin">The OpenShift pipeline plugin</h3>
+
+<p>Now let&rsquo;s make sure we have the OpenShift Pipeline <a href="https://docs.openshift.com/container-platform/3.3/dev_guide/index.html">plugin</a> properly installed within Jenkins.  It will be used to define our application lifecycle and to let our Jenkins jobs perform commands on our OpenShift cluster. It is possible that the plugin is already installed in your environment, so use these steps to verify if it is installed and install it if is not.
+<div class="panel-group" id="accordionB" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingBOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionB" href="#collapseBOne" aria-expanded="true" aria-controls="collapseBOne">
+          Install OSE Plugin Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseBOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBOne">
+      <div class="panel-body">
+  <blockquote>Click &ldquo;Manage Jenkins&rdquo;</blockquote>
+  <p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-manage-jenkins.png" width="100" height="100"/></p></p>
+
+<p><blockquote>Click on &ldquo;Manage Plugins&rdquo;</blockquote>
+  <p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-manage-plugins.png" width="500" /></p></p>
+
+<p><blockquote>Click on &ldquo;Available&rdquo; tab, and filter on &ldquo;openshift&rdquo;. Find the&rdquo;Openshift Pipeline Jenkins Plugin&rdquo;. If it is not installed, then install it.</blockquote>
+  <p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-jenkins-plugin.png" width="700" /></p>
+      </div>
+    </div>
+  </div>
+</div></p>
+
+<p>You can read more about the plugin <a href="http://developers.redhat.com/products/cdk/overview/">here</a>.</p>
+
+<h3 id="our-deployments">Our deployments</h3>
+
+<p>In this example pipeline we will be building, tagging, staging and scaling a Node.js webapp.  We wrote all the code for you already, so don&rsquo;t worry you won&rsquo;t be coding in this lab.  You will just use the code and unit tests to see how CI/CD pipelines work.  And keep in mind that these principles are relevant whether your programming in Node.js, Ruby on Rails, Java, PHP or any one of today&rsquo;s popular programming languages.</p>
+
+<blockquote>Fork the project into your own GitHub account</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-fork.png" width="700" /></p>
+
+<blockquote>Create a dev deployment based on the forked repo
+</blockquote>
+<blockquote><i class="fa fa-terminal"></i> Goto the terminal and type the following:</blockquote>
+<p>
+{% highlight csh %}
+$ oc new-app https://github.com/YOUR_ACCOUNT/openshift-workshops.git \
+   --name=dev --context-dir=dc-metro-map
+$ oc expose svc/dev
+{% endhighlight %}</p>
+
+<blockquote>Create a test deployment based on a tag of the dev ImageStream
+</blockquote>
+<blockquote><i class="fa fa-terminal"></i> Goto the terminal and type the following:</blockquote>
+<p>
+{% highlight csh %}
+$ oc new-app dev:readyToTest --name=test --allow-missing-imagestream-tags
+$ oc expose dc/test --port 8080
+$ oc expose svc/test
+{% endhighlight %}</p>
+
+#### Setup Jekins jobs to use their openshift image stream (which is off your GitHub fork)
+
+<div class="panel-group" id="accordionC" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingCOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionC" href="#collapseCOne" aria-expanded="true" aria-controls="collapseCOne">
+          Steps to Create Jenkins Job
+        </a>
+      </div>
+    </div>
+    <div id="collapseCOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCOne">
+      <div class="panel-body">
+<blockquote>click "New Item"</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-new-item.png" width="500" /></p>
+<blockquote>call it yourname-ci-devel, select freestyle, click OK</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-name-job.png" width="500" /></p>
+<blockquote>Click add build step and choose "Tag OpenShift Image". Enter in all the info, tag as "readyToTest"</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-new-tag.png" width="700" /></p>
+
+<blockquote>In the "Post-build actions" subsection click "Add post-build action" and select "Build other projects". Type in "yourname-ci-deploytotest"</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-build-other-project.png" width="500" /></p>
+<blockquote>Click "Save", don't worry about the error here, we are about to build that Jenkins job.</blockquote>
+
+<p>
+<b>Notes:</b> You will not need the URL of the OpenShift api endpoint or the Authorization Token<br/>
+to get this to work
+</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+#### Connecting the pipeline for dev->test
+<div class="panel-group" id="accordionD" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingDOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionD" href="#collapseDOne" aria-expanded="true" aria-controls="collapseDOne">
+          Steps to Connect Pipeline
+        </a>
+      </div>
+    </div>
+    <div id="collapseDOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingDOne">
+      <div class="panel-body">
+<blockquote>Click "Back to dashboard"</blockquote>
+<blockquote>Click "New Item"</blockquote>
+<blockquote>Call it "yourname-ci-deploytotest", select "freestyle", click "OK"</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-deploy-to-test.png" width="500" /></p>
+<blockquote>Click add build step and choose "Execute shell"</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.1/default/screenshots/ose-lab-cicd-add-exec.png" width="200" /></p>
+Additional steps could go here. For now let's just add some bash to the text area:
+{% highlight csh %}
+echo "inside my jenkins job"
+{% endhighlight%}
+<blockquote>Click add build step and choose "Trigger OpenShift Deployment".</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-trigger-deployment.png" width="700" /></p>
+<blockquote>Click add build step and choose "Scale OpenShift Deployment".</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-scale-deployment.png" width="700" /></p>
+<blockquote>Click "Save".</blockquote>
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-save.png" width="200" /></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+### Watch me release!
+
+At this point you should see the following scenario play out:
+
+  * Inside of Jenkins, you will click the dev pipline that was created we created. On the left-hand side you will see an option to <img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-build-now.png" width="100" />. When you click this, the first job will begin to run. 
+
+  * This first job will use the OpenShift Pipeline plugin to create a new tag of the image called "readyToTest".
+
+  * When this job completes, a second job will execute. This second job cause the deployment to initiate of our test application and then scale the test application to 2 pods.
+
+  * You can see the history of this new tag by browsing to initiate two jobs in the pipeline with the final step being the new tag of "readyToTest". The new tag can then be used for automatic or manual builds of the new test application. You can view the status of the new tag in OpenShift by browsing to Builds -> Images -> your image stream
+
+  <p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-cicd-image-stream-view.png" width="700" /></p> 
+
+<h2 id="summary-7">Summary</h2>
+
+<p>Coming soon&hellip;  Read more about usage of <a href="http://developers.redhat.com/products/cdk/docs-and-apis/">Jenkins on OpenShift here</a>.  Read more about the concepts behind <a href="https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html">pipelines in Jenkins here</a>.</p>
+
+<h1 id="blue-green-deployment">Blue | Green Deployment</h1>
+
+<h2 id="blue-green-deployments">Blue/Green deployments</h2>
+
+<p>When implementing continuous delivery for your software one very useful technique is called Blue/Green deployments.  It addresses the desire to minimize downtime during the release of a new version of an application to production.  Essentially, it involves running two production versions of your app side-by-side and then switching the routing from the last stable version to the new version once it is verified.  Using OpenShift, this can be very seamless because using containers we can easily and rapidly deploy a duplicate infrastructure to support alternate versions and modify routes as a service.  In this lab, we will walk through a simple Blue/Green workflow with an simple web application on OpenShift.</p>
+
+<h3 id="before-starting">Before starting</h3>
+
+<p>Before we get started with the Blue/Green deployment lab, let us clean up some of the projects from the previous lab.
+{% highlight csh %}
+$ oc delete all -l app=jenkins-ephemeral
+$ oc delete all -l app=dev
+$ oc delete all -l app=test
+{% endhighlight %}</p>
+
+<h3 id="let-s-deploy-an-application">Let&rsquo;s deploy an application</h3>
+
+<p>To demonstrate Blue/Green deployments, we&rsquo;ll use a simple application that renders a colored box as an example. Using your GitHub account, please fork the following <a href="https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html">project</a>.</p>
+
+<p>You should be comfortable deploying an app at this point, but here are the steps anyway:</p>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Goto the terminal and type these commands:</p>
+</blockquote>
+
+<p>{% highlight csh %}
+$ oc new-app &ndash;name=green [your-project-repo-url] &ndash;context-dir=dc-metro-map
+$ oc expose service green
+{% endhighlight %}</p>
+
+<p>Note that we exposed this application using a route named &ldquo;green&rdquo;. Wait for the application to become available, then navigate to your application and validate it deployed correctly.</p>
+
+<h3 id="release-a-new-version-of-our-app-and-test-it-in-the-same-environment">Release a new version of our app and test it in the same environment</h3>
+
+<p>What we&rsquo;ll do next is create a new version of the application called &ldquo;blue&rdquo;. The quickest way to make a change to the code is directly in the GitHub web interface. In GitHub, edit the dc-metro-map/views/dcmetro.jade file in your repo.</p>
+
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-editgithub.png" width="500"/></p>
+
+<p>We can change the text labels indicated by name of a color. If you want to change the label for the &ldquo;Red Line&rdquo;, change line 22 from &ldquo;Red Line&rdquo; to  &ldquo;Silver Line&rdquo;. These changes will be easily viewable on the main screen of the application.</p>
+
+<p>Use the same commands to deploy this new version of the app, but this time name the service &ldquo;blue&rdquo;. No need to expose a new route &ndash; we&rsquo;ll instead switch the &ldquo;green&rdquo; route to point to the &ldquo;blue&rdquo; service once we&rsquo;ve verified it.</p>
+
+<blockquote>
+<p><i class="fa fa-terminal"></i> Goto the terminal and type these commands:</p>
+</blockquote>
+
+<p>{% highlight csh %}
+$ oc new-app &ndash;name=blue [your-project-repo-url] &ndash;context-dir=dc-metro-map
+{% endhighlight %}</p>
+
+<p>Wait for the &ldquo;blue&rdquo; application to become avialable before proceeding.</p>
+
+<h3 id="switch-from-green-to-blue">Switch from Green to Blue</h3>
+
+<p>Now that we are satisfied with our change we can do the Green/Blue switch.  With OpenShift services and routes, this is super simple.  Follow the steps below to make the switch:</p>
+
+<div class="panel-group" id="accordionA" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingAOne">
+      <div class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapseAOne" aria-expanded="true" aria-controls="collapseAOne">
+          CLI Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseAOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAOne">
+      <div class="panel-body">
+      
+<blockquote>
+<i class="fa fa-terminal"></i> Goto the terminal and type the following:
+</blockquote>
+{% highlight csh %}
+$ oc edit route green
+{% endhighlight %}
+
+This will bring up the Route configuration yaml. Edit the element spec: to: name and change it's value from "green" to "blue".
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingATwo">
+      <div class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionA" href="#collapseATwo" aria-expanded="false" aria-controls="collapseATwo">
+          Web Console Steps
+        </a>
+      </div>
+    </div>
+    <div id="collapseATwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingATwo">
+      <div class="panel-body">
+
+Navigate to the Routes view from the left-hand menu:
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-navtoroutes.png" width="500"/></p>
+
+In your Routes overview, click on the "green" route:
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-routesoverview.png" width="500"/></p>
+
+In the Route detail page, click on Actions > Edit:
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-routedetail.png" width="300"/></p>
+
+Edit the Route: select the name dropdown and change the value from "green" to "blue":
+<p><img src="{{ site.baseurl }}/www/3.3/default/screenshots/ose-lab-bluegreen-edit.png" width="500"/></p>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--### Good work, let's clean this up
+> <i class="fa fa-terminal"></i> Let's clean up all this to get ready for the next lab:
+
+{% highlight csh %}
+$ oc delete all -l subproject=dc-busses
+{% endhighlight %}
+-->
+
+<h2 id="summary-8">Summary</h2>
+
+<p>Pretty easy, right?</p>
+
+<p>If you want to read more about Blue/Green check out <a href="https://docs.openshift.com/container-platform/3.3/dev_guide/index.html">this post</a> with a longer description as well as links to additional resources.</p>
+
+<h1 id="workshop-is-done">Workshop is Done</h1>
+
+<h2 id="that-s-it">That&rsquo;s it!</h2>
+
+<p>Hopefully, these labs provided you some idea of how to perform common tasks within the OpenShift environment.  And hopefully, you have a deeper understanding of how containers and container orchestration works.  Please feel free to continue to &ldquo;kick the tires&rdquo; in the demo environment we&rsquo;ve setup and explore both the web console and the oc command line client.</p>
+
+<h2 id="get-even-deeper">Get even deeper</h2>
+
+<p>While you&rsquo;re here, we can help you install the <a href="http://developers.redhat.com/products/cdk/overview/">Container Development Kit (CDK)</a> on your laptop.  It requires a couple large downloads, but the install process is reallly easy.  You can find the <a href="http://developers.redhat.com/products/cdk/docs-and-apis/">install and getting started guides here</a>.</p>
+
+<p>Here are some good resources to continue learning OpenShift:
+* <a href="https://docs.openshift.com/container-platform/3.3/architecture/core_concepts/index.html">OpenShift Architecture</a>
+* <a href="https://docs.openshift.com/container-platform/3.3/dev_guide/index.html">OpenShift Developer&rsquo;s Guide</a></p>
+
+                        </div>
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+                         
+                        <h1>Table of Contents</h1>
+
+
+
+
+<div id="toc2">
+  <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#if-we-provided-you-a-laptop-for-this">If we provided you a laptop for this</a></li>
+<li><a href="#install-the-command-line-tools-for-your-operating-system">Install the command line tools for your operating system</a></li>
+<li><a href="#install-git">Install git</a></li>
+<li><a href="#create-a-github-account">Create a Github account</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#a-guided-tour-of-openshift-enterprise">A Guided Tour of OpenShift Enterprise</a>
+<ul>
+<li><a href="#welcome-to-openshift">Welcome to OpenShift!</a></li>
+<li><a href="#key-terms">Key Terms</a></li>
+<li><a href="#accessing-openshift">Accessing OpenShift</a>
+<ul>
+<li><a href="#let-s-login">Let&rsquo;s Login</a></li>
+<li><a href="#so-this-is-what-an-empty-project-looks-like">So this is what an empty project looks like</a></li>
+<li><a href="#let-s-try-the-command-line">Let&rsquo;s try the command line</a></li>
+<li><a href="#it-looks-empty-via-the-command-line-too">It looks empty via the command line too</a></li>
+</ul></li>
+<li><a href="#summary">Summary</a></li>
+</ul></li>
+<li><a href="#byo-docker">BYO docker</a>
+<ul>
+<li><a href="#bring-your-own-docker">Bring your own docker</a>
+<ul>
+<li><a href="#let-s-point-openshift-to-an-existing-built-docker-image">Let&rsquo;s point OpenShift to an existing built docker image</a></li>
+<li><a href="#we-can-browse-our-project-details-with-the-command-line">We can browse our project details with the command line</a></li>
+<li><a href="#we-can-see-those-details-using-the-web-console-too">We can see those details using the web console too</a></li>
+<li><a href="#does-this-guestbook-do-anything">Does this guestbook do anything?</a></li>
+<li><a href="#test-out-the-guestbook-webapp">Test out the guestbook webapp</a></li>
+<li><a href="#good-work-let-s-clean-this-up">Good work, let&rsquo;s clean this up</a></li>
+</ul></li>
+<li><a href="#summary-1">Summary</a></li>
+</ul></li>
+<li><a href="#deploying-an-app-with-s2i">Deploying an App with S2I</a>
+<ul>
+<li><a href="#source-to-image-s2i">Source to Image (S2I)</a>
+<ul>
+<li><a href="#let-s-build-a-node-js-web-server-using-s2i">Let&rsquo;s build a node.js web server using S2I</a></li>
+<li><a href="#check-out-the-build-details">Check out the build details</a></li>
+<li><a href="#see-the-app-in-action">See the app in action</a></li>
+</ul></li>
+<li><a href="#summary-2">Summary</a></li>
+</ul></li>
+<li><a href="#developing-and-managing-your-application">Developing and Managing Your Application</a>
+<ul>
+<li><a href="#developing-and-managing-an-application-in-openshift">Developing and managing an application in OpenShift</a>
+<ul>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#see-the-app-in-action-and-inspect-some-details">See the app in action and inspect some details</a></li>
+<li><a href="#pod-logs">Pod logs</a></li>
+<li><a href="#how-about-we-set-some-environment-variables">How about we set some environment variables?</a></li>
+<li><a href="#what-about-passwords-and-private-keys">What about passwords and private keys?</a></li>
+<li><a href="#getting-into-a-pod">Getting into a pod</a></li>
+<li><a href="#good-work-let-s-clean-this-up-1">Good work, let&rsquo;s clean this up</a></li>
+</ul></li>
+<li><a href="#summary-3">Summary</a></li>
+</ul></li>
+<li><a href="#webhooks-and-rollbacks">Webhooks and Rollbacks</a>
+<ul>
+<li><a href="#build-triggers-webhooks-and-rollbacks-oh-my">Build Triggers, Webhooks and Rollbacks - Oh My!</a>
+<ul>
+<li><a href="#a-bit-of-configuration">A bit of configuration</a></li>
+<li><a href="#build-trigger-code-change-webhook">Build Trigger / Code Change Webhook</a></li>
+<li><a href="#deployment-triggers">Deployment Triggers</a></li>
+<li><a href="#rollbacks">Rollbacks</a></li>
+</ul></li>
+<li><a href="#summary-4">Summary</a></li>
+</ul></li>
+<li><a href="#replication-and-recovery">Replication and Recovery</a>
+<ul>
+<li><a href="#things-will-go-wrong-and-that-s-why-we-have-replication-and-recovery">Things will go wrong, and that&rsquo;s why we have replication and recovery</a>
+<ul>
+<li><a href="#replication">Replication</a></li>
+<li><a href="#recovery">Recovery</a></li>
+<li><a href="#application-health">Application Health</a></li>
+<li><a href="#clean-up">Clean up</a></li>
+</ul></li>
+<li><a href="#summary-5">Summary</a></li>
+</ul></li>
+<li><a href="#labels">Labels</a>
+<ul>
+<li><a href="#labels-1">Labels</a>
+<ul>
+<li><a href="#labels-a-on-pod">Labels a on pod</a></li>
+</ul></li>
+<li><a href="#summary-6">Summary</a></li>
+</ul></li>
+<li><a href="#ci-cd-pipelines">CI | CD Pipelines</a>
+<ul>
+<li><a href="#overview">Overview</a>
+<ul>
+<li><a href="#start-by-creating-a-new-project">Start by creating a new project</a></li>
+<li><a href="#start-by-installing-jenkins">Start by installing Jenkins</a></li>
+<li><a href="#the-openshift-pipeline-plugin">The OpenShift pipeline plugin</a></li>
+<li><a href="#our-deployments">Our deployments</a></li>
+</ul></li>
+<li><a href="#summary-7">Summary</a></li>
+</ul></li>
+<li><a href="#blue-green-deployment">Blue | Green Deployment</a>
+<ul>
+<li><a href="#blue-green-deployments">Blue/Green deployments</a>
+<ul>
+<li><a href="#before-starting">Before starting</a></li>
+<li><a href="#let-s-deploy-an-application">Let&rsquo;s deploy an application</a></li>
+<li><a href="#release-a-new-version-of-our-app-and-test-it-in-the-same-environment">Release a new version of our app and test it in the same environment</a></li>
+<li><a href="#switch-from-green-to-blue">Switch from Green to Blue</a></li>
+</ul></li>
+<li><a href="#summary-8">Summary</a></li>
+</ul></li>
+<li><a href="#workshop-is-done">Workshop is Done</a>
+<ul>
+<li><a href="#that-s-it">That&rsquo;s it!</a></li>
+<li><a href="#get-even-deeper">Get even deeper</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+
+
+
+
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            <p>Open source is not only behind many of the technology industry’s most significant innovations, but it is also pervasive across the U.S. government. For more than a decade, Red Hat has been working closely with federal government customers to help them embrace open source technologies. </p>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+        
+        
+        <div class="col-md-4 col-sm-6">
+            
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+            <h4>Contact</h4>
+
+            <p><strong>Red Hat Public Sector</strong>
+        <br>8260 Greensboro Dr
+        <br># 300
+        <br>McLean, VA 22102
+        <br>
+        <strong>United States</strong>
+      </p>
+      
+
+            <a href="/contact" class="btn btn-small btn-template-main">Contact Us.</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright  0001-01-01</p>
+            
+            <p class="pull-right">
+
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="https://dischord01.github.io/bower_components/jquery/dist/jquery.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/patternfly/dist/js/patternfly.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/perfect-scrollbar.js"></script>
+<script src="https://dischord01.github.io/js/perfect-scrollbar.jquery.js"></script>
+
+
+<script src="https://dischord01.github.io/js/featherlight.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/redhat.js"></script>
+
+
+<script src="https://dischord01.github.io/js/clipboard.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+  </body>
+</html>

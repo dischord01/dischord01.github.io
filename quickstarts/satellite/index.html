@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Red Hat Satellite</title>
+
+  <meta name="author" content="" />
+  <meta name="keywords" content="">
+
+  
+
+  <meta name="generator" content="Hugo 0.19" />
+
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
+  
+  <link href="https://dischord01.github.io/css/animate.css" rel="stylesheet">
+
+  
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+  <link href="https://dischord01.github.io/bower_components/patternfly/dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+  
+
+  
+  <link href="https://dischord01.github.io/css/redhatgov.css" rel="stylesheet">
+  
+  <link href="https://dischord01.github.io/css/highlight/github.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/perfect-scrollbar.min.css" rel="stylesheet">
+  
+  
+  <link href="https://dischord01.github.io/css/featherlight.min.css" rel="stylesheet">
+
+  
+
+  
+    
+
+  
+  <link rel="shortcut icon" href="https://dischord01.github.io/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="https://dischord01.github.io/img/apple-touch-icon.png" />
+
+  <link rel="alternate" href="https://dischord01.github.io/index.xml" type="application/rss+xml" title="RedHatGov">
+
+  
+  <meta property="og:title" content="Red Hat Satellite" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/quickstarts/satellite//" />
+  <meta property="og:image" content="img/redhat.png" />
+
+</head>
+
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          <nav class="navbar navbar-default navbar-pf" role="navigation">
+  <div class="navbar-header">
+  <a class="navbar-brand home" href="https://dischord01.github.io/">
+    <img src="https://dischord01.github.io/img/redhat.png" alt="Red Hat Satellite logo" class="hidden-xs hidden-sm">
+    <img src="https://dischord01.github.io/img/logo-small.png" alt="Red Hat Satellite logo" class="visible-xs visible-sm">
+    <span class="sr-only">Red Hat Satellite - go to homepage</span>
+  </a>
+
+
+  <div class="collapse navbar-collapse navbar-collapse-11">
+    <ul class="nav navbar-nav navbar-right">
+      
+       <li class="dropdown">
+         <a href="/cloud/">Cloud</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/platform/">Platform</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/workshops/">Workshops</a>
+       </li>
+      
+       <li class="dropdown">
+         <a href="/quickstarts/">Quickstarts</a>
+       </li>
+      
+    </ul>
+  </div>
+</nav>
+
+        </header>
+
+        <div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Red Hat Satellite</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+
+                    
+
+                    <div class="col-md-9" id="blog-post">
+
+                        <p class="text-muted text-uppercase mb-small text-right">January 26, 2017</p>
+
+                        <div id="post-content">
+                          <div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>This document is still a work in progress! When this label is removed, you can consider this fully functional.</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect1">
+<h2 id="_quick_start">Quick Start</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is designed to provide a copy and paste quick start for <strong>demo</strong> enviorments. This is not intended for <strong>production</strong> enviroments.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_export_the_variables">Export the Variables</h4>
+<div class="paragraph">
+<p>First we start by setting a couple environment variables. These will serve the rest of the copy and paste operation.</p>
+</div>
+<div class="paragraph">
+<p><strong>You only need to set the first 4 variables, the rest is automated via bash for you</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">export HOST=satellite.redhatdod.local <b class="conum">(1)</b>
+export ADMINUSER=administrator <b class="conum">(2)</b>
+export ADMINPASS=supersecretpassword <b class="conum">(3)</b>
+export IFACE=eth0 <b class="conum">(4)</b>
+export SUBNET=$(ip -f inet address show $IFACE |grep inet|awk '{print $2}' |awk -F. '{print $1"." $2"."$3}') <b class="conum">(5)</b>
+export REVSUB=$(echo $SUBNET |awk -F. '{print $3"." $2"."$1}') <b class="conum">(6)</b>
+export IPADDR=$(ip -f inet address show $IFACE |grep inet|awk '{print $2}' |cut -f1 -d '/') <b class="conum">(7)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Change this variable to the hostname you are going to use for your satellite</p>
+</li>
+<li>
+<p>This is the admin user you will create, feel free to change the name to suit your liking</p>
+</li>
+<li>
+<p>Please change this value to a password that is actually secure</p>
+</li>
+<li>
+<p><strong>This is the interface you are using for Satellite</strong> This value is what the next three variables are based from!</p>
+</li>
+<li>
+<p>This is the subnet you will run DHCP and DNS on for satellite</p>
+</li>
+<li>
+<p>This take the subnet you entered and provides the reverse for DNS</p>
+</li>
+<li>
+<p>This gets your ip address based on the interface you gave in step 5</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>If you are not comfortable setting a password on the command line, you can not export the ADMINPASS variable.</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Satellite will generate one for you if one is not created</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_setup_the_subscriptions">Setup the Subscriptions</h4>
+<div class="paragraph">
+<p>Next we are going to setup your subscriptions with subscription-manager.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>NOTE to maintainer</strong> This section needs to be updated with a more automated/copy&amp;paste way to do this</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>subscription-manager register
+subscription-manager list --available --matches 'Red Hat Satellite'</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_copy_and_paste_deploy">Copy and Paste deploy</h4>
+<div class="paragraph">
+<p>Now you can copy and paste from below, and you will have a complete satellite install upon completion.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>echo "$IPADDR $HOST" &gt;&gt; /etc/hosts
+hostnamectl set-hostname $HOST
+firewall-cmd --add-service=RH-Satellite-6
+firewall-cmd --permanent --add-service=RH-Satellite-6
+subscription-manager repos --disable "*"
+subscription-manager repos --enable=rhel-7-server-rpms \
+--enable=rhel-server-rhscl-7-rpms \
+--enable=rhel-7-server-satellite-6.2-rpms
+yum clean all
+yum -y update
+yum -y install satellite chrony sos
+systemctl start chronyd
+systemctl enable chronyd
+satellite-installer --scenario satellite \
+--foreman-initial-organization "Red Hat DoD" \
+--foreman-initial-location "Local Systems" \
+--foreman-admin-username $ADMINUSER \
+--foreman-admin-password $ADMINPASS \
+--foreman-proxy-dns true \
+--foreman-proxy-dns-interface $IFACE \
+--foreman-proxy-dns-zone $(hostname -d) \
+--foreman-proxy-dns-forwarders $SUBNET.1 \
+--foreman-proxy-dns-reverse $REVSUB.in-addr.arpa \
+--foreman-proxy-dhcp true \
+--foreman-proxy-dhcp-interface $IFACE \
+--foreman-proxy-dhcp-range "$SUBNET.100 $SUBNET.150" \
+--foreman-proxy-dhcp-gateway $SUBNET.1 \
+--foreman-proxy-dhcp-nameservers $SUBNET.2 \
+--foreman-proxy-tftp true \
+--foreman-proxy-tftp-servername $IPADDR</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+                        </div>
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                    
+
+                    <div class="col-md-3">
+
+                        
+                         
+                        <h1>Table of Contents</h1>
+
+
+
+
+<div id="toc2">
+  
+</div>
+
+
+
+
+                        
+                        
+
+                    </div>
+                    
+
+                    
+
+                </div>
+                
+
+            </div>
+            
+        </div>
+        
+
+        <footer id="footer">
+    <div class="container">
+
+        
+        <div class="col-md-4 col-sm-6">
+            <h4>About us</h4>
+
+            <p>Open source is not only behind many of the technology industry’s most significant innovations, but it is also pervasive across the U.S. government. For more than a decade, Red Hat has been working closely with federal government customers to help them embrace open source technologies. </p>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+        
+        
+        <div class="col-md-4 col-sm-6">
+            
+        </div>
+        
+
+        
+        <div class="col-md-4 col-sm-6">
+
+            <h4>Contact</h4>
+
+            <p><strong>Red Hat Public Sector</strong>
+        <br>8260 Greensboro Dr
+        <br># 300
+        <br>McLean, VA 22102
+        <br>
+        <strong>United States</strong>
+      </p>
+      
+
+            <a href="/contact" class="btn btn-small btn-template-main">Contact Us.</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        
+        
+
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+<div id="copyright">
+    <div class="container">
+        <div class="col-md-12">
+            
+            <p class="pull-left">Copyright  2017-01-26</p>
+            
+            <p class="pull-right">
+
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    </div>
+    
+
+    
+<script src="https://dischord01.github.io/bower_components/jquery/dist/jquery.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+<script src="https://dischord01.github.io/bower_components/patternfly/dist/js/patternfly.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/perfect-scrollbar.js"></script>
+<script src="https://dischord01.github.io/js/perfect-scrollbar.jquery.js"></script>
+
+
+<script src="https://dischord01.github.io/js/featherlight.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/redhat.js"></script>
+
+
+<script src="https://dischord01.github.io/js/clipboard.min.js"></script>
+
+
+<script src="https://dischord01.github.io/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+  </body>
+</html>
